@@ -1,0 +1,195 @@
+// Place your key bindings in this file to override the defaults
+[
+  // =========================================
+  // 🧠 Cursor AI Composer
+  // =========================================
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
+  },
+
+  // =========================================
+  // 📄 Suggestion widget navigation
+  // =========================================
+  {
+    "key": "ctrl+j",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "shift+alt+cmd+g",
+    "command": "issue.copyGithubPermalink"
+  },
+  {
+    "key": "cmd+alt+shift+p",
+    "command": "copyFilePath"
+  },
+
+  // =========================================
+  // 🔍 Quick Open (Cmd + P) navigation
+  // =========================================
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  },
+
+  // =========================================
+  // 🪟 Editor group focus movement
+  // =========================================
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.focusLeftGroup",
+    "when": "editorTextFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusRightGroup",
+    "when": "editorTextFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusAboveGroup",
+    "when": "editorTextFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.focusBelowGroup",
+    "when": "editorTextFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "shift+ctrl+l",
+    "command": "workbench.action.nextEditor",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+ctrl+h",
+    "command": "workbench.action.previousEditor",
+    "when": "editorTextFocus"
+  },
+
+  // =========================================
+  // 📁 Explorer view file operations
+  // =========================================
+  {
+    "key": "n",
+    "command": "explorer.newFile",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
+    "key": "shift+n",
+    "command": "explorer.newFolder",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
+    "key": "d",
+    "command": "deleteFile",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "list.toggleFindMode",
+    "when": "filesExplorerFocus"
+  },
+  {
+    "key": "cmd+enter",
+    "command": "explorer.openToSide",
+    "when": "explorerViewletFocus && foldersViewVisible && !inputFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusFirstEditorGroup",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "shift+cmd+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active"
+  },
+
+  // =========================================
+  // 🧹 Unbinding (removing default bindings)
+  // =========================================
+  {
+    "key": "cmd+t",
+    "command": "-composer.createNewComposerTab",
+    "when": "composerFocused || focusedView =~ /^workbench.panel.aichat.view/"
+  },
+  {
+    "key": "cmd+t",
+    "command": "-workbench.action.showAllSymbols"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "-testing.toggleTestingPeekHistory",
+    "when": "testing.isPeekVisible"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-editor.action.joinLines",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-quickInput.next",
+    "when": "inQuickInput && quickInputType == 'quickPick'"
+  },
+  {
+    "key": "enter",
+    "command": "-renameFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "-explorer.openToSide",
+    "when": "explorerViewletFocus && foldersViewVisible && !inputFocus"
+  },
+  {
+    "key": "ctrl+shift+g",
+    "command": "-workbench.view.scm",
+    "when": "workbench.scm.active"
+  },
+  {
+    "key": "cmd+k alt+cmd+s",
+    "command": "-git.stageSelectedRanges",
+    "when": "isInDiffEditor && !operationInProgress"
+  },
+
+  // =========================================
+  // 未整理
+  // =========================================
+  {
+    "key": "space",
+    "command": "git.stageSelectedRanges",
+    "when": "isInDiffEditor && !operationInProgress"
+  }
+  // {
+  //   "key": "shift+space",
+  //   "command": "git.stageAllUntracked"
+  // },
+  // {
+  //   "key": "shift+space",
+  //   "command": "git.stageAll",
+  //   "when": "scmRepositoryVisible && scmResourceGroup == 'workingTree'"
+  // },
+  // {
+  //   "key": "space",
+  //   "command": "git.stage",
+  //   "when": "scmResourceGroup == 'workingTree'"
+  // }
+]

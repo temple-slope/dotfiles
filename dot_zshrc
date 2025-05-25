@@ -1,0 +1,7 @@
+eval "$(sheldon source)"
+
+# Load Zsh configuration files from ~/.config/zsh
+# All personal Zsh settings (env, alias, functions, plugins) are organized there.
+for config_file in "$HOME/.config/zsh/"*.zsh; do
+  source "$config_file"
+done

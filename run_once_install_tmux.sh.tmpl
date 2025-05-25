@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+# tmux 本体のインストール
+if ! command -v tmux >/dev/null 2>&1; then
+  echo "📦 Installing tmux..."
+  brew install tmux
+fi
+
+# gpakosz/.tmux のクローン
+if [ ! -d "$HOME/.tmux" ]; then
+  echo "📂 Cloning gpakosz/.tmux..."
+  git clone https://github.com/gpakosz/.tmux.git ~/.tmux
+fi
+
+# シンボリックリンク作成
+ln -sf ~/.tmux/.tmux.conf ~/.tmux.conf
+
+# .tmux.conf.local が存在しなければ作成（chezmoi で管理するため）
+if [ ! -f "$HOME/.tmux.conf.local" ]; then
+  echo "📄 Creating initial .tmux.conf.local"
+  cp ~/.tmux/.tmux.conf.local ~/.tmux.conf.local
+fi
+
+echo "✅ tmux + gpakosz 設定完了"

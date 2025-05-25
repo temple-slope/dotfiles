@@ -1,0 +1,19 @@
+[user]
+  name = {{ include "./secrets/gitName" }}
+  email = {{ include "./secrets/gitEmail" }}
+
+
+[core]
+  editor = nvim
+
+[alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+
+[init]
+  defaultBranch = main
+
+[url "git@github.com:"]
+  insteadOf = https://github.com/

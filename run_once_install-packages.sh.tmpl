@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+echo "📦 パッケージインストールを実行しますか？ (y/N)"
+read -r answer
+if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
+  echo "⏭ スキップしました。"
+  exit 0
+fi
+
+echo "🔍 実行環境: {{ .chezmoi.hostname }}"
+
+# Homebrewがなければインストール
+if ! command -v brew >/dev/null 2>&1; then
+  echo "🍺 Homebrew が見つかりません。インストールします..."
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# M1/M2 Mac対応のbrewパス反映
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Brewfileを適用（--no-lock は削除）
+echo "📄 Brewfile を適用中..."
+brew bundle --file="{{ .chezmoi.homeDir }}/Brewfile"
