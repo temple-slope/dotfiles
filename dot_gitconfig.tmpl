@@ -2,18 +2,31 @@
   name = {{ include "./secrets/gitName" }}
   email = {{ include "./secrets/gitEmail" }}
 
-
 [core]
-  editor = nvim
-
-[alias]
-  co = checkout
-  br = branch
-  ci = commit
-  st = status
+  editor = code --wait
+  autocrlf = input
 
 [init]
   defaultBranch = main
 
 [url "git@github.com:"]
   insteadOf = https://github.com/
+
+[alias]
+  st = status
+  co = checkout
+  br = branch
+  cm = commit -m
+  lg = log --oneline --graph --all --decorate
+  last = log -1 HEAD
+  undo = reset --soft HEAD~1
+  amend = commit --amend --no-edit
+  re = rebase
+  rbc = rebase --continue
+  rba = rebase --abort
+
+[rebase]
+  autoStash = true
+
+[color]
+  ui = auto

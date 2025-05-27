@@ -1,5 +1,15 @@
 {
   // =========================================
+  // 💻 Terminal configuration for macOs
+  // =========================================
+  // "terminal.integrated.profiles.osx": {
+  //   "tmux": {
+  //     "path": "/bin/zsh",
+  //     "args": ["-c", "tmux new-session -A -s \"$(basename \"$PWD\")\""]
+  //   }
+  // },
+
+  // =========================================
   // 🖋 Editor Appearance & Behavior
   // =========================================
   "editor.fontSize": 12,
@@ -90,6 +100,7 @@
     "lazygit",
     "Meslo",
     "nvim",
+    "oneline",
     "Powerlevel",
     "shellenv"
   ]
