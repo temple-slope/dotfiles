@@ -21,26 +21,26 @@
     "command": "selectPrevSuggestion",
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
-  {
-    "key": "shift+alt+cmd+g",
-    "command": "issue.copyGithubPermalink"
-  },
 
   // =========================================
   // 📝 Copy path
   // =========================================
   {
-    "key": "shift+alt+cmd+p",
-    "command": "copyRelativeFilePath",
-    "when": "editorTextFocus && !suggestWidgetVisible"
+    "key": "shift+alt+cmd+g",
+    "command": "issue.copyGithubPermalink"
   },
   {
-    "key": "cmd+alt+shift+f",
+    "key": "shift+alt+cmd+p",
     "command": "copyFilePath",
     "when": "editorTextFocus && !suggestWidgetVisible"
   },
   {
-    "key": "shift+alt+cmd+p",
+    "key": "cmd+alt+shift+c",
+    "command": "copyFilePath",
+    "when": "editorTextFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "shift+alt+cmd+c",
     "command": "copyRelativeFilePath",
     "when": "!editorFocus"
   },
