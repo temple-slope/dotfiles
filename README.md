@@ -16,7 +16,6 @@ This repository stores my personal configuration files and dotfiles, managed usi
 The repository is organized as follows:
 
 - `dot_config/` - Configuration files for various applications
-- `dot_ssh/` - SSH configuration files
 - `run_once_*` - One-time setup scripts
 - `run_*` - Regular maintenance scripts
 
