@@ -2,12 +2,13 @@
   // =========================================
   // 💻 Terminal configuration for macOS
   // =========================================
-  // "terminal.integrated.profiles.osx": {
-  //   "tmux": {
-  //     "path": "/bin/zsh",
-  //     "args": ["-c", "tmux new-session -A -s \"$(basename \"$PWD\")\""]
-  //   }
-  // },
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.profiles.osx": {
+    "tmux": {
+      "path": "tmux",
+      "args": ["new-session", "-A", "-s", "$(workspaceFolderBasename)"]
+    }
+  },
 
   // =========================================
   // 🖋 Editor Appearance & Behavior
