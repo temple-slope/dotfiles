@@ -8,7 +8,11 @@ ffileopen() {
 }
 
 fhistory(){
-  fc -e - -n "$(history | tail -r | sed 's/ *[0-9]* *//' | fzf)"
+  # Show command history in reverse order using builtin fc to support both macOS
+  # and GNU environments (tail -r isn't available everywhere)
+  local selected
+  selected=$(fc -lnr 1 | fzf)
+  [ -n "$selected" ] && fc -e - -n "$selected"
 }
 
 tmux-split-4() {
