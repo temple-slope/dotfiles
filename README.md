@@ -34,6 +34,7 @@ Bitbank の公開 API を利用したシンプルな Zsh モジュールを追�
 - `bitbanck_pairs` : 取扱い中の通貨ペア一覧を取得します。
 
 API アクセスには `curl` と `python3` が必要です。取得した数値をもとに簡単なレポートを表示するため、ターミナルから素早く相場を確認したい場合に役立ちます。
+必要に応じて `BITBANCK_USER_AGENT` 環境変数を設定すると、API へのリクエストに利用する User-Agent を上書きできます（既定値は `bitbanck.zsh/1.0`）。
 
 ## License
 

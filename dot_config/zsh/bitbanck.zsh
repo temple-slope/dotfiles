@@ -1,6 +1,12 @@
 # bitbankの公開APIを利用する簡易モジュール
 # curlとpython3が利用可能であることを前提としています。
 
+__bitbanck_curl() {
+  local endpoint="$1"
+  local user_agent="${BITBANCK_USER_AGENT:-bitbanck.zsh/1.0}"
+  curl -fsSL --retry 2 --retry-delay 1 --connect-timeout 10 -A "$user_agent" "$endpoint"
+}
+
 # bitbanck_ticker <通貨ペア>
 # 例: bitbanck_ticker btc_jpy
 bitbanck_ticker() {
@@ -17,19 +23,18 @@ bitbanck_ticker() {
   local endpoint="https://public.bitbank.cc/${pair}/ticker"
   local response
 
-  if ! response="$(curl -fsS "$endpoint" 2>/dev/null)"; then
+  if ! response="$(__bitbanck_curl "$endpoint" 2>/dev/null)"; then
     print -u2 "bitbanck_ticker: APIリクエストに失敗しました"
     return 1
   fi
 
-  BITBANCK_RESPONSE="$response" python3 - "$pair" <<'PY'
+  print -r -- "$response" | python3 - "$pair" <<'PY'
 import datetime as dt
 import json
-import os
 import sys
 
 pair = sys.argv[1]
-raw = os.environ.get("BITBANCK_RESPONSE", "")
+raw = sys.stdin.read()
 
 try:
     data = json.loads(raw)
@@ -72,20 +77,22 @@ bitbanck_pairs() {
     return 1
   fi
 
-  local endpoint="https://public.bitbank.cc/tickers"
   local response
+  local endpoint_pairs="https://public.bitbank.cc/pairs"
+  local endpoint_tickers="https://public.bitbank.cc/tickers"
 
-  if ! response="$(curl -fsS "$endpoint" 2>/dev/null)"; then
-    print -u2 "bitbanck_pairs: APIリクエストに失敗しました"
-    return 1
+  if ! response="$(__bitbanck_curl "$endpoint_pairs" 2>/dev/null)"; then
+    if ! response="$(__bitbanck_curl "$endpoint_tickers" 2>/dev/null)"; then
+      print -u2 "bitbanck_pairs: APIリクエストに失敗しました"
+      return 1
+    fi
   fi
 
-  BITBANCK_RESPONSE="$response" python3 - <<'PY'
+  print -r -- "$response" | python3 - <<'PY'
 import json
-import os
 import sys
 
-raw = os.environ.get("BITBANCK_RESPONSE", "")
+raw = sys.stdin.read()
 
 try:
     data = json.loads(raw)
@@ -97,10 +104,30 @@ if not data.get("success"):
     print("bitbanck_pairs: APIレスポンスがエラーです", file=sys.stderr)
     sys.exit(1)
 
-pairs = data.get("data", {}).get("pairs", [])
-for item in pairs:
-    pair = item.get("name")
-    if pair:
-        print(pair)
+payload = data.get("data", {})
+
+def iter_pairs(obj):
+    if isinstance(obj, dict):
+        if "pairs" in obj and isinstance(obj["pairs"], (list, tuple)):
+            for entry in obj["pairs"]:
+                yield from iter_pairs(entry)
+        elif "name" in obj and isinstance(obj["name"], str):
+            yield obj["name"]
+        elif "code" in obj and isinstance(obj["code"], str):
+            yield obj["code"]
+    elif isinstance(obj, (list, tuple)):
+        for entry in obj:
+            yield from iter_pairs(entry)
+    elif isinstance(obj, str):
+        yield obj
+
+pairs = list(dict.fromkeys(iter_pairs(payload)))
+
+if not pairs:
+    print("bitbanck_pairs: 通貨ペア情報が見つかりません", file=sys.stderr)
+    sys.exit(1)
+
+for pair in pairs:
+    print(pair)
 PY
 }
