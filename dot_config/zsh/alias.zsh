@@ -1,3 +1,4 @@
+#!/bin/zsh
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."

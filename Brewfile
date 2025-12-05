@@ -4,8 +4,6 @@ brew "bat"
 brew "chezmoi"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
-# Isolated development environments using Docker
-brew "docker-compose"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -18,6 +16,8 @@ brew "lazygit"
 brew "lsd"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Manage versions of Node.js
+brew "nvm"
 # Fast, configurable, shell plugin manager
 brew "sheldon"
 # Terminal multiplexer

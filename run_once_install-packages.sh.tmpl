@@ -22,4 +22,4 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Brewfileを適用（--no-lock は削除）
 echo "📄 Brewfile を適用中..."
-brew bundle --file="{{ .chezmoi.homeDir }}/Brewfile"
+brew bundle --file="{{ joinPath .chezmoi.sourceDir "Brewfile" }}"

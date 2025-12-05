@@ -1,2 +1,5 @@
 secrets/
+*/.env
 dot_config/zsh/local.zsh
+Library/
+dot_gemini/
