@@ -37,6 +37,25 @@
             ]
           },
           {
+            "description": "Caps Lock to Control",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_control"
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "escキーを押したときに、英数キーも送信する（vim用）",
             "manipulators": [
               {
@@ -47,45 +66,20 @@
             ]
           },
           {
-            "description": "Use hjkl as arrow keys only in Chrome and Slack",
+            "description": "Control + j/k to move cursor up and down",
             "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "h",
-                  "modifiers": {
-                    "mandatory": ["left_control"],
-                    "optional": ["any"]
-                  }
-                },
-                "to": [{ "key_code": "left_arrow" }],
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com\\.google\\.Chrome$",
-                      "^com\\.tinyspeck\\.slackmacgap$"
-                    ]
-                  }
-                ]
-              },
               {
                 "type": "basic",
                 "from": {
                   "key_code": "j",
                   "modifiers": {
-                    "mandatory": ["left_control"],
+                    "mandatory": ["control"],
                     "optional": ["any"]
                   }
                 },
-                "to": [{ "key_code": "down_arrow" }],
-                "conditions": [
+                "to": [
                   {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com\\.google\\.Chrome$",
-                      "^com\\.tinyspeck\\.slackmacgap$"
-                    ]
+                    "key_code": "down_arrow"
                   }
                 ]
               },
@@ -94,38 +88,13 @@
                 "from": {
                   "key_code": "k",
                   "modifiers": {
-                    "mandatory": ["left_control"],
+                    "mandatory": ["control"],
                     "optional": ["any"]
                   }
                 },
-                "to": [{ "key_code": "up_arrow" }],
-                "conditions": [
+                "to": [
                   {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com\\.google\\.Chrome$",
-                      "^com\\.tinyspeck\\.slackmacgap$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "l",
-                  "modifiers": {
-                    "mandatory": ["left_control"],
-                    "optional": ["any"]
-                  }
-                },
-                "to": [{ "key_code": "right_arrow" }],
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com\\.google\\.Chrome$",
-                      "^com\\.tinyspeck\\.slackmacgap$"
-                    ]
+                    "key_code": "up_arrow"
                   }
                 ]
               }
