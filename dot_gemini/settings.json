@@ -6,6 +6,9 @@
     "theme": "GitHub"
   },
   "theme": "GitHub",
+  "ide": {
+    "hasSeenNudge": true
+  },
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
