@@ -25,3 +25,5 @@ alias ll='lsd -la'
 alias lt='lsd --tree'
 
 alias cat='bat'
+
+alias cddev='cd ~/Documents/Development'
