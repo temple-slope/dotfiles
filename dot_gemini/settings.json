@@ -1,0 +1,15 @@
+{
+  "general": {
+    "vimMode": true
+  },
+  "ui": {
+    "theme": "GitHub"
+  },
+  "theme": "GitHub",
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "hasSeenIdeIntegrationNudge": true
+}
