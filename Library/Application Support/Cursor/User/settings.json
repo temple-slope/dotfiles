@@ -26,6 +26,7 @@
     "**/.git": false
   },
   "explorer.excludeGitIgnore": false,
+  "git.autofetch": true,
 
   // =========================================
   // 💾 File Handling
@@ -85,27 +86,6 @@
   // Visual モード（未使用だが構文維持）
   "vim.visualModeKeyBindingsNonRecursive": [],
 
-  // =========================================
-  // 📝 Spell Checker (Code Spell)
-  // =========================================
-  "cSpell.userWords": [
-    "aichat",
-    "chezmoi",
-    "Cica",
-    "Consolas",
-    "containerised",
-    "esbenp",
-    "gfopen",
-    "gitlink",
-    "iterm",
-    "jovyan",
-    "lazygit",
-    "Meslo",
-    "nvim",
-    "oneline",
-    "Powerlevel",
-    "shellenv"
-  ],
   // =========================================
   // 🧠 Extensions
   // =========================================
