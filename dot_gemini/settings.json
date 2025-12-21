@@ -1,18 +1,61 @@
 {
+  // ツール関連の設定
+  "tools": {
+    // trueの場合、許可されたツールの実行をプロンプトなしで自動的に受け入れます。
+    "autoAccept": true,
+    // 実行が許可されている特定のツールコマンドのリスト。
+    // `run_shell_command`のようなコマンドには引数を指定できます。
+    "allowed": [
+      "read_file",
+      "run_shell_command(ls)",
+      "run_shell_command(cat)",
+      "run_shell_command(grep)",
+      "run_shell_command(head)",
+      "run_shell_command(tail)",
+      "run_shell_command(find)",
+      "run_shell_command(file)"
+    ],
+    // エージェントの操作に不可欠なコアツールのリスト。
+    "core": ["read_file", "write_file", "run_shell_command"],
+    // 実行が明示的に禁止されているツールのリスト。
+    "exclude": ["dangerous_tool"]
+  },
+  // 一般的なアプリケーション設定
   "general": {
-    "vimMode": true
-  },
-  "ui": {
-    "theme": "GitHub"
-  },
-  "theme": "GitHub",
-  "ide": {
-    "hasSeenNudge": true
-  },
-  "security": {
-    "auth": {
-      "selectedType": "oauth-personal"
+    // trueの場合、入力/エディタ領域でVimキーバインディングを有効にします。
+    "vimMode": true,
+    // セッションのチェックポイント（状態の保存と復元）に関する設定。
+    "checkpointing": {
+      // trueの場合、セッション状態の自動保存を有効にします。
+      "enabled": true
     }
   },
-  "hasSeenIdeIntegrationNudge": true
+  // エージェNTがコンテキストを収集・処理する方法に関する設定。
+  "context": {
+    // コンテキスト検索時のファイルフィルタリング設定。
+    "fileFiltering": {
+      // trueの場合、.gitignoreファイルに記載されているファイルやディレクトリを無視します。
+      "respectGitIgnore": true,
+      // trueの場合、エージェントがディレクトリを再帰的に検索できるようになります。
+      "enableRecursiveFileSearch": true
+    }
+  },
+  // ユーザーインターフェースの設定。
+  "ui": {
+    // アプリケーションのビジュアルテーマを指定します。
+    "theme": "GitHub"
+  },
+  // セキュリティ関連の設定。
+  "security": {
+    // 認証設定。
+    "auth": {
+      // 選択されている認証方法。"oauth-personal"は個人アカウントのOAuthだと思われます。
+      "selectedType": "oauth-personal"
+    },
+    // コードやコマンドを実行するためのサンドボックス設定。
+    "sandboxing": {
+      // trueの場合、ツール（特にシェルコマンド）は安全のためにサンドボックス環境で実行されます。
+      "enabled": true
+    }
+  }
 }
