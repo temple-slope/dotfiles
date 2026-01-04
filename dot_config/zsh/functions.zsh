@@ -14,7 +14,6 @@ fhistory(){
 }
 
 tmux-cd() {
-  echo "tmux-cd function is called."
   # 現在のディレクトリ名をセッション名にする
   local session_name
   session_name="$(basename "$PWD")"
