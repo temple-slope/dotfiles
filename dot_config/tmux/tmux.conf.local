@@ -232,15 +232,11 @@ tmux_conf_theme_window_status_last_fg="$tmux_conf_theme_colour_4"
 tmux_conf_theme_window_status_last_bg="$tmux_conf_theme_colour_2"
 tmux_conf_theme_window_status_last_attr="none"
 
-# status left/right sections separators
-tmux_conf_theme_left_separator_main=""
-tmux_conf_theme_left_separator_sub="|"
-tmux_conf_theme_right_separator_main=""
-tmux_conf_theme_right_separator_sub="|"
-#tmux_conf_theme_left_separator_main='\uE0B0'  # /!\ you don't need to install Powerline
-#tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched with
-#tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
-#tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see README.md
+# status left/right sections separators (Powerline style enabled)
+tmux_conf_theme_left_separator_main='\uE0B0'
+tmux_conf_theme_left_separator_sub='\uE0B1'
+tmux_conf_theme_right_separator_main='\uE0B2'
+tmux_conf_theme_right_separator_sub='\uE0B3'
 
 # status left/right content:
 #   - separate main sections with "|"
@@ -269,20 +265,21 @@ tmux_conf_theme_right_separator_sub="|"
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-#tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{pretty_pane_current_path} "
-#tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #(curl -m 1 wttr.in?format=3 2>/dev/null; sleep 900) , %R , %d %b | #{username}#{root} | #{hostname} '
+# 左側: セッション名 | パス
+tmux_conf_theme_status_left=" ❐ #S |  #{pane_current_path} "
 
-# status left style
-tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
-tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9,$tmux_conf_theme_colour_10,$tmux_conf_theme_colour_11"
-tmux_conf_theme_status_left_attr="bold,none,none"
+# 右側: ブランチ < git差分 < CPU < Memory < hostname
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #(cd '#{pane_current_path}' && git rev-parse --abbrev-ref HEAD 2>/dev/null || echo '-') |  #(cd '#{pane_current_path}' && git status --porcelain 2>/dev/null | wc -l | tr -d ' ') | CPU: #{cpu_percentage} | Mem: #{ram_percentage} | #{hostname} "
 
-# status right style
-tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_13,$tmux_conf_theme_colour_14"
-tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_17"
-tmux_conf_theme_status_right_attr="none,none,bold"
+# status left style (セッション名: 黄色, パス: 青)
+tmux_conf_theme_status_left_fg="#080808,#e4e4e4"
+tmux_conf_theme_status_left_bg="#ffff00,#005faf"
+tmux_conf_theme_status_left_attr="bold,none"
+
+# status right style (ブランチ: シアン, 差分: 緑, CPU: オレンジ, Mem: 紫, hostname: 白)
+tmux_conf_theme_status_right_fg="#080808,#080808,#080808,#080808,#080808"
+tmux_conf_theme_status_right_bg="#00afaf,#5faf00,#ff8700,#af5fff,#e4e4e4"
+tmux_conf_theme_status_right_attr="bold,bold,none,none,bold"
 
 # pairing indicator
 tmux_conf_theme_pairing="⚇"                 # U+2687
