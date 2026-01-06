@@ -36,8 +36,13 @@
   },
   {
     "key": "cmd+alt+shift+c",
-    "command": "copyFilePath",
+    "command": "copyRelativeFilePath",
     "when": "editorTextFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "cmd+alt+shift+l",
+    "command": "copy-path-with-line-number.copyRelativePath",
+    "when": "editorTextFocus"
   },
   {
     "key": "shift+alt+cmd+c",

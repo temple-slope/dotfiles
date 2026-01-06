@@ -89,7 +89,14 @@
   // =========================================
   // 🧠 Extensions
   // =========================================
-  "extensions.ignoreRecommendations": true
+  "extensions.ignoreRecommendations": true,
+
+  // =========================================
+  // 📋 Copy Path with Line Numbers
+  // =========================================
+  "copy-path-with-line-number.pathSeparator": ":",
+  "copy-path-with-line-number.rangeConnector": "-",
+  "copy-path-with-line-number.selectionSeparator": ", "
 
   // =========================================
   // ↓↓↓ 以下 整理前（必要に応じて削除） ↓↓↓
