@@ -5,7 +5,6 @@ alias ....="cd ../../.."
 
 alias c="clear"
 alias h="history"
-alias ll='ls -alF'
 alias mv="mv -i"
 alias cp="cp -i"
 
