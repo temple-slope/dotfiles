@@ -266,20 +266,20 @@ tmux_conf_theme_right_separator_sub='\uE0B3'
 #     - #{username}
 #     - #{username_ssh}
 # 左側: セッション名 | パス
-tmux_conf_theme_status_left=" ❐ #S |  #{pane_current_path} "
+tmux_conf_theme_status_left=" ❐ #S |  #{b:pane_current_path} "
 
-# 右側: ブランチ < git差分 < CPU < Memory < hostname
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #(cd '#{pane_current_path}' && git rev-parse --abbrev-ref HEAD 2>/dev/null || echo '-') |  #(cd '#{pane_current_path}' && git status --porcelain 2>/dev/null | wc -l | tr -d ' ') | CPU: #{cpu_percentage} | Mem: #{ram_percentage} | #{hostname} "
+# 右側: ブランチ < CPU < Memory < hostname
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}  #(cd '#{pane_current_path}' && git rev-parse --abbrev-ref HEAD 2>/dev/null || echo '-') | ⚡ #{cpu_percentage} | 󰍛 #{ram_percentage} | #{hostname} "
 
 # status left style (セッション名: 黄色, パス: 青)
 tmux_conf_theme_status_left_fg="#080808,#e4e4e4"
 tmux_conf_theme_status_left_bg="#ffff00,#005faf"
 tmux_conf_theme_status_left_attr="bold,none"
 
-# status right style (ブランチ: シアン, 差分: 緑, CPU: オレンジ, Mem: 紫, hostname: 白)
-tmux_conf_theme_status_right_fg="#080808,#080808,#080808,#080808,#080808"
-tmux_conf_theme_status_right_bg="#00afaf,#5faf00,#ff8700,#af5fff,#e4e4e4"
-tmux_conf_theme_status_right_attr="bold,bold,none,none,bold"
+# status right style (ブランチ: シアン, CPU: オレンジ, Mem: 紫, hostname: 白)
+tmux_conf_theme_status_right_fg="#080808,#080808,#080808,#080808"
+tmux_conf_theme_status_right_bg="#00afaf,#ff8700,#af5fff,#e4e4e4"
+tmux_conf_theme_status_right_attr="bold,bold,none,bold"
 
 # pairing indicator
 tmux_conf_theme_pairing="⚇"                 # U+2687
