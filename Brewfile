@@ -12,6 +12,8 @@ brew "docker", link: false
 brew "docker-compose"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Interact with Google Gemini AI models from the command-line
@@ -20,16 +22,24 @@ brew "gemini-cli"
 brew "gh"
 # Distributed revision control system
 brew "git"
+# Improved top (interactive process viewer)
+brew "htop"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
 # Lazier way to manage everything docker
 brew "lazydocker"
 # Simple terminal UI for git commands
 brew "lazygit"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
+# NCurses Disk Usage
+brew "ncdu"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Manage multiple Node.js versions
 brew "nvm"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
 # Fast, configurable, shell plugin manager
 brew "sheldon"
 # Static analysis and lint tool, for (ba)sh scripts
@@ -38,6 +48,8 @@ brew "shellcheck"
 brew "terraform"
 # Terminal multiplexer
 brew "tmux"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
 # Command-line interface for 1Password
 cask "1password-cli"
 # AI Coding Agent IDE

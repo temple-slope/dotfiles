@@ -1,6 +1,5 @@
 {
-  "model": "opus",
-  "alwaysThinkingEnabled": true,
+  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
