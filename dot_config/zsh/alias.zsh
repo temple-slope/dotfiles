@@ -5,7 +5,6 @@ alias ....="cd ../../.."
 
 alias c="clear"
 alias h="history"
-alias ll='ls -alF'
 alias mv="mv -i"
 alias cp="cp -i"
 
@@ -25,5 +24,8 @@ alias ll='lsd -la'
 alias lt='lsd --tree'
 
 alias cat='bat'
+alias grep='rg'
+alias find='fd'
+alias top='htop'
 
 alias cddev='cd ~/Documents/Development'

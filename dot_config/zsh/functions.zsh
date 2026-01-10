@@ -14,16 +14,26 @@ fhistory(){
 }
 
 tmux-cd() {
-  # 現在のディレクトリ名をセッション名にする
+  # 引数でディレクトリを指定（省略時は現在のディレクトリ）
+  local target_dir="${1:-$PWD}"
+
+  # ディレクトリの存在確認と絶対パスへの変換
+  if [[ ! -d "$target_dir" ]]; then
+    echo "Error: Directory '$target_dir' does not exist" >&2
+    return 1
+  fi
+  target_dir="$(cd "$target_dir" && pwd)"
+
+  # ディレクトリ名をセッション名にする
   local session_name
-  session_name="$(basename "$PWD")"
+  session_name="$(basename "$target_dir")"
 
   # tmux が起動していない場合
   if [[ -z "$TMUX" ]]; then
     if tmux has-session -t "$session_name" 2>/dev/null; then
       tmux attach -t "$session_name"
     else
-      tmux new-session -s "$session_name" -c "$PWD"
+      tmux new-session -s "$session_name" -c "$target_dir"
     fi
     return
   fi
@@ -32,7 +42,7 @@ tmux-cd() {
   if tmux has-session -t "$session_name" 2>/dev/null; then
     tmux switch-client -t "$session_name"
   else
-    tmux new-session -d -s "$session_name" -c "$PWD"
+    tmux new-session -d -s "$session_name" -c "$target_dir"
     tmux switch-client -t "$session_name"
   fi
 }
