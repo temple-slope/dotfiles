@@ -19,7 +19,7 @@ chezmoi edit ~/.zshrc
 chezmoi add ~/.zshrc
 
 # Update Brewfile after installing/uninstalling packages
-brew bundle dump --global --force
+brew bundle dump --global --force --describe
 
 # Run shellcheck locally on shell scripts
 git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
