@@ -1,7 +1,18 @@
 Include /Users/kazumaterasaka/.config/colima/ssh_config
 
 Host *
+  # 1Password SSH Agent を使用
   IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  # 指定したキーのみ送信（セキュリティ向上）
+  IdentitiesOnly yes
+  # 同じホストへの接続を多重化（高速化）
+  ControlMaster auto
+  ControlPath ~/.ssh/control-%h-%p-%r
+  # 接続を10分間維持
+  ControlPersist 600
+  # 60秒ごとにkeepalive送信（切断防止）
+  ServerAliveInterval 60
+  ServerAliveCountMax 2
 
 Host n8n-platform
   HostName 13.159.107.192

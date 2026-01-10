@@ -19,7 +19,7 @@ chezmoi edit ~/.zshrc
 chezmoi add ~/.zshrc
 
 # Update Brewfile after installing/uninstalling packages
-brew bundle dump --global --force
+brew bundle dump --global --force --describe
 
 # Run shellcheck locally on shell scripts
 git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
@@ -55,6 +55,10 @@ The `.zshrc` sources sheldon plugins first, then loads all `*.zsh` files from `~
 
 - **sheldon** - Zsh plugin manager (`dot_config/sheldon/plugins.toml`)
 - Plugins: oh-my-zsh, zsh-autosuggestions, zsh-syntax-highlighting, autojump, powerlevel10k
+
+## Workflow Rules
+
+- After editing dotfiles, always run `chezmoi apply` to apply changes to the system
 
 ## CI/CD
 
