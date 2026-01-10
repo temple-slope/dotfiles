@@ -23,8 +23,8 @@ defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.dock autohide -bool true
 
 # --- Screenshots ---
-# Save screenshots to ~/Documents/ScreenShot
-SCREENSHOT_DIR="${HOME}/Documents/ScreenShot"
+# Save screenshots to ~/Pictures/Screenshots
+SCREENSHOT_DIR="${HOME}/Pictures/Screenshots"
 mkdir -p "$SCREENSHOT_DIR"
 defaults write com.apple.screencapture location -string "$SCREENSHOT_DIR"
 

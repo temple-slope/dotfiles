@@ -25,33 +25,9 @@
   re = rebase
   rbc = rebase --continue
   rba = rebase --abort
-  # ステージングを取り消す
-  unstage = reset HEAD --
-  # 作業ディレクトリの変更を破棄
-  discard = checkout --
-  # 直前コミットへの修正用コミット（rebase時に自動squash）
-  fix = commit --fixup
-  # squash用コミット作成
-  squash = commit --squash
-  # 削除済みリモートブランチを検出
-  prune-branches = !git branch -vv | grep gone
-  # マージ済みブランチを削除
-  clean-branches = !git branch --merged | grep -v '*' | xargs -r git branch -d
 
 [rebase]
   autoStash = true
-
-[fetch]
-  # リモートで削除されたブランチを自動削除
-  prune = true
-
-[pull]
-  # マージコミットを作らずrebase（履歴がきれいに）
-  rebase = true
-
-[diff]
-  # 移動した行を色分け表示（リファクタリング時に見やすい）
-  colorMoved = dimmed_zebra
 
 [color]
   ui = auto
