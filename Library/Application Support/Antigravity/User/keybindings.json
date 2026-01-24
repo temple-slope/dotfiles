@@ -41,7 +41,7 @@
   },
   {
     "key": "cmd+alt+shift+l",
-    "command": "copy-path-line.copy",
+    "command": "copy-path-with-line-number.copyRelativePath",
     "when": "editorTextFocus"
   },
   {

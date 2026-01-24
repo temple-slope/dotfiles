@@ -1,0 +1,7 @@
+[profile n8n-terraform]
+region = ap-northeast-1
+output = json
+[default]
+login_session = arn:aws:iam::538681221488:root
+region = ap-northeast-1
+output = json

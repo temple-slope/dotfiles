@@ -149,23 +149,3 @@ agent-browser open example.com --headed  # Show browser window
 agent-browser console                    # View console messages
 agent-browser errors                     # View page errors
 ```
-
-## Known limitations
-
-### Bot detection
-
-Some sites have strict bot detection that blocks Playwright-based browsers:
-
-- **X (Twitter)**: Login blocked with error "Could not log you in now"
-- **LinkedIn**: Similar bot detection
-- **Some banking sites**: May block automated access
-
-For these sites, use regular Chrome instead of agent-browser.
-
-### CDP connection (Chrome DevTools Protocol)
-
-Connecting to existing Chrome via `--cdp` may not work reliably on macOS due to security restrictions. The recommended workflow is:
-
-1. Use `agent-browser --headed` for sites without strict bot detection
-2. Save session state with `agent-browser state save` for reuse
-3. For bot-protected sites, use regular Chrome directly
