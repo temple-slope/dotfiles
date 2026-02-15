@@ -41,6 +41,36 @@
     "deny": ["Read(./.env)", "Read(./.env.*)", "Read(~/.ssh/id_*)", "Read(~/.aws/credentials)"]
   },
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify.sh stop"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify.sh permission"
+          }
+        ]
+      },
+      {
+        "matcher": "elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify.sh elicitation"
+          }
+        ]
+      }
+    ],
     "SessionEnd": [
       {
         "hooks": [
