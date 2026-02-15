@@ -17,6 +17,10 @@ alias g="git"
 alias d="docker"
 alias dc="docker compose"
 alias cz="chezmoi"
+alias cz-sync='chezmoi re-add'
+alias brew-dump='brew bundle dump --file="$(chezmoi source-path)/Brewfile" --force --describe'
+alias brew-install='brew bundle install --file="$(chezmoi source-path)/Brewfile"'
+alias brew-cleanup='brew bundle cleanup --file="$(chezmoi source-path)/Brewfile" --force'
 
 
 alias ls='lsd'
