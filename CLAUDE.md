@@ -1,70 +1,94 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、Claude Code (claude.ai/code) がこのリポジトリで作業する際のガイダンスを提供します。
 
-## Repository Overview
+## リポジトリ概要
 
-This is a personal dotfiles repository managed by [chezmoi](https://chezmoi.io/) for macOS. It contains shell configurations, application settings, and automated setup scripts.
+macOS 用の個人 dotfiles リポジトリで、[chezmoi](https://chezmoi.io/) で管理しています。シェル設定、アプリケーション設定、自動セットアップスクリプトを含みます。
 
-## Common Commands
+## よく使うコマンド
 
 ```bash
-# Apply dotfiles to the system
+# dotfiles をシステムに適用
 chezmoi apply
 
-# Edit a managed file (opens in chezmoi source directory)
+# 管理対象ファイルを編集（chezmoi ソースディレクトリで開く）
 chezmoi edit ~/.zshrc
 
-# Add a modified file back to chezmoi management
+# 変更したファイルを chezmoi 管理に追加
 chezmoi add ~/.zshrc
 
-# Update Brewfile after installing/uninstalling packages
+# パッケージのインストール/アンインストール後に Brewfile を更新
 brew bundle dump --global --force --describe
 
-# Run shellcheck locally on shell scripts
+# シェルスクリプトに対して shellcheck をローカルで実行
 git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 ```
 
-## Architecture
+## アーキテクチャ
 
-### Chezmoi Naming Conventions
+### Chezmoi の命名規則
 
-- `dot_` prefix → `.` in destination (e.g., `dot_zshrc` → `.zshrc`)
-- `private_` prefix → 600 permissions
-- `.tmpl` suffix → Go template processing
-- `run_once_` prefix → Scripts that run once during `chezmoi apply`
-- `symlink_` prefix → Creates symlinks instead of copying
+- `dot_` プレフィックス → 出力先で `.` に変換（例: `dot_zshrc` → `.zshrc`）
+- `private_` プレフィックス → 600 パーミッション
+- `.tmpl` サフィックス → Go テンプレート処理
+- `run_once_` プレフィックス → `chezmoi apply` 時に一度だけ実行されるスクリプト
+- `symlink_` プレフィックス → コピーではなくシンボリックリンクを作成
 
-### Key Files
+### 主要ファイル
 
-- `.chezmoi.yaml.tmpl` - Main chezmoi configuration with 1Password integration for Git credentials
-- `Brewfile` - Homebrew packages managed by `brew bundle`
-- `run_once_*.sh.tmpl` - One-time setup scripts (package installation, macOS settings, tmux setup)
+- `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（`promptStringOnce` で Git 認証情報を対話式に取得）
+- `Brewfile` - `brew bundle` で管理する Homebrew パッケージ
+- `run_once_*.sh.tmpl` - 初回セットアップスクリプト（パッケージインストール、macOS 設定、tmux セットアップ）
 
-### Zsh Configuration Structure
+### Zsh 設定構造
 
-The `.zshrc` sources sheldon plugins first, then loads all `*.zsh` files from `~/.config/zsh/`:
+`.zshrc` はまず sheldon プラグインを読み込み、その後 `~/.config/zsh/` 内の全 `*.zsh` ファイルをロード:
 
-- `env.zsh` - Environment variables
-- `alias.zsh` - Shell aliases
-- `functions.zsh` - Custom functions
-- `theme.zsh` - Powerlevel10k theme settings
-- `local.zsh` - Machine-specific settings (ignored by chezmoi)
+- `env.zsh` - 環境変数
+- `alias.zsh` - シェルエイリアス
+- `functions.zsh` - カスタム関数
+- `theme.zsh` - Powerlevel10k テーマ設定
+- `local.zsh` - マシン固有の設定（chezmoi で無視）
 
-### Plugin Management
+### プラグイン管理
 
-- **sheldon** - Zsh plugin manager (`dot_config/sheldon/plugins.toml`)
-- Plugins: oh-my-zsh, zsh-autosuggestions, zsh-syntax-highlighting, autojump, powerlevel10k
+- **sheldon** - Zsh プラグインマネージャー (`dot_config/sheldon/plugins.toml`)
+- プラグイン: oh-my-zsh, zsh-autosuggestions, zsh-syntax-highlighting, autojump, powerlevel10k
 
-## Workflow Rules
+## ワークフロールール
 
-- After editing dotfiles, always run `chezmoi apply` to apply changes to the system
+- dotfiles を編集したら、必ず `chezmoi apply` を実行してシステムに反映する
+
+### Dotfile 同期ワークフロー
+
+管理対象ファイルを直接編集した場合（Claude Code 設定変更、エイリアス追加など）:
+
+```bash
+cz-sync   # chezmoi re-add のエイリアス。全管理ファイルの変更をソースに同期
+```
+
+新しいファイルを chezmoi 管理下に追加する場合:
+
+```bash
+chezmoi add ~/.claude/commands/new-command.md
+chezmoi add ~/.claude/skills/new-skill/SKILL.md
+```
+
+### Claude Code 設定 (dot_claude/)
+
+chezmoi で管理しているファイル:
+
+- `settings.json` - 設定（モデル、権限、フック、プラグイン）
+- `commands/` - カスタムコマンド
+- `hooks/` - セッションフック
+- `skills/` - カスタムスキル
 
 ## CI/CD
 
-GitHub Actions runs ShellCheck on PRs for all `.sh` and `.sh.tmpl` files with `--severity=warning`.
+GitHub Actions が PR に対して全 `.sh` および `.sh.tmpl` ファイルに ShellCheck を `--severity=warning` で実行します。
 
-## Sensitive Data
+## 機密データ
 
-- Git credentials are fetched from 1Password (vault: "Personal", item: "git")
-- `secrets/` directory and `local.zsh` are gitignored
+- Git 認証情報は `chezmoi init` 時に対話式入力で設定（`~/.config/chezmoi/chezmoi.yaml` に保存）
+- `local.zsh` は gitignore 対象

@@ -161,4 +161,4 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 ## 機密情報の取り扱い
 
 - Git 認証情報は 1Password から取得（vault: "Personal", item: "git"）
-- `secrets/` ディレクトリと `local.zsh` は `.gitignore` で管理外
+- `local.zsh` は `.gitignore` で管理外
