@@ -38,21 +38,7 @@
       "Glob",
       "Grep"
     ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./secrets/**)",
-      "Read(~/.ssh/id_*)",
-      "Read(~/.aws/credentials)"
-    ]
-  },
-  "model": "opus",
-  "enabledPlugins": {
-    "github@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "Notion@claude-plugins-official": true,
-    "n8n-mcp-skills@n8n-mcp-skills": true,
-    "example-skills@anthropic-agent-skills": true
+    "deny": ["Read(./.env)", "Read(./.env.*)", "Read(~/.ssh/id_*)", "Read(~/.aws/credentials)"]
   },
   "hooks": {
     "SessionEnd": [
@@ -65,6 +51,13 @@
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "github@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "Notion@claude-plugins-official": true,
+    "n8n-mcp-skills@n8n-mcp-skills": true,
+    "example-skills@anthropic-agent-skills": true
   },
   "alwaysThinkingEnabled": true
 }
