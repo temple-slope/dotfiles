@@ -1,4 +1,5 @@
-Include /Users/kazumaterasaka/.config/colima/ssh_config
+Include $HOME/.colima/ssh_config
+Include $HOME/.config/colima/ssh_config
 
 Host *
   # 1Password SSH Agent を使用
@@ -11,7 +12,3 @@ Host *
   # 60秒ごとにkeepalive送信（切断防止）
   ServerAliveInterval 60
   ServerAliveCountMax 2
-
-Host n8n-platform
-  HostName 13.159.107.192
-  User ec2-user
