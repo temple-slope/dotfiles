@@ -2,3 +2,24 @@ dot_config/zsh/local.zsh
 dot_config/gh/hosts.yml
 dot_config/nvim/lazy-lock.json
 dot_config/nvim/lazyvim.json
+
+# Claude Code - runtime/cache/sensitive data
+.claude/.credentials.json
+.claude/history.jsonl
+.claude/stats-cache.json
+.claude/cache
+.claude/debug
+.claude/plugins
+.claude/projects
+.claude/todos
+.claude/plans
+.claude/tasks
+.claude/file-history
+.claude/shell-snapshots
+.claude/session-env
+.claude/paste-cache
+.claude/telemetry
+.claude/statsig
+.claude/ide
+CLAUDE.md
+
