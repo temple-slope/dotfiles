@@ -8,19 +8,13 @@ if ! command -v tmux >/dev/null 2>&1; then
   brew install tmux
 fi
 
-# gpakosz/.tmux のクローン
-if [ ! -d "$HOME/.tmux" ]; then
-  echo "📂 Cloning gpakosz/.tmux..."
-  git clone https://github.com/gpakosz/.tmux.git ~/.tmux
-fi
-
-# シンボリックリンク作成
-ln -sf ~/.tmux/.tmux.conf ~/.tmux.conf
+# シンボリックリンク作成（.chezmoiexternal.toml が ~/.config/tmux/.tmux を管理）
+ln -sf ~/.config/tmux/.tmux/.tmux.conf ~/.tmux.conf
 
 # .tmux.conf.local が存在しなければ作成（chezmoi で管理するため）
 if [ ! -f "$HOME/.tmux.conf.local" ]; then
   echo "📄 Creating initial .tmux.conf.local"
-  cp ~/.tmux/.tmux.conf.local ~/.tmux.conf.local
+  cp ~/.config/tmux/.tmux/.tmux.conf.local ~/.tmux.conf.local
 fi
 
 echo "✅ tmux + gpakosz 設定完了"

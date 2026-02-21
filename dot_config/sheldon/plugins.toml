@@ -35,9 +35,6 @@ apply = [
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 
-[plugins.blackbox]
-github = "StackExchange/blackbox"
-
 [plugins.powerlevel10k]
 github = "romkatv/powerlevel10k"
 

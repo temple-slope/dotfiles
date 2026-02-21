@@ -4,6 +4,10 @@ tmux-current() {
 }
 
 ffileopen() {
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Not a git repo" >&2
+    return 1
+  fi
   local file
   file=$(git ls-files | fzf)
   [ -n "$file" ] && code "$file"
