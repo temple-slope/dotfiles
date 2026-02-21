@@ -23,3 +23,6 @@ dot_config/nvim/lazyvim.json
 .claude/ide
 CLAUDE.md
 
+# Docker - token seed (auto-generated)
+.docker/.token_seed
+
