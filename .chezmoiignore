@@ -1,3 +1,22 @@
+# Docker - token seed (auto-generated)
+.docker/.token_seed
+
+# 汎用セキュリティパターン - 機密情報・認証
+**/*auth*
+**/*token*
+**/*secret*
+**/*credential*
+**/*password*
+
+# 環境・ローカル固有設定
+**/.env
+**/.env.*
+**/*local*
+
+# キャッシュ・一時ファイル
+**/*cache*
+**/tmp/
+
 dot_config/zsh/local.zsh
 dot_config/gh/hosts.yml
 dot_config/nvim/lazy-lock.json
@@ -21,8 +40,3 @@ dot_config/nvim/lazyvim.json
 .claude/telemetry
 .claude/statsig
 .claude/ide
-CLAUDE.md
-
-# Docker - token seed (auto-generated)
-.docker/.token_seed
-
