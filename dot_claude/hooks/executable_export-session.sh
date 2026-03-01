@@ -5,7 +5,7 @@
 set -euo pipefail
 
 EXPORT_DIR="$HOME/Documents/Development/claude-sessions"
-PLANS_EXPORT_DIR="$EXPORT_DIR/plans"
+PLANS_EXPORT_DIR="$HOME/Documents/Development/claude-output/plans"
 
 # Create export directories
 mkdir -p "$EXPORT_DIR"
