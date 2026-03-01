@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "typeRoots": ["/opt/homebrew/lib/node_modules/@types"],
+    "strict": true
+  },
+  "include": ["dot_claude/scripts/**/*.ts"]
+}
