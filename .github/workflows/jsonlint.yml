@@ -1,0 +1,20 @@
+name: JSON Validate
+
+on:
+  pull_request:
+
+jobs:
+  jsonlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validate JSON files
+        run: |
+          failed=0
+          while IFS= read -r f; do
+            if ! python3 -c "import json; json.load(open('$f'))"; then
+              echo "::error file=$f::Invalid JSON"
+              failed=1
+            fi
+          done < <(git ls-files '*.json')
+          exit "$failed"
