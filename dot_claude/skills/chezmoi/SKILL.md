@@ -96,3 +96,38 @@ dot_claude/
 - 編集は必ず chezmoi ソースディレクトリ（`~/Documents/Development/chezmoi/`）で行う
 - `.tmpl` ファイルは Go テンプレート構文に従う
 - `chezmoi apply` 前に必ず `chezmoi diff` で変更を確認する
+
+## エラーリカバリー
+
+### 詳細ログで原因を確認する
+
+```bash
+chezmoi apply --verbose
+```
+
+### よくあるエラーと対処法
+
+| エラー | 原因 | 対処法 |
+|---|---|---|
+| `target modified` | ターゲットファイルがソースより新しい | `cz-sync` でソースに取り込む。または `chezmoi diff` で差分を確認し、どちらを正とするか判断する |
+| `template: ... parse error` | `.tmpl` ファイルの Go テンプレート構文エラー | `chezmoi execute-template < source.tmpl` で構文を確認・デバッグする |
+| `permission denied` | パーミッション不一致 | `chezmoi apply --verbose` でどのファイルか特定し、`ls -la` で現状を確認する |
+| `not managed by chezmoi` | 対象ファイルが chezmoi 管理外 | `chezmoi add <file>` で管理下に追加する |
+
+### `.tmpl` 構文の確認
+
+```bash
+# テンプレートを実行してレンダリング結果を確認
+chezmoi execute-template < dot_zshrc.tmpl
+
+# 特定の変数を渡して確認
+chezmoi execute-template '{{ .chezmoi.os }}'
+```
+
+### conflict 状態からの回復
+
+| 状況 | コマンド | 使い分け基準 |
+|---|---|---|
+| ソース（chezmoi リポジトリ）を正とする | `chezmoi apply --force` | ターゲットの変更を捨てて良い場合 |
+| ターゲット（`~/` 配下）の変更を取り込む | `cz-sync` | ターゲットの変更が正しく、ソースに反映したい場合 |
+| 差分を確認してから判断する | `chezmoi diff` | どちらが正しいか不明な場合（推奨） |

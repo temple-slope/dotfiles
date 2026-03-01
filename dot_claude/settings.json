@@ -18,6 +18,9 @@
       "Bash(pwd)",
       "Bash(echo:*)",
       "Bash(tree:*)",
+      "Bash(tmux:*)",
+      "Bash(make:*)",
+      "Bash(touch:*)",
       "Bash(diff:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
@@ -34,6 +37,9 @@
       "Bash(npm list:*)",
       "Bash(node -v)",
       "Bash(npm -v)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:qiita.com)",
       "Read",
       "Glob",
       "Grep"
@@ -81,5 +87,6 @@
     "n8n-mcp-skills@n8n-mcp-skills": true,
     "example-skills@anthropic-agent-skills": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "model": "opus"
 }
