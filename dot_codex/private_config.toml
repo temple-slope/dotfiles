@@ -1,0 +1,4 @@
+model = "gpt-5.1-codex-mini"
+model_reasoning_effort = "medium"
+[projects."/Users/kazumaterasaka/Documents/Development/chezmoi"]
+trust_level = "trusted"
