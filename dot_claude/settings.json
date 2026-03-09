@@ -81,7 +81,6 @@
     ]
   },
   "enabledPlugins": {
-    "github@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "Notion@claude-plugins-official": true,
     "n8n-mcp-skills@n8n-mcp-skills": true,
