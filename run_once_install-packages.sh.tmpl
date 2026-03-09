@@ -20,6 +20,10 @@ fi
 # M1/M2 Mac対応のbrewパス反映
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Brewfileを適用（--no-lock は削除）
-echo "📄 Brewfile を適用中..."
+{{ if .machine.installBrewBundle -}}
+# Brewfileを適用
+echo "Brewfileを適用中..."
 brew bundle --file="{{ joinPath .chezmoi.sourceDir "Brewfile" }}"
+{{ else -}}
+echo "⏭ Brewfileの適用はスキップされました。"
+{{ end -}}

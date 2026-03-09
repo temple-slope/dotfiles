@@ -15,16 +15,12 @@ brew "ddrescue"
 brew "docker", link: false
 # Isolated development environments using Docker
 brew "docker-compose"
-# Access DVDs as block devices without the decryption
-brew "libdvdcss"
 # Rip DVD's from the command-line
 brew "dvdbackup"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
-# Play, record, convert, and stream select audio and video codecs
-brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Interact with Google Gemini AI models from the command-line
@@ -45,6 +41,8 @@ brew "jq"
 brew "lazydocker"
 # Simple terminal UI for git commands
 brew "lazygit"
+# Access DVDs as block devices without the decryption
+brew "libdvdcss"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
 # NCurses Disk Usage
@@ -55,12 +53,12 @@ brew "neovim"
 brew "nvm"
 # General-purpose speech recognition model
 brew "openai-whisper"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
 # AI coding agent, built for the terminal
 brew "opencode"
 # Command-line interface for Eclipse Open VSX
 brew "ovsx"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
 # Rust toolchain installer
 brew "rustup"
 # Fast, configurable, shell plugin manager
@@ -75,10 +73,10 @@ brew "terraform"
 brew "tmux"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
-# Process YAML, JSON, XML, CSV and properties documents from the CLI
-brew "yq"
 # Feature-rich command-line audio/video downloader
 brew "yt-dlp"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
 # CLI app to manage your Apple Notes and Apple reminders
 brew "antoniorodr/memo/memo"
 # One command to grab frames, clips, or motion alerts from RTSP/ONVIF cams

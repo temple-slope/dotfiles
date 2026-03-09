@@ -19,9 +19,9 @@ alias dc="docker compose"
 alias cz="chezmoi"
 alias cz-sync='chezmoi re-add'
 alias claude-skip='claude --dangerously-skip-permissions'
-alias brew-dump='brew bundle dump --file="$(chezmoi source-path)/Brewfile" --force --describe'
+alias brew-dump='brew bundle dump --file="/tmp/Brewfile.dump" --force --describe && echo "Dumped to /tmp/Brewfile.dump - diff and merge manually"'
 alias brew-install='brew bundle install --file="$(chezmoi source-path)/Brewfile"'
-alias brew-sync='brew-install && brew-dump && brew upgrade'
+alias brew-sync='brew-install && brew upgrade'
 
 
 alias ls='lsd'
