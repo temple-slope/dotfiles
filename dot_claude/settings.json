@@ -53,7 +53,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"cwd\": \"'\"$(pwd)\"'\", \"notification_type\": \"stop\"}' | ~/.claude/hooks/notify.sh"
+            "command": "echo '{\"cwd\": \"'\"$(pwd)\"'\", \"notification_type\": \"stop\"}' | ~/.claude/hooks/notify.sh",
+            "timeout": 10
           }
         ]
       }
@@ -64,7 +65,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/notify.sh"
+            "command": "~/.claude/hooks/notify.sh",
+            "timeout": 10
           }
         ]
       }
@@ -74,7 +76,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/export-session.sh"
+            "command": "~/.claude/hooks/export-session.sh",
+            "timeout": 30
           }
         ]
       }
