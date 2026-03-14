@@ -6,17 +6,10 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
-      "Bash(cat:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
-      "Bash(grep:*)",
-      "Bash(rg:*)",
-      "Bash(find:*)",
       "Bash(wc:*)",
       "Bash(file:*)",
       "Bash(which:*)",
       "Bash(pwd)",
-      "Bash(echo:*)",
       "Bash(tree:*)",
       "Bash(tmux:*)",
       "Bash(make:*)",
@@ -88,6 +81,11 @@
     "Notion@claude-plugins-official": true,
     "n8n-mcp-skills@n8n-mcp-skills": true,
     "example-skills@anthropic-agent-skills": true
+  },
+  "sandbox": {
+    "allowUnixSockets": [
+      "~/.ssh/control-*"
+    ]
   },
   "alwaysThinkingEnabled": true,
   "model": "opus"
