@@ -1,3 +1,4 @@
+tap "homebrew/cask-fonts"
 tap "antoniorodr/memo"
 tap "steipete/tap"
 tap "yakitrak/yakitrak"
@@ -122,6 +123,8 @@ cask "google-chrome"
 cask "google-drive"
 # Japanese input software
 cask "google-japanese-ime"
+# Programming font with Japanese support and Nerd Fonts
+cask "font-hackgen-nerd"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Video format converter (transcoder)
@@ -134,6 +137,8 @@ cask "postman"
 cask "slack"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
+# GPU-accelerated cross-platform terminal emulator
+cask "wezterm"
 # Video communication and virtual meeting platform
 cask "zoom"
 vscode "aaron-bond.better-comments"
