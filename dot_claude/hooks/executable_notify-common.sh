@@ -1,9 +1,5 @@
 #!/bin/bash
-
-input=$(cat)
-cwd=$(echo "$input" | jq -r '.cwd')
-project=$(basename "$cwd")
-notification_type=$(echo "$input" | jq -r '.notification_type')
+# 通知フック共通ライブラリ（source して使用）
 
 # ターミナルアプリの Bundle ID を自動検出
 get_terminal_bundle_id() {
@@ -19,6 +15,7 @@ get_terminal_bundle_id() {
     "iTerm.app")      echo "com.googlecode.iterm2" ;;
     "ghostty")        echo "com.mitchellh.ghostty" ;;
     "WarpTerminal")   echo "dev.warp.Warp-Stable" ;;
+    "WezTerm")        echo "com.github.wez.wezterm" ;;
     *)
       # プロセスツリーから検出
       local pid parent comm
@@ -34,6 +31,7 @@ get_terminal_bundle_id() {
           *Code*)      echo "com.microsoft.VSCode"; return ;;
           *ghostty*)   echo "com.mitchellh.ghostty"; return ;;
           *warp*)      echo "dev.warp.Warp-Stable"; return ;;
+          *wezterm*)   echo "com.github.wez.wezterm"; return ;;
           *)           ;;
         esac
         pid="${parent}"
@@ -43,30 +41,16 @@ get_terminal_bundle_id() {
   esac
 }
 
-BUNDLE_ID=$(get_terminal_bundle_id)
+NOTIFY_BUNDLE_ID=$(get_terminal_bundle_id)
 
 send_notification() {
-  local message="$1"
-  local sound="$2"
+  local project="$1"
+  local message="$2"
+  local sound="$3"
 
-  if [[ -n "${BUNDLE_ID}" ]]; then
-    terminal-notifier -title "Claude Code" -subtitle "${project}" -message "${message}" -sound "${sound}" -activate "${BUNDLE_ID}"
+  if [[ -n "${NOTIFY_BUNDLE_ID}" ]]; then
+    terminal-notifier -title "Claude Code" -subtitle "${project}" -message "${message}" -sound "${sound}" -activate "${NOTIFY_BUNDLE_ID}"
   else
     terminal-notifier -title "Claude Code" -subtitle "${project}" -message "${message}" -sound "${sound}"
   fi
 }
-
-case "${notification_type}" in
-  "permission_prompt")
-    send_notification "許可待ち" "Ping"
-    ;;
-  "idle_prompt")
-    send_notification "入力待ち" "Purr"
-    ;;
-  "stop")
-    send_notification "タスク完了" "Glass"
-    ;;
-  *)
-    send_notification "通知" ""
-    ;;
-esac
