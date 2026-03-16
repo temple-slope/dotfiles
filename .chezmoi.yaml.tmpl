@@ -2,9 +2,9 @@ sourceDir: ~/Documents/Development/chezmoi
 
 data:
   git:
-    name: {{ promptStringOnce . "git.name" "Gitのユーザー名を入力してください" }}
-    email: {{ promptStringOnce . "git.email" "Gitのメールアドレスを入力してください" }}
-    signingKey: {{ promptStringOnce . "git.signingKey" "Git署名用のSSH公開鍵を入力してください (1Passwordからコピー)" }}
+    name: {{ (onepasswordItemFields "GitHub" "a3v3t5sgyhbdhmum3fm7iydoj4").name.value }}
+    email: {{ (onepasswordItemFields "GitHub" "a3v3t5sgyhbdhmum3fm7iydoj4").email.value }}
+    signingKey: {{ onepasswordRead "op://a3v3t5sgyhbdhmum3fm7iydoj4/GitHub/public_key" }}
   machine:
     isPrivate: {{ promptBoolOnce . "machine.isPrivate" "このマシンはプライベート用ですか？ (y/n)" }}
     installBrewBundle: {{ promptBoolOnce . "machine.installBrewBundle" "Brewfileのパッケージをインストールしますか？ (y/n)" }}
