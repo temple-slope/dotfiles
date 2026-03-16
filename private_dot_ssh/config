@@ -1,3 +1,4 @@
+Include $HOME/.ssh/config.local
 Include $HOME/.colima/ssh_config
 Include $HOME/.config/colima/ssh_config
 
