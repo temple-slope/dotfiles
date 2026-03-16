@@ -130,10 +130,10 @@ tmux_conf_theme_window_bg="default"
 # highlight focused pane, possible values are:
 #   - true
 #   - false (default)
-tmux_conf_theme_highlight_focused_pane=false
+tmux_conf_theme_highlight_focused_pane=true
 
 # focused pane colours:
-tmux_conf_theme_focused_pane_bg="$tmux_conf_theme_colour_2"
+tmux_conf_theme_focused_pane_bg="default"
 
 # pane border style, possible values are:
 #   - thin (default)
@@ -383,6 +383,10 @@ tmux_conf_urlscan_options="--compact --dedupe"
 
 # increase history size
 #set -g history-limit 10000
+
+# アクティブペインを明確に区別（非アクティブを薄暗く）
+set -g window-style 'fg=colour245,bg=colour234'
+set -g window-active-style 'fg=colour250,bg=default'
 
 # start with mouse mode enabled
 #set -g mouse on
