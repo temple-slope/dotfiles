@@ -1,6 +1,7 @@
 [user]
   name = {{ .git.name }}
   email = {{ .git.email }}
+  signingKey = {{ .git.signingKey }}
 
 [core]
   editor = code --wait
@@ -55,3 +56,15 @@
 
 [color]
   ui = auto
+
+[gpg]
+  # コミット署名に SSH 鍵を使用（GPG ではなく）
+  format = ssh
+
+[gpg "ssh"]
+  # 1Password の SSH 署名バイナリを指定
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+  # 全コミットに自動署名
+  gpgsign = true

@@ -4,6 +4,7 @@ data:
   git:
     name: {{ promptStringOnce . "git.name" "Gitのユーザー名を入力してください" }}
     email: {{ promptStringOnce . "git.email" "Gitのメールアドレスを入力してください" }}
+    signingKey: {{ promptStringOnce . "git.signingKey" "Git署名用のSSH公開鍵を入力してください (1Passwordからコピー)" }}
   machine:
     isPrivate: {{ promptBoolOnce . "machine.isPrivate" "このマシンはプライベート用ですか？ (y/n)" }}
     installBrewBundle: {{ promptBoolOnce . "machine.installBrewBundle" "Brewfileのパッケージをインストールしますか？ (y/n)" }}
