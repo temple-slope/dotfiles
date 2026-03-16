@@ -137,7 +137,7 @@ chezmoi apply
 
 ```bash
 # 変更を chezmoi に取り込む
-chezmoi add /.zshrc
+chezmoi add ~/.zshrc
 ```
 
 ### Brewfile の更新
