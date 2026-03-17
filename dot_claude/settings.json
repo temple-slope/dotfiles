@@ -40,6 +40,17 @@
     "deny": ["Read(./.env)", "Read(./.env.*)", "Read(~/.ssh/id_*)", "Read(~/.aws/credentials)"]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/save-tmux-pane.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
@@ -95,6 +106,7 @@
     "allowUnixSockets": ["~/.ssh/control-*"]
   },
   "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
   "model": "opus",
   "statusLine": {
     "type": "command",

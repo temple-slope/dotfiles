@@ -5,4 +5,5 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "${SCRIPT_DIR}/notify-common.sh"
 
 project=$(cat | jq -r '.cwd | split("/") | last')
+focus_tmux_pane
 send_notification "${project}" "タスク完了" "Glass"

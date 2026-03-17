@@ -1,47 +1,45 @@
 #!/bin/bash
 # 通知フック共通ライブラリ（source して使用）
 
-# ターミナルアプリの Bundle ID を自動検出
-get_terminal_bundle_id() {
-  # __CFBundleIdentifier が設定されていれば直接使用（最も確実）
-  if [[ -n "${__CFBundleIdentifier}" ]]; then
-    echo "${__CFBundleIdentifier}"
-    return
+NOTIFY_BUNDLE_ID="com.github.wez.wezterm"
+
+# tmux ペインにフォーカスを切り替える
+focus_tmux_pane() {
+  local tmux_pane_dir="/tmp/claude-tmux-panes"
+  local pane_id=""
+
+  # セッション別ファイル → latest のフォールバックでペイン ID を取得
+  if [[ -n "${CLAUDE_SESSION_ID:-}" ]] && [[ -f "${tmux_pane_dir}/${CLAUDE_SESSION_ID}" ]]; then
+    pane_id=$(cat "${tmux_pane_dir}/${CLAUDE_SESSION_ID}")
+  elif [[ -f "${tmux_pane_dir}/latest" ]]; then
+    pane_id=$(cat "${tmux_pane_dir}/latest")
   fi
 
-  # TERM_PROGRAM 環境変数から検出（フォールバック）
-  case "${TERM_PROGRAM}" in
-    "Apple_Terminal") echo "com.apple.Terminal" ;;
-    "iTerm.app")      echo "com.googlecode.iterm2" ;;
-    "ghostty")        echo "com.mitchellh.ghostty" ;;
-    "WarpTerminal")   echo "dev.warp.Warp-Stable" ;;
-    "WezTerm")        echo "com.github.wez.wezterm" ;;
-    *)
-      # プロセスツリーから検出
-      local pid parent comm
-      pid=$$
-      while [[ "${pid}" -ne 1 ]] 2>/dev/null; do
-        parent=$(ps -p "${pid}" -o ppid= 2>/dev/null | tr -d ' ') || break
-        [[ -z "${parent}" ]] && break
-        comm=$(ps -p "${parent}" -o comm= 2>/dev/null)
-        case "${comm}" in
-          *Terminal*)  echo "com.apple.Terminal"; return ;;
-          *iTerm*)     echo "com.googlecode.iterm2"; return ;;
-          *Cursor*)    echo "com.todesktop.230313mzl4w4u92"; return ;;
-          *Code*)      echo "com.microsoft.VSCode"; return ;;
-          *ghostty*)   echo "com.mitchellh.ghostty"; return ;;
-          *warp*)      echo "dev.warp.Warp-Stable"; return ;;
-          *wezterm*)   echo "com.github.wez.wezterm"; return ;;
-          *)           ;;
-        esac
-        pid="${parent}"
-      done
-      echo ""
-      ;;
-  esac
-}
+  # ペイン ID が取得できない場合はスキップ
+  if [[ -z "${pane_id}" ]]; then
+    return 0
+  fi
 
-NOTIFY_BUNDLE_ID=$(get_terminal_bundle_id)
+  # セッション名を取得
+  local session_name=""
+  if [[ -n "${CLAUDE_SESSION_ID:-}" ]] && [[ -f "${tmux_pane_dir}/${CLAUDE_SESSION_ID}.session" ]]; then
+    session_name=$(cat "${tmux_pane_dir}/${CLAUDE_SESSION_ID}.session")
+  elif [[ -f "${tmux_pane_dir}/latest.session" ]]; then
+    session_name=$(cat "${tmux_pane_dir}/latest.session")
+  fi
+
+  # ペインが存在するか確認してから切り替え
+  if tmux display-message -t "${pane_id}" -p '' 2>/dev/null; then
+    # WezTerm をフォアグラウンドにアクティベート
+    osascript -e 'tell application "WezTerm" to activate' 2>/dev/null || true
+    # 別セッションにいる場合はセッションを切り替え
+    if [[ -n "${session_name}" ]]; then
+      tmux switch-client -t "${session_name}" 2>/dev/null || true
+    fi
+    tmux select-window -t "${pane_id}" 2>/dev/null || true
+    tmux select-pane -t "${pane_id}" 2>/dev/null || true
+  fi
+}
 
 send_notification() {
   local project="$1"
