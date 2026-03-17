@@ -20,8 +20,8 @@ fi
 
 # --- Git info ---
 git_line=""
-if [ -n "$cwd" ] && git -C "$cwd" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  read -r toplevel branch < <(git -C "$cwd" rev-parse --show-toplevel --abbrev-ref HEAD 2>/dev/null | tr '\n' '\t')
+if [ -n "$cwd" ] && git --no-optional-locks -C "$cwd" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  read -r toplevel branch < <(git --no-optional-locks -C "$cwd" rev-parse --show-toplevel --abbrev-ref HEAD 2>/dev/null | tr '\n' '\t')
   repo_name=$(basename "$toplevel")
 
   added=0; modified=0; deleted=0
@@ -29,7 +29,7 @@ if [ -n "$cwd" ] && git -C "$cwd" rev-parse --is-inside-work-tree >/dev/null 2>&
     idx="${line:0:1}"; wt="${line:1:1}"
     case "$idx" in A) ((added++));; M|R|C) ((modified++));; D) ((deleted++));; esac
     case "$wt" in A) ((added++));; M) ((modified++));; D) ((deleted++));; esac
-  done < <(git -C "$cwd" status --porcelain 2>/dev/null)
+  done < <(git --no-optional-locks -C "$cwd" status --porcelain 2>/dev/null)
 
   changes=""
   [ "$added" -gt 0 ]    && changes="${changes} +${added}"
