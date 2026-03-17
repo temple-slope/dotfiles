@@ -7,7 +7,7 @@ Host *
   IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
   # 同じホストへの接続を多重化（高速化）
   ControlMaster auto
-  ControlPath ~/.ssh/control-%h-%p-%r
+  ControlPath ~/.ssh/control-%C
   # 接続を10分間維持
   ControlPersist 600
   # 60秒ごとにkeepalive送信（切断防止）
