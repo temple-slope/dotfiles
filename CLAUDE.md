@@ -37,7 +37,7 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 
 ### 主要ファイル
 
-- `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（`promptStringOnce` で Git 認証情報を対話式に取得）
+- `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（1Password 連携で Git 認証情報を取得）
 - `Brewfile` - `brew bundle` で管理する Homebrew パッケージ
 - `run_once_*.sh.tmpl` - 初回セットアップスクリプト（パッケージインストール、macOS 設定、tmux セットアップ）
 
@@ -45,16 +45,20 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 
 `.zshrc` はまず sheldon プラグインを読み込み、その後 `~/.config/zsh/` 内の全 `*.zsh` ファイルをロード:
 
-- `env.zsh` - 環境変数
+- `1pass.zsh` - 1Password Environments 連携
 - `alias.zsh` - シェルエイリアス
+- `defer.zsh` - fzf キーバインド遅延読み込み
+- `env.zsh` - 環境変数
 - `functions.zsh` - カスタム関数
+- `init.zsh` - tmux 自動起動、履歴設定、VSCode 統合
+- `path.zsh` - PATH 追加（scripts, antigravity）
 - `theme.zsh` - Powerlevel10k テーマ設定
-- `local.zsh` - マシン固有の設定（chezmoi で無視）
+- `local.zsh` - マシン固有の設定（chezmoi 管理外）
 
 ### プラグイン管理
 
 - **sheldon** - Zsh プラグインマネージャー (`dot_config/sheldon/plugins.toml`)
-- プラグイン: oh-my-zsh, zsh-autosuggestions, zsh-syntax-highlighting, autojump, powerlevel10k
+- プラグイン: zsh-defer, oh-my-zsh, zsh-autosuggestions, autojump, zsh-syntax-highlighting, powerlevel10k
 
 ## ワークフロールール
 
@@ -86,9 +90,14 @@ chezmoi で管理しているファイル:
 
 ## CI/CD
 
-GitHub Actions が PR に対して全 `.sh` および `.sh.tmpl` ファイルに ShellCheck を `--severity=warning` で実行します。
+GitHub Actions が PR に対して以下の Lint を実行します:
+
+- **ShellCheck** - `.sh` / `.sh.tmpl` ファイルの構文チェック（`--severity=warning`）
+- **JSON Validate** - `.json` ファイルの構文検証
+- **Lua Check** - `.lua` ファイルの静的解析
+- **YAML Lint** - `.yml` / `.yaml` ファイルの構文チェック
 
 ## 機密データ
 
-- Git 認証情報は `chezmoi init` 時に対話式入力で設定（`~/.config/chezmoi/chezmoi.yaml` に保存）
+- Git 認証情報・署名鍵は 1Password から取得（vault: "Personal", item: "GitHub"）
 - `local.zsh` は gitignore 対象
