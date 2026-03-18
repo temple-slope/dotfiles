@@ -1,3 +1,5 @@
 */.env
 dot_config/zsh/local.zsh
 dot_config/tmux/dot_tmux/**
+private_dot_ssh/config.local
+
