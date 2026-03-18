@@ -92,13 +92,17 @@ op item create --category "Secure Note" --title "GitHub" --vault "Personal" \
 
 `.zshrc` は最初に sheldon プラグインを読み込み、その後 `~/.config/zsh/` 内の `*.zsh` ファイルを順次読み込みます。
 
-| ファイル        | 役割                               |
-| --------------- | ---------------------------------- |
-| `env.zsh`       | 環境変数                           |
-| `alias.zsh`     | シェルエイリアス                   |
-| `functions.zsh` | カスタム関数                       |
-| `theme.zsh`     | Powerlevel10k テーマ設定           |
-| `local.zsh`     | マシン固有の設定（chezmoi 管理外） |
+| ファイル        | 役割                                       |
+| --------------- | ------------------------------------------ |
+| `1pass.zsh`     | 1Password Environments 連携                |
+| `alias.zsh`     | シェルエイリアス                           |
+| `defer.zsh`     | fzf キーバインド遅延読み込み               |
+| `env.zsh`       | 環境変数                                   |
+| `functions.zsh` | カスタム関数                               |
+| `init.zsh`      | tmux 自動起動、履歴設定、VSCode 統合       |
+| `path.zsh`      | PATH 追加（scripts, antigravity）          |
+| `theme.zsh`     | Powerlevel10k テーマ設定                   |
+| `local.zsh`     | マシン固有の設定（chezmoi 管理外）         |
 
 ### プラグイン管理
 
@@ -106,10 +110,11 @@ op item create --category "Secure Note" --title "GitHub" --vault "Personal" \
 
 主なプラグイン:
 
+- zsh-defer
 - oh-my-zsh
 - zsh-autosuggestions
-- zsh-syntax-highlighting
 - autojump
+- zsh-syntax-highlighting
 - powerlevel10k
 
 ## よく使うコマンド
@@ -150,14 +155,23 @@ chezmoi add ~/.zshrc
 `brew` でパッケージをインストール・アンインストールした後:
 
 ```bash
+# エイリアスを使う場合（/tmp に一時出力し、diff して手動マージ）
+brew-dump
+
+# 直接上書きする場合
 brew bundle dump --global --force --describe
 ```
 
 ## CI/CD
 
-GitHub Actions で PR 時に ShellCheck を実行し、`.sh` および `.sh.tmpl` ファイルの構文チェックを行います。
+GitHub Actions で PR 時に以下の Lint を実行します:
 
-ローカルで実行する場合:
+- **ShellCheck** - `.sh` / `.sh.tmpl` ファイルの構文チェック（`--severity=warning`）
+- **JSON Validate** - `.json` ファイルの構文検証
+- **Lua Check** - `.lua` ファイルの静的解析
+- **YAML Lint** - `.yml` / `.yaml` ファイルの構文チェック
+
+ローカルで ShellCheck を実行する場合:
 
 ```bash
 git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
