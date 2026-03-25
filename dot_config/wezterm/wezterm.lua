@@ -23,7 +23,7 @@ config.front_end = "WebGpu"
 config.max_fps = 120
 
 -- カーソル
-config.default_cursor_style = "BlinkingBar"
+config.default_cursor_style = "BlinkingBlock"
 config.cursor_blink_rate = 500
 
 -- tmux併用のため、weztermのタブバーは非表示
