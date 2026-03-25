@@ -37,7 +37,12 @@
       "Glob",
       "Grep"
     ],
-    "deny": ["Read(./.env)", "Read(./.env.*)", "Read(~/.ssh/id_*)", "Read(~/.aws/credentials)"]
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(~/.ssh/id_*)",
+      "Read(~/.aws/credentials)"
+    ]
   },
   "hooks": {
     "Stop": [
@@ -85,21 +90,36 @@
       }
     ]
   },
-  "enabledPlugins": {
-    "code-review@claude-plugins-official": true,
-    "Notion@claude-plugins-official": true,
-    "n8n-mcp-skills@n8n-mcp-skills": true,
-    "example-skills@anthropic-agent-skills": true
-  },
-  "sandbox": {
-    "allowUnixSockets": ["~/.ssh/control-*"]
-  },
-  "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "python3 ~/.claude/statusline.py",
     "padding": 2
-  }
+  },
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true,
+    "Notion@claude-plugins-official": true,
+    "discord@claude-plugins-official": true,
+    "n8n-mcp-skills@n8n-mcp-skills": true,
+    "example-skills@anthropic-agent-skills": true
+  },
+  "sandbox": {
+    "allowUnixSockets": [
+      "~/.ssh/control-*"
+    ],
+    "network": {
+      "allowedDomains": [
+        "oauth2.googleapis.com",
+        "www.googleapis.com"
+      ]
+    },
+    "filesystem": {
+      "allowWrite": [
+        "~/.config/chezmoi/",
+        "~/.config/zsh/",
+        "~/.claude/"
+      ]
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true
 }
