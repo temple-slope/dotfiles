@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 
 -- フォント
 config.font = wezterm.font('HackGen Console NF')
-config.font_size = 14.0
+config.font_size = 16.0
 
 -- カラースキーム
 config.color_scheme = 'Tokyo Night'
@@ -22,11 +22,36 @@ config.macos_window_background_blur = 40
 config.front_end = "WebGpu"
 config.max_fps = 120
 
+-- カーソル
+config.default_cursor_style = "BlinkingBar"
+config.cursor_blink_rate = 500
+
 -- tmux併用のため、weztermのタブバーは非表示
 config.enable_tab_bar = false
 
+-- ウィンドウを閉じる際の確認をスキップ（tmux側で管理）
+config.window_close_confirmation = "NeverPrompt"
+
+-- スクロールバック
+config.scrollback_lines = 10000
+
+-- URL: Cmd+クリックで開く（素クリックでは開かない）
+config.mouse_bindings = {
+  -- 素クリックのURL開きを無効化
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    action = wezterm.action.CompleteSelection 'ClipboardAndPrimarySelection',
+  },
+  -- Cmd+クリックでURLを開く
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'CMD',
+    action = wezterm.action.OpenLinkAtMouseCursor,
+  },
+}
+
 -- 起動時にtmuxセッションに自動アタッチ（なければ新規作成）
-config.default_prog = { '/opt/homebrew/bin/tmux', 'new-session', '-A', '-s', 'main' }
+config.default_prog = { '/opt/homebrew/bin/tmux', 'new-session', '-A', '-s', 'default' }
 
 -- CMD+U で透明/不透明を切り替え
 local is_transparent = true
