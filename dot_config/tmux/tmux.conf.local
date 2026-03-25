@@ -388,9 +388,14 @@ tmux_conf_urlscan_options="--compact --dedupe"
 #set -g mouse on
 
 # force Vi mode
-#   really you should export VISUAL or EDITOR environment variable, see manual
-#set -g status-keys vi
-#set -g mode-keys vi
+set -g mode-keys vi
+
+# vi-style copy mode bindings
+bind Enter copy-mode #!important
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi V send-keys -X select-line
+bind -T copy-mode-vi C-v send-keys -X rectangle-toggle
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'pbcopy'
 
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
@@ -445,6 +450,10 @@ set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @continuum-restore 'on'
+set -g @plugin 'sainnhe/tmux-fzf'
+set -g @plugin 'fcsonline/tmux-thumbs'
+set -g @thumbs-key Space
+set -g @thumbs-command 'echo -n {} | pbcopy'
 
 
 # -- custom variables ----------------------------------------------------------
