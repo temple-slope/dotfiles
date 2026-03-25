@@ -84,8 +84,6 @@ brew "antoniorodr/memo/memo"
 brew "steipete/tap/camsnap"
 # Grep the GIF. Stick the landing
 brew "steipete/tap/gifgrep"
-# Google CLI for Gmail, Calendar, Drive, and Contacts
-brew "steipete/tap/gogcli"
 # Modern Go client + CLI for the Google Places API (New)
 brew "steipete/tap/goplaces"
 # Send and read iMessage / SMS from the terminal

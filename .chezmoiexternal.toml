@@ -2,3 +2,10 @@
 type = "git-repo"
 url = "https://github.com/gpakosz/.tmux.git"
 refreshPeriod = "168h"
+
+[".claude/skills"]
+type = "archive"
+url = "https://github.com/googleworkspace/cli/archive/main.tar.gz"
+stripComponents = 2
+include = ["*/skills/**"]
+refreshPeriod = "168h"
