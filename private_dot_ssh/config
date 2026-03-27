@@ -1,6 +1,5 @@
-Include $HOME/.ssh/config.local
-Include $HOME/.colima/ssh_config
-Include $HOME/.config/colima/ssh_config
+Include ~/.ssh/config.local
+Include ~/.config/colima/ssh_config
 
 Host *
   # 1Password SSH Agent を使用
