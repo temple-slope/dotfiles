@@ -37,7 +37,7 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 
 ### 主要ファイル
 
-- `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（1Password 連携で Git 認証情報を取得）
+- `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（`.env.chezmoi` から Git 認証情報を取得）
 - `Brewfile` - `brew bundle` で管理する Homebrew パッケージ
 - `run_once_*.sh.tmpl` - 初回セットアップスクリプト（パッケージインストール、macOS 設定、tmux セットアップ）
 
@@ -45,10 +45,9 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 
 `.zshrc` はまず sheldon プラグインを読み込み、その後 `~/.config/zsh/` 内の全 `*.zsh` ファイルをロード:
 
-- `1pass.zsh` - 1Password Environments 連携
 - `alias.zsh` - シェルエイリアス
 - `defer.zsh` - fzf キーバインド遅延読み込み
-- `env.zsh` - 環境変数
+- `env.zsh` - 環境変数 + `.env.zsh` からシークレット読み込み
 - `functions.zsh` - カスタム関数
 - `init.zsh` - tmux 自動起動、履歴設定、VSCode 統合
 - `path.zsh` - PATH 追加（scripts, antigravity）
@@ -99,5 +98,6 @@ GitHub Actions が PR に対して以下の Lint を実行します:
 
 ## 機密データ
 
-- Git 認証情報・署名鍵は 1Password から取得（vault: "Personal", item: "GitHub"）
+- `.env.chezmoi` - Git 認証情報（chezmoi テンプレート用、git/chezmoi 管理外）
+- `.env.zsh` - API キー等のシークレット（シェル環境変数用、git/chezmoi 管理外）
 - `local.zsh` は gitignore 対象

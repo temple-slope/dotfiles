@@ -36,39 +36,42 @@ brew bundle --file=~/Documents/Development/chezmoi/Brewfile
 chezmoi apply
 ```
 
-## 1Password 連携
+## 機密情報の設定
 
-この設定では、Git の認証情報やコミット署名を [1Password](https://1password.com/) で管理します。
+この設定では、機密情報を `.env.*` ファイルで管理します。これらのファイルは git/chezmoi 管理外です。
 
-### 1. 1Password デスクトップアプリの設定
+### 1. `.env.chezmoi` の作成
 
-1. 1Password デスクトップアプリをインストール（`Brewfile` に含まれています）
-2. **設定 → 開発者** で以下を有効化:
-   - **SSH エージェントを使用する** — Git の SSH 認証に使用
-   - **1Password CLI との連携を許可する** — `op` コマンドの生体認証に使用
-
-### 2. 機密情報アイテムの作成
-
-**Personal** ボルトに **GitHub** という名前でアイテムを作成し、以下のフィールドを追加します。
-
-- `name`: あなたの Git での名前
-- `email`: あなたの Git でのメールアドレス
-- `public key`: コミット署名に使用する SSH 公開鍵
-
-以下のコマンドでも作成できます。
+Git 認証情報を設定します。`.env.chezmoi.example` をコピーして値を記入してください。
 
 ```bash
-op item create --category "Secure Note" --title "GitHub" --vault "Personal" \
-  'name[text]=YOUR_GIT_NAME' \
-  'email[text]=YOUR_GIT_EMAIL' \
-  'public_key[text]=YOUR_SSH_PUBLIC_KEY'
+cp .env.chezmoi.example .env.chezmoi
 ```
 
-> **Note**: SSH 公開鍵は 1Password の SSH キーから取得できます。この公開鍵は GitHub の [SSH and GPG keys](https://github.com/settings/keys) に **Signing Key** として登録してください。
+```env
+GIT_USER_NAME=your-git-name
+GIT_USER_EMAIL=your-email@example.com
+GIT_SIGNING_KEY=ssh-ed25519 AAAA...
+```
 
-### 3. 設定の反映
+`chezmoi apply` 時にこのファイルが読み込まれ、`.gitconfig` に反映されます。
 
-再度 `chezmoi apply` を実行すると、`.gitconfig` に 1Password から取得した認証情報と署名設定が反映されます。コミットは SSH 鍵で自動署名されます。
+### 2. `.env.zsh` の作成
+
+シェルで使用する API キー等のシークレットを設定します。`.env.zsh.example` をコピーして値を記入してください。
+
+```bash
+cp .env.zsh.example .env.zsh
+```
+
+シェル起動時に `env.zsh` から自動的に読み込まれます。
+
+### 3. 1Password SSH エージェント（任意）
+
+SSH 認証とコミット署名に 1Password SSH エージェントを使用する場合:
+
+1. 1Password デスクトップアプリの **設定 → 開発者** で **SSH エージェントを使用する** を有効化
+2. SSH 公開鍵を GitHub の [SSH and GPG keys](https://github.com/settings/keys) に **Signing Key** として登録
 
 ## アーキテクチャ
 
@@ -84,7 +87,7 @@ op item create --category "Secure Note" --title "GitHub" --vault "Personal" \
 
 ### 主要ファイル
 
-- `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（1Password 連携、マシン固有設定のプロンプト）
+- `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（`.env.chezmoi` から Git 認証情報を取得）
 - `Brewfile` - `brew bundle` で管理される Homebrew パッケージ
 - `run_once_*.sh.tmpl` - 初回セットアップスクリプト（パッケージインストール、macOS 設定、tmux セットアップ等）
 
@@ -94,10 +97,9 @@ op item create --category "Secure Note" --title "GitHub" --vault "Personal" \
 
 | ファイル        | 役割                                       |
 | --------------- | ------------------------------------------ |
-| `1pass.zsh`     | 1Password Environments 連携                |
 | `alias.zsh`     | シェルエイリアス                           |
 | `defer.zsh`     | fzf キーバインド遅延読み込み               |
-| `env.zsh`       | 環境変数                                   |
+| `env.zsh`       | 環境変数 + `.env.zsh` からシークレット読み込み |
 | `functions.zsh` | カスタム関数                               |
 | `init.zsh`      | tmux 自動起動、履歴設定、VSCode 統合       |
 | `path.zsh`      | PATH 追加（scripts, antigravity）          |
@@ -179,5 +181,6 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 
 ## 機密情報の取り扱い
 
-- Git 認証情報・署名鍵は 1Password から取得（vault: "Personal", item: "GitHub"）
+- `.env.chezmoi` - Git 認証情報（chezmoi テンプレート用、git/chezmoi 管理外）
+- `.env.zsh` - API キー等のシークレット（シェル環境変数用、git/chezmoi 管理外）
 - `local.zsh` は `.gitignore` で管理外
