@@ -387,6 +387,15 @@ tmux_conf_urlscan_options="--compact --dedupe"
 # start with mouse mode enabled
 #set -g mouse on
 
+# Homebrew tmux を run-shell から参照できるよう PATH に追加
+set-environment -g PATH "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# Neovim の Esc 遅延解消
+set -s escape-time 0
+
+# スクロールバック履歴
+set -g history-limit 50000
+
 # force Vi mode
 set -g mode-keys vi
 
@@ -451,6 +460,39 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @continuum-restore 'on'
 set -g @plugin 'sainnhe/tmux-fzf'
+set -g @tmux-fzf-launch-key "C-f"
+TMUX_FZF_OPTIONS="-p -w 80% -h 80% -m -- --layout=reverse"
+
+set -g @plugin 'laktak/extrakto'
+set -g @extrakto_split_size "15"
+set -g @extrakto_clip_tool "pbcopy"
+set -g @extrakto_fzf_layout "reverse"
+
+# p を floax に使用するため解放
+unbind p
+
+set -g @plugin 'omerxx/tmux-floax'
+set -g @floax-bind 'p'
+set -g @floax-width '80%'
+set -g @floax-height '80%'
+set -g @floax-border-color 'cyan'
+set -g @floax-text-color 'white'
+
+set -g @plugin 'fcsonline/tmux-thumbs'
+set -g @thumbs-key Space
+set -g @thumbs-alphabet qwerty-homerow
+set -g @thumbs-reverse enabled
+set -g @thumbs-unique enabled
+set -g @thumbs-position right
+set -g @thumbs-fg-color cyan
+set -g @thumbs-bg-color black
+set -g @thumbs-hint-fg-color yellow
+set -g @thumbs-hint-bg-color black
+set -g @thumbs-select-fg-color blue
+set -g @thumbs-select-bg-color black
+set -g @thumbs-regexp-1 '[\w\-]+\.[\w.\-]+' # Match filenames with extensions
+set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
+set -g @thumbs-upcase-command 'tmux new-window "nvim {}"'
 
 
 # -- custom variables ----------------------------------------------------------
