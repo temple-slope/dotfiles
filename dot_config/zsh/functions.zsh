@@ -13,10 +13,6 @@ ffileopen() {
   [ -n "$file" ] && code "$file"
 }
 
-fhistory(){
-  fc -e - -n "$(history | tail -r | sed 's/ *[0-9]* *//' | fzf)"
-}
-
 tmux-cd() {
   # 引数でディレクトリを指定（省略時は現在のディレクトリ）
   local target_dir="${1:-$PWD}"
