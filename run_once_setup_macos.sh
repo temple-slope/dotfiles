@@ -1,4 +1,6 @@
-#!/bin/zsh
+#!/bin/bash
+
+set -e
 
 # --- System / Appearance ---
 # Dark mode
