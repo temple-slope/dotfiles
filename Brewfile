@@ -1,4 +1,3 @@
-tap "homebrew/cask-fonts"
 tap "antoniorodr/memo"
 tap "steipete/tap"
 tap "yakitrak/yakitrak"
