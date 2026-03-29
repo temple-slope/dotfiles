@@ -102,10 +102,8 @@
     "n8n-mcp-skills@n8n-mcp-skills": true,
     "example-skills@anthropic-agent-skills": true
   },
+  "language": "日本語",
   "sandbox": {
-    "allowUnixSockets": [
-      "~/.ssh/control-*"
-    ],
     "network": {
       "allowedDomains": [
         "oauth2.googleapis.com",
@@ -118,8 +116,12 @@
         "~/.config/zsh/",
         "~/.claude/"
       ]
-    }
+    },
+    "allowUnixSockets": [
+      "~/.ssh/control-*"
+    ]
   },
   "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "voiceEnabled": true
 }

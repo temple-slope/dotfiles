@@ -1,22 +1,31 @@
 {
-  "preferences": {
-    "localAgentModeTrustedFolders": [
-      "{{ .chezmoi.homeDir }}/Pictures",
-      "{{ .chezmoi.homeDir }}/Downloads"
-    ],
-    "coworkScheduledTasksEnabled": true,
-    "sidebarMode": "chat",
-    "coworkWebSearchEnabled": true,
-    "ccdScheduledTasksEnabled": true
-  },
-  "mcpServers": {
-    "tradingview-mcp": {
-      "command": "uv",
-      "args": [
-        "tool", "run", "--from",
-        "git+https://github.com/temple-slope/tradingview-mcp.git",
-        "tradingview-mcp"
-      ]
-    }
-  }
+"preferences": {
+"localAgentModeTrustedFolders": [
+"{{ .chezmoi.homeDir }}/Pictures",
+"{{ .chezmoi.homeDir }}/Downloads"
+],
+"coworkScheduledTasksEnabled": true,
+"ccdScheduledTasksEnabled": true,
+"sidebarMode": "chat",
+"coworkWebSearchEnabled": true,
+"bypassPermissionsModeEnabled": true,
+"dockBounceEnabled": true,
+"launchPreviewPersistSession": true,
+"quickEntryDictationShortcut": {
+"accelerator": "Cmd+Shift+Alt+Space"
+},
+"keepAwakeEnabled": true,
+"allowAllBrowserActions": true,
+"chicagoEnabled": true
+},
+"mcpServers": {
+"tradingview-mcp": {
+"command": "uv",
+"args": [
+"tool", "run", "--from",
+"git+https://github.com/temple-slope/tradingview-mcp.git",
+"tradingview-mcp"
+]
+}
+}
 }
