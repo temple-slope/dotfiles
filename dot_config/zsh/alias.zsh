@@ -14,8 +14,10 @@ alias vim='nvim'
 alias t="tmux"
 
 alias g="git"
+alias lg="lazygit"
 alias d="docker"
 alias dc="docker compose"
+alias lzd="lazydocker"
 alias cz="chezmoi"
 alias cz-sync='chezmoi re-add'
 alias claude-skip='claude --dangerously-skip-permissions'
