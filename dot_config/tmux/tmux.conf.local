@@ -399,6 +399,15 @@ set -g history-limit 50000
 # force Vi mode
 set -g mode-keys vi
 
+# Neovim の autoread / FocusGained イベントを正しく発火させる
+set -g focus-events on
+
+# ウィンドウを閉じたとき番号を詰める
+set -g renumber-windows on
+
+# メッセージ表示時間を延長 (thumbs 等の通知が見やすくなる)
+set -g display-time 2000
+
 # vi-style copy mode bindings
 bind Enter copy-mode #!important
 bind -T copy-mode-vi v send-keys -X begin-selection
@@ -483,14 +492,13 @@ set -g @thumbs-key Space
 set -g @thumbs-alphabet qwerty-homerow
 set -g @thumbs-reverse enabled
 set -g @thumbs-unique enabled
-set -g @thumbs-position right
+set -g @thumbs-position off_left
 set -g @thumbs-fg-color cyan
 set -g @thumbs-bg-color black
 set -g @thumbs-hint-fg-color yellow
 set -g @thumbs-hint-bg-color black
 set -g @thumbs-select-fg-color blue
 set -g @thumbs-select-bg-color black
-set -g @thumbs-regexp-1 '[\w\-]+\.[\w.\-]+' # Match filenames with extensions
 set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
 set -g @thumbs-upcase-command 'tmux new-window "nvim {}"'
 
