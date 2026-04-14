@@ -8,4 +8,5 @@ type = "archive"
 url = "https://github.com/googleworkspace/cli/archive/main.tar.gz"
 stripComponents = 2
 include = ["*/skills/**"]
+exclude = ["*/skills/gws-gmail-triage/**"]
 refreshPeriod = "168h"

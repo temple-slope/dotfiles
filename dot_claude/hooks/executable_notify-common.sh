@@ -6,9 +6,5 @@ send_notification() {
   local message="$2"
   local sound="$3"
 
-  if [[ -n "${NOTIFY_BUNDLE_ID}" ]]; then
-    terminal-notifier -title "Claude Code" -subtitle "${project}" -message "${message}" -sound "${sound}" -activate "${NOTIFY_BUNDLE_ID}"
-  else
-    terminal-notifier -title "Claude Code" -subtitle "${project}" -message "${message}" -sound "${sound}"
-  fi
+  terminal-notifier -title "Claude Code" -subtitle "${project}" -message "${message}" -sound "${sound}" -activate "com.github.wez.wezterm"
 }

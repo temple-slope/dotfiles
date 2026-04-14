@@ -9,8 +9,8 @@ description: 特定のXポストURLからスレッド全体・エンゲージメ
 
 | 項目           | 詳細                                                              |
 | -------------- | ----------------------------------------------------------------- |
-| スクリプトパス | `dot_claude/scripts/grok_tweet_fetch.ts`                          |
-| 実行コマンド   | `npx tsx dot_claude/scripts/grok_tweet_fetch.ts --url "..."`      |
+| スクリプトパス | `~/.claude/scripts/grok_tweet_fetch.ts`                           |
+| 実行コマンド   | `npx tsx ~/.claude/scripts/grok_tweet_fetch.ts --url "..."`       |
 | 必要な環境変数 | `XAI_API_KEY`（Grok API キー）                                    |
 | 出力先         | `~/Documents/Development/claude-output/x-tweet-fetch/`            |
 
@@ -43,19 +43,19 @@ description: 特定のXポストURLからスレッド全体・エンゲージメ
 
 ```bash
 # 基本実行（スレッドのみ）
-npx tsx dot_claude/scripts/grok_tweet_fetch.ts --url "https://x.com/user/status/123456"
+source ~/.zshrc 2>/dev/null && npx tsx ~/.claude/scripts/grok_tweet_fetch.ts --url "https://x.com/user/status/123456"
 
 # リプライも取得
-npx tsx dot_claude/scripts/grok_tweet_fetch.ts --url "https://x.com/user/status/123456" --replies
+source ~/.zshrc 2>/dev/null && npx tsx ~/.claude/scripts/grok_tweet_fetch.ts --url "https://x.com/user/status/123456" --replies
 
 # デバッグ（API 呼び出しなし）
-npx tsx dot_claude/scripts/grok_tweet_fetch.ts --url "https://x.com/user/status/123456" --dry-run
+source ~/.zshrc 2>/dev/null && npx tsx ~/.claude/scripts/grok_tweet_fetch.ts --url "https://x.com/user/status/123456" --dry-run
 ```
 
 **失敗時のデバッグ手順**:
 1. `--dry-run` で API 呼び出しなしの動作確認
 2. `echo $XAI_API_KEY` で環境変数が設定されているか確認
-3. スクリプトが存在するか確認: `ls dot_claude/scripts/grok_tweet_fetch.ts`
+3. スクリプトが存在するか確認: `ls ~/.claude/scripts/grok_tweet_fetch.ts`
 4. URLの形式が正しいか確認（`x.com` or `twitter.com` + `/status/` + 数字ID）
 5. API キー未設定・スクリプト未発見の場合は、vxtwitter API (`https://api.vxtwitter.com/{user}/status/{id}`) でフォールバック
 
