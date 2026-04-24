@@ -9,7 +9,6 @@
 - ~/を直接修正しないこと
   ※dotfilesから修正を行うこと（操作方法は `/chezmoi` スキルに従う）
 - `~/Documents/Development/*`配下以外は権限に限らずユーザーに操作してもらうこと
-  ※例外: `~/Library/CloudStorage/GoogleDrive-kazuma.m.h.y@gmail.com/マイドライブ/税金関係/` は操作可
 
 ## 回答スタイル
 
