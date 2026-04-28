@@ -5,6 +5,23 @@ local config = wezterm.config_builder()
 config.font = wezterm.font('HackGen Console NF')
 config.font_size = 16.0
 
+-- フォントサイズ変更時にウィンドウサイズを変えない（Cmd+/-でレイアウトが暴れない）
+config.adjust_window_size_when_changing_font_size = false
+
+-- 日本語入力の安定化（IMEを有効化）
+config.use_ime = true
+
+-- ベル: 音は鳴らさず、カーソルを軽くフェードさせる
+config.audible_bell = "Disabled"
+config.visual_bell = {
+  fade_in_duration_ms = 75,
+  fade_out_duration_ms = 75,
+  target = 'CursorColor',
+}
+
+-- インライン画像表示（`wezterm imgcat <file>` 等）
+config.enable_kitty_graphics = true
+
 -- カラースキーム
 config.color_scheme = 'Tokyo Night'
 
