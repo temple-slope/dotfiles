@@ -35,18 +35,21 @@ config.window_close_confirmation = "NeverPrompt"
 -- スクロールバック
 config.scrollback_lines = 10000
 
--- URL: Cmd+クリックで開く（素クリックでは開かない）
+-- URL検出ルール（OSC 8 ハイパーリンクに加え、平文URLも検出する）
+-- これがないと OpenLinkAtMouseCursor は何もリンクとして認識せず開けない
+config.hyperlink_rules = wezterm.default_hyperlink_rules()
+
+-- markdown 風の `[text](url)` 内のURLも拾う
+table.insert(config.hyperlink_rules, {
+  regex = [[\((https?://\S+)\)]],
+  format = '$1',
+})
+
+-- URL: 素クリックで開く（リンク上ならURL、それ以外は範囲選択確定）
 config.mouse_bindings = {
-  -- 素クリックのURL開きを無効化
   {
     event = { Up = { streak = 1, button = 'Left' } },
-    action = wezterm.action.CompleteSelection 'ClipboardAndPrimarySelection',
-  },
-  -- Cmd+クリックでURLを開く
-  {
-    event = { Up = { streak = 1, button = 'Left' } },
-    mods = 'CMD',
-    action = wezterm.action.OpenLinkAtMouseCursor,
+    action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor 'ClipboardAndPrimarySelection',
   },
 }
 

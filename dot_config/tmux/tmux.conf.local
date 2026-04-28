@@ -428,6 +428,10 @@ bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'pbcopy'
 # move status line to top
 #set -g status-position top
 
+# OSC 8 ハイパーリンクを端末へパススルー（WezTerm の Cmd+クリックで開く）
+set -g allow-passthrough on
+set -as terminal-features ',*:hyperlinks'
+
 
 # -- tpm -----------------------------------------------------------------------
 
