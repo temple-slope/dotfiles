@@ -91,15 +91,11 @@ brew "steipete/tap/imsg"
 brew "steipete/tap/remindctl"
 # Command-line ElevenLabs TTS with mac-style flags
 brew "steipete/tap/sag"
-# Link → clean text → summary
-brew "steipete/tap/summarize"
 # WhatsApp CLI built on whatsmeow
 brew "steipete/tap/wacli"
 brew "yakitrak/yakitrak/obsidian-cli"
 # Command-line interface for 1Password
 cask "1password-cli"
-# AI dictation app
-cask "amical"
 # AI Coding Agent IDE
 cask "antigravity"
 # 3D creation suite
