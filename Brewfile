@@ -108,8 +108,6 @@ cask "claude-code"
 cask "codex"
 # Write, edit, and chat about your code with AI
 cask "cursor"
-# App to build and share containerised applications and microservices
-cask "docker-desktop"
 # Web browser
 cask "google-chrome"
 # Client for the Google Drive storage service
@@ -132,6 +130,8 @@ cask "slack"
 cask "tailscale-app"
 # GPU-accelerated cross-platform terminal emulator
 cask "wezterm"
+# Auth-enabled curl-like CLI for the X API
+cask "xurl"
 # Video communication and virtual meeting platform
 cask "zoom"
 vscode "aaron-bond.better-comments"
@@ -143,7 +143,6 @@ vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
 vscode "janisdd.vscode-edit-csv"
 vscode "mermaidchart.vscode-mermaid-chart"
-vscode "ms-azuretools.vscode-docker"
 vscode "ms-python.debugpy"
 vscode "ms-python.python"
 vscode "ms-toolsai.jupyter"
