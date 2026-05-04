@@ -112,13 +112,20 @@
     "code-review@claude-plugins-official": true,
     "discord@claude-plugins-official": true,
     "n8n-mcp-skills@n8n-mcp-skills": true,
-    "example-skills@anthropic-agent-skills": true
+    "example-skills@anthropic-agent-skills": true,
+    "xurl@xdevplatform-xurl": true
   },
   "extraKnownMarketplaces": {
     "anthropic-agent-skills": {
       "source": {
         "source": "github",
         "repo": "anthropics/skills"
+      }
+    },
+    "xdevplatform-xurl": {
+      "source": {
+        "source": "github",
+        "repo": "xdevplatform/xurl"
       }
     }
   },
