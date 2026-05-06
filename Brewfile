@@ -1,6 +1,4 @@
-tap "antoniorodr/memo"
-tap "steipete/tap"
-tap "yakitrak/yakitrak"
+tap "xdevplatform/tap"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -9,10 +7,8 @@ brew "bat"
 brew "chezmoi"
 # Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima"
-# GNU data recovery tool
-brew "ddrescue"
 # Pack, ship and run any application as a lightweight container
-brew "docker", link: false
+brew "docker"
 # Isolated development environments using Docker
 brew "docker-compose"
 # Rip DVD's from the command-line
@@ -29,6 +25,8 @@ brew "gemini-cli"
 brew "gh"
 # Distributed revision control system
 brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Open-source video transcoder available for Linux, Mac, and Windows
@@ -51,6 +49,8 @@ brew "ncdu"
 brew "neovim"
 # Manage multiple Node.js versions
 brew "nvm"
+# CLI proxy to minimize LLM token consumption
+brew "rtk"
 # General-purpose speech recognition model
 brew "openai-whisper"
 # AI coding agent, built for the terminal
@@ -114,12 +114,8 @@ cask "google-chrome"
 cask "google-drive"
 # Japanese input software
 cask "google-japanese-ime"
-# Programming font with Japanese support and Nerd Fonts
-cask "font-hackgen-nerd"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
-# Video format converter (transcoder)
-cask "makemkv"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Collaboration platform for API development
@@ -132,6 +128,8 @@ cask "tailscale-app"
 cask "wezterm"
 # Auth-enabled curl-like CLI for the X API
 cask "xurl"
+# Auth-enabled curl-like CLI for the X API
+cask "xdevplatform/tap/xurl"
 # Video communication and virtual meeting platform
 cask "zoom"
 vscode "aaron-bond.better-comments"
@@ -156,3 +154,6 @@ vscode "temple-slope.copy-path-line"
 vscode "tomoki1207.pdf"
 vscode "vscodevim.vim"
 vscode "yzane.markdown-pdf"
+vscode "aaron-bond.better-comments"
+vscode "anthropic.claude-code"
+vscode "anysphere.cursorpyright"
