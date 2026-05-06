@@ -7,12 +7,18 @@ tap "yakitrak/yakitrak"
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
 # Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima"
+# GNU data recovery tool
+brew "ddrescue"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
+# Isolated development environments using Docker
+brew "docker-compose"
 # Access DVDs as block devices without the decryption
 brew "libdvdcss"
 # Rip DVD's from the command-line
@@ -21,6 +27,8 @@ brew "dvdbackup"
 brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Interact with Google Gemini AI models from the command-line
@@ -61,8 +69,14 @@ brew "ripgrep"
 brew "opencode"
 # Command-line interface for Eclipse Open VSX
 brew "ovsx"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Sophisticated calendar and alarm
+brew "remind"
 # CLI proxy to minimize LLM token consumption
 brew "rtk"
+# Safe, concurrent, practical language
+brew "rust"
 # Rust toolchain installer
 brew "rustup"
 # Fast, configurable, shell plugin manager
@@ -75,8 +89,12 @@ brew "terminal-notifier"
 brew "terraform"
 # Terminal multiplexer
 brew "tmux"
+# URL extractor/launcher
+brew "urlview"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
 # Feature-rich command-line audio/video downloader
@@ -116,9 +134,15 @@ cask "claude"
 cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
+# OpenAI's Codex desktop app for managing coding agents
+cask "codex-app"
 # Write, edit, and chat about your code with AI
 cask "cursor"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
 cask "font-hackgen-nerd"
+# Set of tools to manage resources and applications hosted on Google Cloud
+cask "gcloud-cli"
 # Web browser
 cask "google-chrome"
 # Client for the Google Drive storage service
@@ -129,10 +153,16 @@ cask "google-japanese-ime"
 cask "handy"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# Video format converter (transcoder)
+cask "makemkv"
+# Sandbox construction video game
+cask "minecraft"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Collaboration platform for API development
 cask "postman"
+# Minecraft launcher
+cask "prismlauncher"
 # Team communication and collaboration software
 cask "slack"
 # Mesh VPN based on WireGuard
