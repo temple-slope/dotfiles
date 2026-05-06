@@ -1,0 +1,19 @@
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+[projects."{{ .chezmoi.homeDir }}/Documents/Development/chezmoi"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/Documents/Job"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/Documents/Development/telab"]
+trust_level = "trusted"
+
+[notice.model_migrations]
+"gpt-5.1-codex-mini" = "gpt-5.4"
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 3

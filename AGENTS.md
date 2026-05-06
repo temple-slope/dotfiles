@@ -1,0 +1,103 @@
+# AGENTS.md
+
+このファイルは、Codex (Codex.ai/code) がこのリポジトリで作業する際のガイダンスを提供します。
+
+## リポジトリ概要
+
+macOS 用の個人 dotfiles リポジトリで、[chezmoi](https://chezmoi.io/) で管理しています。シェル設定、アプリケーション設定、自動セットアップスクリプトを含みます。
+
+## よく使うコマンド
+
+```bash
+# dotfiles をシステムに適用
+chezmoi apply
+
+# 管理対象ファイルを編集（chezmoi ソースディレクトリで開く）
+chezmoi edit ~/.zshrc
+
+# 変更したファイルを chezmoi 管理に追加
+chezmoi add ~/.zshrc
+
+# パッケージのインストール/アンインストール後に Brewfile を更新
+brew bundle dump --global --force --describe
+
+# シェルスクリプトに対して shellcheck をローカルで実行
+git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
+```
+
+## アーキテクチャ
+
+### Chezmoi の命名規則
+
+- `dot_` プレフィックス → 出力先で `.` に変換（例: `dot_zshrc` → `.zshrc`）
+- `private_` プレフィックス → 600 パーミッション
+- `.tmpl` サフィックス → Go テンプレート処理
+- `run_once_` プレフィックス → `chezmoi apply` 時に一度だけ実行されるスクリプト
+- `symlink_` プレフィックス → コピーではなくシンボリックリンクを作成
+
+### 主要ファイル
+
+- `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（`.env.chezmoi` から Git 認証情報を取得）
+- `Brewfile` - `brew bundle` で管理する Homebrew パッケージ
+- `run_once_*.sh.tmpl` - 初回セットアップスクリプト（パッケージインストール、macOS 設定、tmux セットアップ）
+
+### Zsh 設定構造
+
+`.zshrc` はまず sheldon プラグインを読み込み、その後 `~/.config/zsh/` 内の全 `*.zsh` ファイルをロード:
+
+- `alias.zsh` - シェルエイリアス
+- `defer.zsh` - fzf キーバインド遅延読み込み
+- `env.zsh` - 環境変数 + `.env.zsh` からシークレット読み込み
+- `functions.zsh` - カスタム関数
+- `init.zsh` - tmux 自動起動、履歴設定、VSCode 統合
+- `path.zsh` - PATH 追加（scripts, antigravity）
+- `theme.zsh` - Powerlevel10k テーマ設定
+- `local.zsh` - マシン固有の設定（chezmoi 管理外）
+
+### プラグイン管理
+
+- **sheldon** - Zsh プラグインマネージャー (`dot_config/sheldon/plugins.toml`)
+- プラグイン: zsh-defer, oh-my-zsh, zsh-autosuggestions, autojump, zsh-syntax-highlighting, powerlevel10k
+
+## ワークフロールール
+
+- dotfiles を編集したら、必ず `chezmoi apply` を実行してシステムに反映する
+
+### Dotfile 同期ワークフロー
+
+管理対象ファイルを直接編集した場合（Codex 設定変更、エイリアス追加など）:
+
+```bash
+cz-sync   # chezmoi re-add のエイリアス。全管理ファイルの変更をソースに同期
+```
+
+新しいファイルを chezmoi 管理下に追加する場合:
+
+```bash
+chezmoi add ~/.Codex/commands/new-command.md
+chezmoi add ~/.Codex/skills/new-skill/SKILL.md
+```
+
+### Codex 設定 (dot_claude/)
+
+chezmoi で管理しているファイル:
+
+- `settings.json` - 設定（モデル、権限、フック、プラグイン）
+- `commands/` - カスタムコマンド
+- `hooks/` - セッションフック
+- `skills/` - カスタムスキル
+
+## CI/CD
+
+GitHub Actions が PR に対して以下の Lint を実行します:
+
+- **ShellCheck** - `.sh` / `.sh.tmpl` ファイルの構文チェック（`--severity=warning`）
+- **JSON Validate** - `.json` ファイルの構文検証
+- **Lua Check** - `.lua` ファイルの静的解析
+- **YAML Lint** - `.yml` / `.yaml` ファイルの構文チェック
+
+## 機密データ
+
+- `.env.chezmoi` - Git 認証情報（chezmoi テンプレート用、git/chezmoi 管理外）
+- `.env.zsh` - API キー等のシークレット（シェル環境変数用、git/chezmoi 管理外）
+- `local.zsh` は gitignore 対象
