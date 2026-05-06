@@ -44,10 +44,23 @@ dot_config/nvim/lazy-lock.json
 dot_config/nvim/lazyvim.json
 
 # -----------------------------------------------------------------------------
-# Codex CLI - ベンダー配布物・状態ファイル（CLI が自動更新する領域）
+# Codex CLI - ランタイムデータ・ベンダー配布物（CLI が自動更新する領域）
+# config.toml は管理対象
 # -----------------------------------------------------------------------------
 
-.codex
+.codex/auth.json
+.codex/history.jsonl
+.codex/installation_id
+.codex/models_cache.json
+.codex/version.json
+.codex/logs_*
+.codex/state_*
+.codex/log/
+.codex/sessions/
+.codex/plugins/
+.codex/skills/
+.codex/rules/
+.codex/.tmp/
 
 # -----------------------------------------------------------------------------
 # Claude Code - ランタイムデータ

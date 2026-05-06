@@ -6,10 +6,14 @@
   "terminal.integrated.profiles.osx": {
     "tmux": {
       "path": "tmux",
-      "args": ["new-session", "-A", "-s", "$(workspaceFolderBasename)"]
+      "args": [
+        "new-session",
+        "-A",
+        "-s",
+        "$(workspaceFolderBasename)"
+      ]
     }
   },
-
   // =========================================
   // 🖋 Editor Appearance & Behavior
   // =========================================
@@ -27,70 +31,84 @@
   },
   "explorer.excludeGitIgnore": false,
   "git.autofetch": true,
-
   // =========================================
   // 💾 File Handling
   // =========================================
   "files.autoSave": "onFocusChange", // フォーカス外れたら保存
   "files.insertFinalNewline": true,
-
   // =========================================
   // 🎨 Workbench UI
   // =========================================
   "workbench.colorTheme": "GitHub Dark",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.activityBar.orientation": "vertical",
-
   // =========================================
   // 📁 Explorer
   // =========================================
   "explorer.confirmDelete": false, // 削除確認を省略
   "explorer.confirmDragAndDrop": false, // ドラッグ＆ドロップ確認を省略
-
   // =========================================
   // 💻 Terminal
   // =========================================
   "terminal.integrated.fontFamily": "MesloLGS NF", // powerline アイコン対応フォント
-
   // =========================================
   // ⚙ Extensions
   // =========================================
   "extensions.autoUpdate": true,
-
   // =========================================
   // 🧹 Prettier
   // =========================================
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "prettier.requireConfig": true, // .prettierrc がないと整形しないようにする
-
+  // JSON / JSONC は VS Code 組み込みフォーマッターを使う（Claude Code の出力と互換: 配列を複数行展開で保持）
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
   // =========================================
   // 🧠 VSCodeVim Settings
   // =========================================
   "vim.useSystemClipboard": true, // OSのクリップボードと連携
-
   // Normal モード キーバインド
   "vim.normalModeKeyBindingsNonRecursive": [
-    { "before": ["H"], "after": ["0"] }, // 行頭へ移動
-    { "before": ["L"], "after": ["$"] } // 行末へ移動
+    {
+      "before": [
+        "H"
+      ],
+      "after": [
+        "0"
+      ]
+    }, // 行頭へ移動
+    {
+      "before": [
+        "L"
+      ],
+      "after": [
+        "$"
+      ]
+    } // 行末へ移動
   ],
-
   // Insert モード キーバインド
   "vim.insertModeKeyBindings": [
     {
-      "before": ["j", "j"],
-      "after": ["<Esc>"]
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
     }
   ],
-
   // Visual モード（未使用だが構文維持）
   "vim.visualModeKeyBindingsNonRecursive": [],
-
   // =========================================
   // 🧠 Extensions
   // =========================================
   "extensions.ignoreRecommendations": true,
-
   // =========================================
   // 📄 Markdown PDF
   // =========================================

@@ -1,4 +1,8 @@
+tap "antoniorodr/memo"
+tap "oven-sh/bun"
+tap "steipete/tap"
 tap "xdevplatform/tap"
+tap "yakitrak/yakitrak"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -9,8 +13,8 @@ brew "chezmoi"
 brew "colima"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
-# Isolated development environments using Docker
-brew "docker-compose"
+# Access DVDs as block devices without the decryption
+brew "libdvdcss"
 # Rip DVD's from the command-line
 brew "dvdbackup"
 # Modern, maintained replacement for ls
@@ -29,6 +33,8 @@ brew "git"
 brew "git-delta"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
+brew "googleworkspace-cli"
 # Open-source video transcoder available for Linux, Mac, and Windows
 brew "handbrake"
 # Improved top (interactive process viewer)
@@ -39,8 +45,6 @@ brew "jq"
 brew "lazydocker"
 # Simple terminal UI for git commands
 brew "lazygit"
-# Access DVDs as block devices without the decryption
-brew "libdvdcss"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
 # NCurses Disk Usage
@@ -49,16 +53,16 @@ brew "ncdu"
 brew "neovim"
 # Manage multiple Node.js versions
 brew "nvm"
-# CLI proxy to minimize LLM token consumption
-brew "rtk"
 # General-purpose speech recognition model
 brew "openai-whisper"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
 # AI coding agent, built for the terminal
 brew "opencode"
 # Command-line interface for Eclipse Open VSX
 brew "ovsx"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
+# CLI proxy to minimize LLM token consumption
+brew "rtk"
 # Rust toolchain installer
 brew "rustup"
 # Fast, configurable, shell plugin manager
@@ -73,12 +77,14 @@ brew "terraform"
 brew "tmux"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
-# Feature-rich command-line audio/video downloader
-brew "yt-dlp"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
 # CLI app to manage your Apple Notes and Apple reminders
 brew "antoniorodr/memo/memo"
+# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
+brew "oven-sh/bun/bun"
 # One command to grab frames, clips, or motion alerts from RTSP/ONVIF cams
 brew "steipete/tap/camsnap"
 # Grep the GIF. Stick the landing
@@ -100,6 +106,10 @@ cask "1password-cli"
 cask "antigravity"
 # 3D creation suite
 cask "blender"
+# Web browser focusing on privacy
+cask "brave-browser"
+# OpenAI's official ChatGPT desktop app
+cask "chatgpt"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Terminal-based AI coding assistant
@@ -108,12 +118,15 @@ cask "claude-code"
 cask "codex"
 # Write, edit, and chat about your code with AI
 cask "cursor"
+cask "font-hackgen-nerd"
 # Web browser
 cask "google-chrome"
 # Client for the Google Drive storage service
 cask "google-drive"
 # Japanese input software
 cask "google-japanese-ime"
+# Speech to text application
+cask "handy"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Knowledge base that works on top of a local folder of plain text Markdown files
@@ -124,10 +137,8 @@ cask "postman"
 cask "slack"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
-# GPU-accelerated cross-platform terminal emulator
+# GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
-# Auth-enabled curl-like CLI for the X API
-cask "xurl"
 # Auth-enabled curl-like CLI for the X API
 cask "xdevplatform/tap/xurl"
 # Video communication and virtual meeting platform
@@ -141,6 +152,7 @@ vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
 vscode "janisdd.vscode-edit-csv"
 vscode "mermaidchart.vscode-mermaid-chart"
+vscode "ms-azuretools.vscode-docker"
 vscode "ms-python.debugpy"
 vscode "ms-python.python"
 vscode "ms-toolsai.jupyter"
@@ -154,6 +166,4 @@ vscode "temple-slope.copy-path-line"
 vscode "tomoki1207.pdf"
 vscode "vscodevim.vim"
 vscode "yzane.markdown-pdf"
-vscode "aaron-bond.better-comments"
-vscode "anthropic.claude-code"
-vscode "anysphere.cursorpyright"
+uv "nano-pdf"

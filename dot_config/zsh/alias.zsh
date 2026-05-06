@@ -21,6 +21,7 @@ alias lzd="lazydocker"
 alias cz="chezmoi"
 alias cz-sync='chezmoi re-add'
 alias claude-skip='claude --dangerously-skip-permissions'
+alias codex-skip='codex --dangerously-bypass-approvals-and-sandbox'
 alias claude-skip-discord='claude --dangerously-skip-permissions --channels plugin:discord@claude-plugins-official'
 # brew-dump: 現在の環境を chezmoi 管理の Brewfile に直接ダンプ
 alias brew-dump='brew bundle dump --file="$(chezmoi source-path)/Brewfile" --force --describe'

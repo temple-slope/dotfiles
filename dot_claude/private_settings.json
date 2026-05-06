@@ -38,7 +38,12 @@
       "Glob",
       "Grep"
     ],
-    "deny": ["Read(./.env)", "Read(./.env.*)", "Read(~/.ssh/id_*)", "Read(~/.aws/credentials)"],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(~/.ssh/id_*)",
+      "Read(~/.aws/credentials)"
+    ],
     "defaultMode": "auto"
   },
   "model": "sonnet",
@@ -110,7 +115,6 @@
     "n8n-mcp-skills@n8n-mcp-skills": true,
     "example-skills@anthropic-agent-skills": true,
     "xurl@xdevplatform-xurl": true,
-    "github@claude-plugins-official": true,
     "ralph-loop@claude-plugins-official": true,
     "fakechat@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
@@ -119,7 +123,9 @@
     "code-simplifier@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
     "vercel@claude-plugins-official": true,
-    "linear@claude-plugins-official": true
+    "superpowers@claude-plugins-official": true,
+    "chrome-devtools-mcp@chrome-devtools-mcp": true,
+    "chrome-devtools-mcp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "anthropic-agent-skills": {
@@ -127,17 +133,38 @@
         "source": "github",
         "repo": "anthropics/skills"
       }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "chrome-devtools-mcp": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
     }
   },
   "language": "日本語",
   "sandbox": {
     "network": {
-      "allowedDomains": ["oauth2.googleapis.com", "www.googleapis.com"]
+      "allowedDomains": [
+        "oauth2.googleapis.com",
+        "www.googleapis.com"
+      ]
     },
     "filesystem": {
-      "allowWrite": ["~/.config/chezmoi/", "~/.config/zsh/", "~/.claude/"]
+      "allowWrite": [
+        "~/.config/chezmoi/",
+        "~/.config/zsh/",
+        "~/.claude/"
+      ]
     },
-    "allowUnixSockets": ["~/.ssh/control-*"]
+    "allowUnixSockets": [
+      "~/.ssh/control-*"
+    ]
   },
   "alwaysThinkingEnabled": true,
   "voice": {

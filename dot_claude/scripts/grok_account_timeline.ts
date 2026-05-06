@@ -245,7 +245,10 @@ function saveFile(outDir: string, filename: string, content: string) {
 }
 
 function accountSlug(account: string): string {
-  return account.replace(/^@/, '').toLowerCase().replace(/[^a-z0-9_]/g, '');
+  return account
+    .replace(/^@/, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9_]/g, '');
 }
 
 async function main() {
