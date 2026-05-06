@@ -113,7 +113,10 @@
     "discord@claude-plugins-official": true,
     "n8n-mcp-skills@n8n-mcp-skills": true,
     "example-skills@anthropic-agent-skills": true,
-    "xurl@xdevplatform-xurl": true
+    "xurl@xdevplatform-xurl": true,
+    "github@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
+    "fakechat@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "anthropic-agent-skills": {
@@ -155,5 +158,11 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "sonnet",
+  "mcpServers": {
+    "github": {
+      "command": "/Users/kazumaterasaka/.claude/mcp-wrappers/github.sh"
+    }
+  }
 }
