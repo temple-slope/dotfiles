@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+  "app": {
+    "commandPaletteSearchesAllSurfaces": true,
+    "openMarkdownInCmuxViewer": true,
+    "sendAnonymousTelemetry": false,
+    "warnBeforeQuit": false,
+    "minimalMode": true
+  },
+  "browser": {
+    "defaultSearchEngine": "google",
+    "showImportHintOnBlankTabs": false
+  },
+  "shortcuts": {
+    "bindings": {
+      "newTab": "none",
+      "closeOtherTabsInPane": "none",
+      "reopenClosedBrowserPanel": "none",
+      "browserZoomIn": "none",
+      "browserZoomOut": "none",
+      "browserZoomReset": "none"
+    }
+  }
+}
