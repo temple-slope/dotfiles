@@ -122,6 +122,8 @@ brew "yakitrak/yakitrak/obsidian-cli"
 cask "1password-cli"
 # AI Coding Agent IDE
 cask "antigravity"
+# Uninstaller and cleaning assistant
+cask "app-cleaner"
 # 3D creation suite
 cask "blender"
 # Web browser focusing on privacy
@@ -132,6 +134,8 @@ cask "chatgpt"
 cask "claude"
 # Terminal-based AI coding assistant
 cask "claude-code"
+# Ghostty-based terminal with vertical tabs and notifications for AI coding agents
+cask "cmux"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
 # OpenAI's Codex desktop app for managing coding agents
