@@ -7,7 +7,7 @@ export CHEZMOI_SOURCE_DIR="$HOME/Documents/Development/chezmoi"
 
 # シークレット読み込み (.env.zsh は git/chezmoi 管理外)
 _ENV_SECRETS="${CHEZMOI_SOURCE_DIR}/.env.zsh"
-if [[ -f "$_ENV_SECRETS" ]]; then
+if [[ -f "$_ENV_SECRETS" || -p "$_ENV_SECRETS" ]]; then
   set -a
   source "$_ENV_SECRETS"
   set +a
