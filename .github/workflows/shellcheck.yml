@@ -14,4 +14,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run ShellCheck
         run: |
-          git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
+          git ls-files '*.sh' | xargs -r shellcheck --severity=warning
+
+          failed=0
+          while IFS= read -r f; do
+            tmp="$(mktemp)"
+            # Chezmoi template control lines are not shell syntax. Keep the
+            # rendered shell body lintable without requiring local template data.
+            sed '/^[[:space:]]*{{.*}}[[:space:]]*$/d' "$f" \
+              | perl -pe 's/\{\{[^{}]*\}\}/CHEZMOI_TEMPLATE/g' > "$tmp"
+            if ! shellcheck --severity=warning "$tmp"; then
+              echo "::error file=$f::ShellCheck failed for template shell body"
+              failed=1
+            fi
+            rm -f "$tmp"
+          done < <(git ls-files '*.sh.tmpl')
+          exit "$failed"

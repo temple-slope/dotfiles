@@ -12,13 +12,65 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate JSON files
+      - name: Validate JSON/JSONC files
         run: |
-          failed=0
-          while IFS= read -r f; do
-            if ! python3 -c "import json; json.load(open('$f'))"; then
-              echo "::error file=$f::Invalid JSON"
-              failed=1
-            fi
-          done < <(git ls-files '*.json')
-          exit "$failed"
+          python3 <<'PY'
+          import json
+          import re
+          import subprocess
+          import sys
+
+          def strip_jsonc(text):
+              out = []
+              i = 0
+              in_string = False
+              escape = False
+              while i < len(text):
+                  ch = text[i]
+                  nxt = text[i + 1] if i + 1 < len(text) else ""
+                  if in_string:
+                      out.append(ch)
+                      if escape:
+                          escape = False
+                      elif ch == "\\":
+                          escape = True
+                      elif ch == '"':
+                          in_string = False
+                      i += 1
+                  elif ch == '"':
+                      in_string = True
+                      out.append(ch)
+                      i += 1
+                  elif ch == "/" and nxt == "/":
+                      i = text.find("\n", i)
+                      if i == -1:
+                          break
+                      out.append("\n")
+                      i += 1
+                  elif ch == "/" and nxt == "*":
+                      end = text.find("*/", i + 2)
+                      if end == -1:
+                          raise ValueError("unterminated block comment")
+                      out.append("\n" * text[i:end + 2].count("\n"))
+                      i = end + 2
+                  else:
+                      out.append(ch)
+                      i += 1
+              stripped = "".join(out)
+              return re.sub(r",(\s*[}\]])", r"\1", stripped)
+
+          files = subprocess.check_output(
+              ["git", "ls-files", "*.json"],
+              text=True,
+          ).splitlines()
+
+          failed = False
+          for path in files:
+              try:
+                  with open(path, encoding="utf-8") as fh:
+                      json.loads(strip_jsonc(fh.read()))
+              except Exception as exc:
+                  print(f"::error file={path}::Invalid JSON/JSONC: {exc}")
+                  failed = True
+          sys.exit(1 if failed else 0)
+          PY
