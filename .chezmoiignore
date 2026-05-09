@@ -42,9 +42,9 @@ dot_config/gh/hosts.yml
 **/*cache*
 **/tmp/
 
-# Neovim - プラグインロックファイル（環境依存）
-dot_config/nvim/lazy-lock.json
-dot_config/nvim/lazyvim.json
+# Neovim - プラグインロックファイル・状態ファイル（環境依存）
+.config/nvim/lazy-lock.json
+.config/nvim/lazyvim.json
 
 # -----------------------------------------------------------------------------
 # Codex CLI - ランタイムデータ・ベンダー配布物（CLI が自動更新する領域）
@@ -56,6 +56,7 @@ dot_config/nvim/lazyvim.json
 .codex/installation_id
 .codex/models_cache.json
 .codex/version.json
+.codex/cache/
 .codex/logs_*
 .codex/state_*
 .codex/log/
@@ -74,6 +75,7 @@ CLAUDE.md
 
 .github
 .git
+.git/**
 
 # -----------------------------------------------------------------------------
 # プロジェクト固有（chezmoi リポジトリ自体）

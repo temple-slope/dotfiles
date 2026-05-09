@@ -3,6 +3,8 @@
 !.env.*.example
 */.env
 dot_config/zsh/local.zsh
+dot_config/nvim/lazy-lock.json
+dot_config/nvim/lazyvim.json
 dot_config/tmux/dot_tmux/**
 private_dot_ssh/config.local
 skills-lock.json
