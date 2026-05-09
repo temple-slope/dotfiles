@@ -62,6 +62,7 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 ## ワークフロールール
 
 - dotfiles を編集したら、必ず `chezmoi apply` を実行してシステムに反映する
+- **このリポジトリ固有のスキルを `dot_claude/skills/` に追加しないこと**: ここで管理するスキルは全プロジェクト横断で使うグローバルスキルのみ。chezmoi 専用の操作（chezmoi apply 自動化など）は CLAUDE.md やプロジェクト内コマンドで完結させる
 
 ### Dotfile 同期ワークフロー
 
