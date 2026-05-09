@@ -66,31 +66,10 @@ dot_config/nvim/lazyvim.json
 .codex/.tmp/
 
 # -----------------------------------------------------------------------------
-# Claude Code - ランタイムデータ
+# Claude Code - chezmoi 管理外（superpowers プラグインで管理）
 # -----------------------------------------------------------------------------
 
-.claude/history.jsonl
-.claude/stats-cache.json
-.claude/cache
-.claude/debug
-.claude/plugins
-.claude/projects
-.claude/todos
-.claude/plans
-.claude/tasks
-.claude/file-history
-.claude/shell-snapshots
-.claude/session-env
-.claude/paste-cache
-.claude/telemetry
-.claude/statsig
-.claude/ide
-.claude/backups
-.claude/channels
-.claude/sessions
-.claude/settings.json.bak
-.claude/mcp-refresh-*.lock*
-.claude/skills
+.claude
 CLAUDE.md
 
 .github
