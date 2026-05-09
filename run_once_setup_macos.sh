@@ -50,6 +50,14 @@ defaults write com.apple.dock tilesize -int 65
 # Don't rearrange Spaces based on recent use
 defaults write com.apple.dock mru-spaces -bool false
 
+# --- Spotlight ---
+# Disable Spotlight Knowledge daemons (not used; Raycast is the launcher)
+UID_NUM=$(id -u)
+launchctl disable "gui/${UID_NUM}/com.apple.spotlightknowledged" 2>/dev/null || true
+launchctl disable "gui/${UID_NUM}/com.apple.spotlightknowledged.updater" 2>/dev/null || true
+launchctl disable "gui/${UID_NUM}/com.apple.spotlightknowledged.importer" 2>/dev/null || true
+pkill -f spotlightknowledged 2>/dev/null || true
+
 # --- Screenshots ---
 # Save screenshots to ~/Documents/ScreenShot
 SCREENSHOT_DIR="${HOME}/Documents/ScreenShot"
