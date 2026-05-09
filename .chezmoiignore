@@ -90,7 +90,7 @@ dot_config/nvim/lazyvim.json
 .claude/sessions
 .claude/settings.json.bak
 .claude/mcp-refresh-*.lock*
-.claude/skills/article-agent-context-research/data
+.claude/skills
 CLAUDE.md
 
 .github
