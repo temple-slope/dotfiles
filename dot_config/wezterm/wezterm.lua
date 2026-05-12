@@ -52,24 +52,6 @@ config.window_close_confirmation = "NeverPrompt"
 -- スクロールバック
 config.scrollback_lines = 10000
 
--- URL検出ルール（OSC 8 ハイパーリンクに加え、平文URLも検出する）
--- これがないと OpenLinkAtMouseCursor は何もリンクとして認識せず開けない
-config.hyperlink_rules = wezterm.default_hyperlink_rules()
-
--- markdown 風の `[text](url)` 内のURLも拾う
-table.insert(config.hyperlink_rules, {
-  regex = [[\((https?://\S+)\)]],
-  format = '$1',
-})
-
--- URL: 素クリックで開く（リンク上ならURL、それ以外は範囲選択確定）
-config.mouse_bindings = {
-  {
-    event = { Up = { streak = 1, button = 'Left' } },
-    action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor 'ClipboardAndPrimarySelection',
-  },
-}
-
 -- 起動時にtmuxセッションに自動アタッチ（なければ新規作成）
 config.default_prog = { '/opt/homebrew/bin/tmux', 'new-session', '-A', '-s', 'default' }
 
