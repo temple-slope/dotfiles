@@ -9,3 +9,5 @@ dot_config/tmux/dot_tmux/**
 private_dot_ssh/config.local
 skills-lock.json
 dot_aws/privateconfig
+.claude/
+tsconfig.json
