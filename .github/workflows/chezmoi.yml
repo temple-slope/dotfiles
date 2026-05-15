@@ -1,0 +1,50 @@
+name: chezmoi
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  template-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install chezmoi
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
+
+      - name: Prepare dummy .env.chezmoi
+        run: |
+          # .chezmoi.yaml.tmpl が grep で読み込むため、CI 用ダミーを作成
+          cat > .env.chezmoi <<'EOF'
+          GIT_USER_NAME=ci
+          GIT_USER_EMAIL=ci@example.com
+          GIT_SIGNING_KEY=ssh-ed25519 AAAA
+          EOF
+
+      - name: Render all template files
+        run: |
+          failed=0
+          while IFS= read -r f; do
+            # .chezmoi.yaml.tmpl は chezmoi 自身が処理する設定テンプレなので
+            # --init フラグ経由で間接的に検証される。個別レンダリングはスキップ。
+            [ "$f" = ".chezmoi.yaml.tmpl" ] && continue
+
+            echo "→ $f"
+            err=$(mktemp)
+            if ! chezmoi execute-template \
+                --source="$PWD" \
+                --init \
+                --promptBool machine.isPrivate=false \
+                --promptBool machine.installBrewBundle=false \
+                < "$f" >/dev/null 2>"$err"; then
+              echo "::error file=$f::template render failed"
+              cat "$err"
+              failed=1
+            fi
+            rm -f "$err"
+          done < <(git ls-files '*.tmpl')
+          exit "$failed"
