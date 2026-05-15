@@ -1,14 +1,8 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
-echo "📦 パッケージインストールを実行しますか？ (y/N)"
-read -r answer
-if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
-  echo "⏭ スキップしました。"
-  exit 0
-fi
-
+{{ if .machine.installBrewBundle -}}
 echo "🔍 実行環境: {{ .chezmoi.hostname }}"
 
 # Homebrewがなければインストール
@@ -20,10 +14,9 @@ fi
 # M1/M2 Mac対応のbrewパス反映
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-{{ if .machine.installBrewBundle -}}
 # Brewfileを適用
 echo "Brewfileを適用中..."
 brew bundle --file="{{ joinPath .chezmoi.sourceDir "Brewfile" }}"
 {{ else -}}
-echo "⏭ Brewfileの適用はスキップされました。"
+echo "⏭ パッケージインストールはスキップされました（.chezmoi.yaml.tmpl の installBrewBundle = false）。"
 {{ end -}}
