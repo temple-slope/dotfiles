@@ -9,5 +9,9 @@ dot_config/tmux/dot_tmux/**
 private_dot_ssh/config.local
 skills-lock.json
 dot_aws/private_config
-.claude/
+
+# このリポジトリ自身の Claude Code project config は Git で管理する。
+# chezmoi 反映からは .chezmoiignore 側で除外する。
+!.claude/
+!.claude/**
 tsconfig.json

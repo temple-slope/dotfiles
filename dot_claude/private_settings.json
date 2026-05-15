@@ -1,0 +1,176 @@
+{
+  "cleanupPeriodDays": 14,
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(file:*)",
+      "Bash(which:*)",
+      "Bash(pwd)",
+      "Bash(tree:*)",
+      "Bash(tmux:*)",
+      "Bash(make:*)",
+      "Bash(touch:*)",
+      "Bash(diff:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch)",
+      "Bash(git branch -a)",
+      "Bash(git branch -v)",
+      "Bash(git rev-parse:*)",
+      "Bash(git remote -v)",
+      "Bash(chezmoi:*)",
+      "Bash(brew list:*)",
+      "Bash(brew info:*)",
+      "Bash(npm list:*)",
+      "Bash(node -v)",
+      "Bash(npm -v)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:qiita.com)",
+      "Read",
+      "Glob",
+      "Grep"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(~/.ssh/id_*)",
+      "Read(~/.aws/credentials)"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-stop.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-permission.sh",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-idle.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/export-session.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rtk hook claude"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "python3 ~/.claude/statusline.py",
+    "padding": 2
+  },
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true,
+    "discord@claude-plugins-official": true,
+    "n8n-mcp-skills@n8n-mcp-skills": true,
+    "example-skills@anthropic-agent-skills": true,
+    "xurl@xdevplatform-xurl": true,
+    "ralph-loop@claude-plugins-official": true,
+    "fakechat@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "vercel@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "chrome-devtools-mcp@chrome-devtools-mcp": true,
+    "chrome-devtools-mcp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "chrome-devtools-mcp": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    }
+  },
+  "language": "日本語",
+  "sandbox": {
+    "network": {
+      "allowedDomains": [
+        "oauth2.googleapis.com",
+        "www.googleapis.com"
+      ]
+    },
+    "filesystem": {
+      "allowWrite": [
+        "~/.config/chezmoi/",
+        "~/.config/zsh/",
+        "~/.claude/"
+      ]
+    },
+    "allowUnixSockets": [
+      "~/.ssh/control-*"
+    ]
+  },
+  "alwaysThinkingEnabled": true,
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true
+}
