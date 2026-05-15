@@ -119,5 +119,7 @@
   "markdown-pdf.headerTemplate": "<div></div>",
   "markdown-pdf.footerTemplate": "<div></div>",
   "markdown-pdf.displayHeaderFooter": false,
-  "markdown-pdf.printBackground": true
+  "markdown-pdf.printBackground": true,
+  "window.autoDetectColorScheme": false,
+  "explorer.confirmPasteNative": false
 }
