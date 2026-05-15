@@ -19,7 +19,8 @@ chezmoi edit ~/.zshrc
 chezmoi add ~/.zshrc
 
 # パッケージのインストール/アンインストール後に Brewfile を更新
-brew bundle dump --global --force --describe
+# brew-dump エイリアスは chezmoi ソースの Brewfile に直接 dump する
+brew-dump
 
 # シェルスクリプトに対して shellcheck をローカルで実行
 git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning

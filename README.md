@@ -154,15 +154,13 @@ chezmoi add ~/.zshrc
 
 ### Brewfile の更新
 
-`brew` でパッケージをインストール・アンインストールした後:
+`brew` でパッケージをインストール・アンインストールした後、chezmoi ソースの `Brewfile` に直接 dump します:
 
 ```bash
-# エイリアスを使う場合（/tmp に一時出力し、diff して手動マージ）
 brew-dump
-
-# 直接上書きする場合
-brew bundle dump --global --force --describe
 ```
+
+`brew-dump` は `brew bundle dump --file="$(chezmoi source-path)/Brewfile" --force --describe` のエイリアスです。`~/.Brewfile` は使用しません。
 
 ## CI/CD
 
