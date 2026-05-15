@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # ~/.config/zsh/local.zsh が存在しない場合のみ自動生成する
 LOCAL_ZSH_PATH="$HOME/.config/zsh/local.zsh"
 
