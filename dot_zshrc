@@ -1,3 +1,8 @@
+# SSH接続時はリモート側のtmuxセッションに自動で入る（exec で置き換えるため抜けるとSSHも切れる）
+if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]] && command -v tmux >/dev/null 2>&1 && [ -t 1 ]; then
+  exec tmux new-session -A -s default
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.

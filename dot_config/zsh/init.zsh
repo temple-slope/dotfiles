@@ -1,8 +1,8 @@
 #!/bin/zsh
-# tmuxを起動していない場合は起動する
+# tmuxを起動していない場合は起動する（SSH接続時はスキップ）
 if command -v tmux >/dev/null 2>&1; then
-  if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
-    tmux attach-session -t default || tmux new-session -s default
+  if [ -z "$TMUX" ] && [ -n "$PS1" ] && [ -t 1 ] && [ -z "$SSH_CONNECTION" ]; then
+    tmux attach-session -t default 2>/dev/null || tmux new-session -s default
   fi
 fi
 
