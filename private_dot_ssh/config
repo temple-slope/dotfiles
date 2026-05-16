@@ -1,6 +1,14 @@
 Include ~/.ssh/config.local
 Include ~/.config/colima/ssh_config
 
+Host mini4
+  HostName mac-mini-m4
+  User kazumaterasaka
+
+Host book1
+  HostName macbook-pro-m1
+  User kazumaterasaka
+
 Host *
   # 1Password SSH Agent を使用
   IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
