@@ -6,7 +6,6 @@
       "Bash(chezmoi add:*)",
       "Bash(chezmoi managed:*)",
       "Bash(chezmoi source-path:*)",
-      "Bash(ssh:*)",
       "Bash(nc:*)",
       "Bash(curl:*)",
       "Bash(kill:*)",
@@ -112,9 +111,6 @@
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "tradingview-mcp"
-  ],
   "sandbox": {
     "enabled": false,
     "autoAllowBashIfSandboxed": false
