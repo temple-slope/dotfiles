@@ -1,6 +1,6 @@
 ---
-name: gws-gmail-triage
-description: "Gmail: Show unread inbox summary (sender, subject, date) with clickable links."
+name: inbox-triage
+description: "Gmail: Show unread inbox summary (sender, subject, date) with clickable links and mark as read."
 metadata:
   version: 0.22.5
   openclaw:
@@ -11,11 +11,9 @@ metadata:
     cliHelp: "gws gmail +triage --help"
 ---
 
-# gmail +triage
+# inbox-triage
 
 > **PREREQUISITE:** Read `../gws-shared/SKILL.md` for auth, global flags, and security rules. If missing, run `gws generate-skills` to create it.
->
-> **NOTE:** This SKILL.md is managed via chezmoi (`dot_claude/skills/gws-gmail-triage/SKILL.md`). The `gws generate-skills` command regenerates the upstream copy at `~/.claude/skills/gws-gmail-triage/SKILL.md` and will overwrite local edits. Re-run `chezmoi apply` after regeneration.
 
 Show unread inbox summary (sender, subject, date) and mark displayed messages as read.
 
