@@ -114,7 +114,6 @@
   "enabledPlugins": {
     "code-review@claude-plugins-official": true,
     "discord@claude-plugins-official": true,
-    "example-skills@anthropic-agent-skills": true,
     "ralph-loop@claude-plugins-official": true,
     "fakechat@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
