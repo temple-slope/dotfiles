@@ -42,10 +42,14 @@
       "Grep"
     ],
     "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
       "Read(~/.ssh/id_*)",
-      "Read(~/.aws/credentials)"
+      "Read(~/.aws/credentials)",
+      "Read(~/.claude/.credentials.json)",
+      "Read(~/.config/gh/hosts.yml)",
+      "Bash(sudo:*)",
+      "Bash(rm -rf:*)"
     ],
     "defaultMode": "auto"
   },
