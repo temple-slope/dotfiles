@@ -80,4 +80,68 @@ config.keys = {
   { key = 'u', mods = 'CMD', action = wezterm.action.EmitEvent('toggle-opacity') },
 }
 
+-- ファイルパスのハイパーリンクを CMD+クリックで tmux の隣 pane の nvim で開く
+--
+-- 公式 recipe (https://wezterm.org/recipes/hyperlinks.html) に沿って 2 層構成:
+--  1. OSC-8 由来 `file://HOST/PATH#LINE` (ls --hyperlink, delta --hyperlinks,
+--     rg --hyperlink-format=kitty 等) は wezterm.url.parse で正規化
+--  2. プレーンテキスト由来 (Claude Code 等) は自前 regex で
+--     `nvim-open:<path>#<line>` 形式の opaque URI に変換
+--     ※ `nvim://~/...` だと `~` が URI authority と解釈され消えるため
+
+local function spawn_nvim_in_tmux(pane, file_path, line)
+  if file_path:sub(1, 1) == '~' then
+    file_path = (os.getenv('HOME') or '') .. file_path:sub(2)
+  end
+
+  local cwd
+  local ok, cwd_obj = pcall(function() return pane:get_current_working_dir() end)
+  if ok and cwd_obj then
+    if type(cwd_obj) == 'string' then
+      cwd = cwd_obj:gsub('^file://[^/]*', '')
+    else
+      cwd = cwd_obj.file_path or cwd_obj.path
+    end
+  end
+
+  local args = { '/opt/homebrew/bin/tmux', 'split-window', '-h' }
+  if cwd and cwd ~= '' then
+    table.insert(args, '-c')
+    table.insert(args, cwd)
+  end
+  table.insert(args, '/opt/homebrew/bin/nvim')
+  if line and line ~= '' then
+    table.insert(args, '+' .. tostring(line))
+  end
+  table.insert(args, file_path)
+
+  wezterm.log_info('nvim-open spawning: ' .. table.concat(args, ' '))
+  wezterm.background_child_process(args)
+end
+
+local hyperlink_rules = wezterm.default_hyperlink_rules()
+table.insert(hyperlink_rules, 1, {
+  regex = [==[(?<![A-Za-z0-9_])((?:~|\.{1,2}|/)?[^\s'"<>()\[\]{}|`]*?[A-Za-z0-9_]\.[A-Za-z0-9]{1,6})(?::(\d+))?(?::(\d+))?\b]==],
+  format = 'nvim-open:$1#$2',
+})
+config.hyperlink_rules = hyperlink_rules
+
+wezterm.on('open-uri', function(window, pane, uri)
+  -- 層1: file://HOST/PATH#LINE (OSC-8 を吐くツール由来)
+  local url = wezterm.url.parse(uri)
+  if url and url.scheme == 'file' and url.file_path then
+    spawn_nvim_in_tmux(pane, url.file_path, url.fragment)
+    return false
+  end
+
+  -- 層2: nvim-open:PATH#LINE (regex 由来の opaque URI)
+  if uri:match('^nvim%-open:') then
+    local path, line = uri:match('^nvim%-open:(.+)#(%d*)$')
+    if path then
+      spawn_nvim_in_tmux(pane, path, line)
+    end
+    return false
+  end
+end)
+
 return config
