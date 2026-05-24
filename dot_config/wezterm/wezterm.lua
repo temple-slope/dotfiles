@@ -89,18 +89,30 @@ config.keys = {
 --     `nvim-open:<path>#<line>` 形式の opaque URI に変換
 --     ※ `nvim://~/...` だと `~` が URI authority と解釈され消えるため
 
+local function get_tmux_active_pane_cwd()
+  local handle = io.popen('/opt/homebrew/bin/tmux display-message -p "#{pane_current_path}" 2>/dev/null')
+  if not handle then return nil end
+  local result = handle:read('*l')
+  handle:close()
+  if result and result ~= '' then return result end
+  return nil
+end
+
 local function spawn_nvim_in_tmux(pane, file_path, line)
   if file_path:sub(1, 1) == '~' then
     file_path = (os.getenv('HOME') or '') .. file_path:sub(2)
   end
 
-  local cwd
-  local ok, cwd_obj = pcall(function() return pane:get_current_working_dir() end)
-  if ok and cwd_obj then
-    if type(cwd_obj) == 'string' then
-      cwd = cwd_obj:gsub('^file://[^/]*', '')
-    else
-      cwd = cwd_obj.file_path or cwd_obj.path
+  -- tmux のアクティブ pane の cwd を優先（wezterm 側 cwd は OSC-7 未送信時に古くなるため）
+  local cwd = get_tmux_active_pane_cwd()
+  if not cwd then
+    local ok, cwd_obj = pcall(function() return pane:get_current_working_dir() end)
+    if ok and cwd_obj then
+      if type(cwd_obj) == 'string' then
+        cwd = cwd_obj:gsub('^file://[^/]*', '')
+      else
+        cwd = cwd_obj.file_path or cwd_obj.path
+      end
     end
   end
 
