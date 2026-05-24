@@ -78,6 +78,8 @@ config.keys = {
   { key = '-', mods = 'CMD', action = wezterm.action.DecreaseFontSize },
   { key = '0', mods = 'CMD', action = wezterm.action.ResetFontSize },
   { key = 'u', mods = 'CMD', action = wezterm.action.EmitEvent('toggle-opacity') },
+  -- Shift+Enter を Ctrl+J に変換（Claude Code の chat:newline デフォルト割当）
+  { key = 'Enter', mods = 'SHIFT', action = wezterm.action.SendKey { key = 'j', mods = 'CTRL' } },
 }
 
 -- ファイルパスのハイパーリンクを CMD+クリックで tmux の隣 pane の nvim で開く
