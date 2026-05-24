@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 
 -- フォント
 config.font = wezterm.font('HackGen Console NF')
-config.font_size = 16.0
+config.font_size = 22.0
 
 -- フォントサイズ変更時にウィンドウサイズを変えない（Cmd+/-でレイアウトが暴れない）
 config.adjust_window_size_when_changing_font_size = false
