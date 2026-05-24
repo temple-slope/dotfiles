@@ -35,19 +35,9 @@
     "when": "editorTextFocus && !suggestWidgetVisible"
   },
   {
-    "key": "cmd+alt+shift+c",
-    "command": "copyRelativeFilePath",
-    "when": "editorTextFocus && !suggestWidgetVisible"
-  },
-  {
     "key": "cmd+alt+shift+l",
     "command": "copy-path-line.copy",
     "when": "editorTextFocus"
-  },
-  {
-    "key": "shift+alt+cmd+c",
-    "command": "copyRelativeFilePath",
-    "when": "!editorFocus"
   },
 
   // =========================================
