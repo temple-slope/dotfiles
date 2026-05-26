@@ -393,6 +393,9 @@ set-environment -g PATH "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # Neovim の Esc 遅延解消
 set -s escape-time 0
 
+# prefix リピートモードの待ち時間を短縮（デフォルト 600ms → 250ms）
+set -sg repeat-time 250
+
 # スクロールバック履歴
 set -g history-limit 50000
 
@@ -431,6 +434,11 @@ bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'pbcopy'
 # OSC 8 ハイパーリンクを端末へパススルー（WezTerm の Cmd+クリックで開く）
 set -g allow-passthrough on
 set -as terminal-features ',*:hyperlinks'
+
+# OSC 52 (clipboard) を端末へパススルー。tmux-256color など xterm* 以外でも
+# nvim/CLI からの yank がシステムクリップボードに届くようにする。
+set -as terminal-features ',*:clipboard'
+set -g set-clipboard on
 
 
 # -- tpm -----------------------------------------------------------------------
