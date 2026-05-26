@@ -1,4 +1,5 @@
 tap "antoniorodr/memo"
+tap "openclaw/tap"
 tap "oven-sh/bun"
 tap "steipete/tap"
 tap "xdevplatform/tap"
@@ -101,26 +102,26 @@ brew "yq"
 brew "yt-dlp"
 # CLI app to manage your Apple Notes and Apple reminders
 brew "antoniorodr/memo/memo"
+# Modern Go client + CLI for the Google Places API (New).
+brew "openclaw/tap/goplaces"
+# WhatsApp CLI built on whatsmeow
+brew "openclaw/tap/wacli"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
 # One command to grab frames, clips, or motion alerts from RTSP/ONVIF cams
 brew "steipete/tap/camsnap"
 # Grep the GIF. Stick the landing
 brew "steipete/tap/gifgrep"
-# Modern Go client + CLI for the Google Places API (New)
-brew "steipete/tap/goplaces"
 # Send and read iMessage / SMS from the terminal
 brew "steipete/tap/imsg"
 # Fast CLI for Apple Reminders
 brew "steipete/tap/remindctl"
 # Command-line ElevenLabs TTS with mac-style flags
 brew "steipete/tap/sag"
-# WhatsApp CLI built on whatsmeow
-brew "steipete/tap/wacli"
 brew "yakitrak/yakitrak/obsidian-cli"
 # Command-line interface for 1Password
 cask "1password-cli"
-# AI Coding Agent IDE
+# Agent orchestration platform
 cask "antigravity"
 # Uninstaller and cleaning assistant
 cask "app-cleaner"
@@ -172,7 +173,7 @@ cask "slack"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "wezterm"
+cask "wezterm@nightly"
 # Auth-enabled curl-like CLI for the X API
 cask "xdevplatform/tap/xurl"
 # Video communication and virtual meeting platform
@@ -180,6 +181,7 @@ cask "zoom"
 vscode "aaron-bond.better-comments"
 vscode "anthropic.claude-code"
 vscode "anysphere.cursorpyright"
+vscode "anysphere.remote-ssh"
 vscode "esbenp.prettier-vscode"
 vscode "github.github-vscode-theme"
 vscode "github.vscode-github-actions"
@@ -201,3 +203,13 @@ vscode "tomoki1207.pdf"
 vscode "vscodevim.vim"
 vscode "yzane.markdown-pdf"
 uv "nano-pdf"
+npm "@types/node"
+npm "@vscode/vsce"
+npm "agent-browser"
+npm "cf"
+npm "clawdhub"
+npm "generator-code"
+npm "mcporter"
+npm "tsx"
+npm "typescript"
+npm "yo"
