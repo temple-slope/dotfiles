@@ -50,8 +50,8 @@
 **/*cache*
 **/tmp/
 
-# Neovim - プラグインロックファイル・状態ファイル（環境依存）
-.config/nvim/lazy-lock.json
+# Neovim - LazyVim Extras UI の状態ファイル（spec 直書き運用のため管理不要）
+# lazy-lock.json は LazyVim 公式推奨に従い管理対象（マシン間でプラグインバージョン統一）
 .config/nvim/lazyvim.json
 
 # -----------------------------------------------------------------------------
