@@ -7,6 +7,7 @@ return {
           keys = {
             ["<C-j>"] = { "list_down", mode = { "i", "n" } },
             ["<C-k>"] = { "list_up", mode = { "i", "n" } },
+            ["jj"] = { "close", mode = "i" },
           },
         },
       },

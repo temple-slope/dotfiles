@@ -80,6 +80,16 @@ config.keys = {
   { key = 'u', mods = 'CMD', action = wezterm.action.EmitEvent('toggle-opacity') },
   -- Shift+Enter を Ctrl+J に変換（Claude Code の chat:newline デフォルト割当）
   { key = 'Enter', mods = 'SHIFT', action = wezterm.action.SendKey { key = 'j', mods = 'CTRL' } },
+  -- VSCode 風ショートカット: Neovim 側で <C-A-X> として受信
+  { key = 'd', mods = 'CMD', action = wezterm.action.SendKey { key = 'd', mods = 'CTRL|ALT' } },
+  { key = 'p', mods = 'CMD', action = wezterm.action.SendKey { key = 'p', mods = 'CTRL|ALT' } },
+  { key = 'p', mods = 'CMD|SHIFT', action = wezterm.action.SendKey { key = 'c', mods = 'CTRL|ALT' } },
+  { key = 'f', mods = 'CMD', action = wezterm.action.SendKey { key = 'f', mods = 'CTRL|ALT' } },
+  { key = '/', mods = 'CMD', action = wezterm.action.SendKey { key = '/', mods = 'CTRL|ALT' } },
+  { key = 'w', mods = 'CMD', action = wezterm.action.SendKey { key = 'w', mods = 'CTRL|ALT' } },
+  -- Ctrl+Shift+H/L をバッファ前後移動（Neovim 側で <C-A-h>/<C-A-l> として受信）
+  { key = 'h', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'h', mods = 'CTRL|ALT' } },
+  { key = 'l', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'l', mods = 'CTRL|ALT' } },
 }
 
 -- ファイルパスのハイパーリンクを CMD+クリックで tmux の隣 pane の nvim で開く
