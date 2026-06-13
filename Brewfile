@@ -1,9 +1,9 @@
-tap "antoniorodr/memo"
-tap "openclaw/tap"
-tap "oven-sh/bun"
-tap "steipete/tap"
-tap "xdevplatform/tap"
-tap "yakitrak/yakitrak"
+tap "antoniorodr/memo", trusted: true
+tap "openclaw/tap", trusted: true
+tap "oven-sh/bun", trusted: true
+tap "steipete/tap", trusted: true
+tap "xdevplatform/tap", trusted: true
+tap "yakitrak/yakitrak", trusted: true
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -13,17 +13,19 @@ brew "btop"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
 # Container runtimes on MacOS (and Linux) with minimal setup
-brew "colima"
+brew "colima", restart_service: :changed
 # GNU data recovery tool
 brew "ddrescue"
 # Pack, ship and run any application as a lightweight container
-brew "docker"
+brew "docker", link: false
 # Isolated development environments using Docker
 brew "docker-compose"
 # Access DVDs as block devices without the decryption
 brew "libdvdcss"
 # Rip DVD's from the command-line
 brew "dvdbackup"
+# Perl lib for reading and writing EXIF metadata
+brew "exiftool"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find
@@ -70,6 +72,8 @@ brew "ripgrep"
 brew "opencode"
 # Command-line interface for Eclipse Open VSX
 brew "ovsx"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Sophisticated calendar and alarm
@@ -173,7 +177,7 @@ cask "slack"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "wezterm@nightly"
+cask "wezterm"
 # Auth-enabled curl-like CLI for the X API
 cask "xdevplatform/tap/xurl"
 # Video communication and virtual meeting platform
