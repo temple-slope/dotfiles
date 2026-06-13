@@ -2,17 +2,16 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
--- Force OSC52 clipboard provider so yank works from tmux/SSH/remote sessions.
--- WezTerm (and most modern terminals) accept OSC52 escape sequences and write
--- the payload to the system clipboard, bypassing tmux's internal buffer.
+-- Copy via OSC52 (tmux/SSH 透過)、paste はローカル pbpaste。
+-- OSC52 paste は regtype を失うため yy → p で行貼り付けが壊れる。
 vim.g.clipboard = {
-  name = "OSC 52",
+  name = "OSC 52 + pbpaste",
   copy = {
     ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
     ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
   },
   paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    ["+"] = "pbpaste",
+    ["*"] = "pbpaste",
   },
 }
