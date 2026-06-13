@@ -1,0 +1,105 @@
+[ai]
+
+[[ai.projects]]
+path = "Documents/Development/chezmoi"
+trust = "trusted"
+
+[[ai.projects]]
+path = "Documents/Job"
+trust = "trusted"
+
+[[ai.projects]]
+path = "Documents/Development/telab"
+trust = "trusted"
+
+[[ai.projects]]
+path = "Documents/Development/copy-path-line"
+trust = "trusted"
+
+[[ai.codex_plugins]]
+id = "documents@openai-primary-runtime"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "github@openai-curated"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "notion@openai-curated"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "presentations@openai-primary-runtime"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "spreadsheets@openai-primary-runtime"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "claude-md-management@claude-plugins-official"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "context7@claude-plugins-official"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "discord@claude-plugins-official"
+enabled = false
+
+[[ai.codex_plugins]]
+id = "fakechat@claude-plugins-official"
+enabled = false
+
+[[ai.codex_plugins]]
+id = "frontend-design@claude-plugins-official"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "skill-creator@claude-plugins-official"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "superpowers@claude-plugins-official"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "vercel@claude-plugins-official"
+enabled = false
+
+[[ai.codex_plugins]]
+id = "computer-use@openai-bundled"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "google-calendar@openai-curated"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "google-drive@openai-curated"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "gmail@openai-curated"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "openai-developers@openai-curated"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "browser-use@openai-bundled"
+enabled = true
+
+[[ai.codex_plugins]]
+id = "chrome@openai-bundled"
+enabled = true
+
+[[ai.env]]
+name = "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR"
+value = "1"
+
+[[ai.env]]
+name = "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS"
+value = "1"

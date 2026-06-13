@@ -1,87 +1,26 @@
 model = "gpt-5.5"
 model_reasoning_effort = "medium"
 
-[projects."{{ .chezmoi.homeDir }}/Documents/Development/chezmoi"]
-trust_level = "trusted"
+{{ range .ai.projects -}}
+[projects."{{ $.chezmoi.homeDir }}/{{ .path }}"]
+trust_level = "{{ .trust }}"
 
-[projects."{{ .chezmoi.homeDir }}/Documents/Job"]
-trust_level = "trusted"
-
-[projects."{{ .chezmoi.homeDir }}/Documents/Development/telab"]
-trust_level = "trusted"
-
-[projects."{{ .chezmoi.homeDir }}/Documents/Development/copy-path-line"]
-trust_level = "trusted"
-
+{{ end -}}
 [notice.model_migrations]
 "gpt-5.1-codex-mini" = "gpt-5.4"
 
-[plugins."documents@openai-primary-runtime"]
-enabled = true
+{{ range .ai.codex_plugins -}}
+[plugins."{{ .id }}"]
+enabled = {{ .enabled }}
 
-[plugins."github@openai-curated"]
-enabled = true
-
-[plugins."notion@openai-curated"]
-enabled = true
-
-[plugins."presentations@openai-primary-runtime"]
-enabled = true
-
-[plugins."spreadsheets@openai-primary-runtime"]
-enabled = true
-
-[plugins."claude-md-management@claude-plugins-official"]
-enabled = true
-
-[plugins."context7@claude-plugins-official"]
-enabled = true
-
-[plugins."discord@claude-plugins-official"]
-enabled = false
-
-[plugins."fakechat@claude-plugins-official"]
-enabled = false
-
-[plugins."frontend-design@claude-plugins-official"]
-enabled = true
-
-[plugins."skill-creator@claude-plugins-official"]
-enabled = true
-
-[plugins."superpowers@claude-plugins-official"]
-enabled = true
-
-[plugins."vercel@claude-plugins-official"]
-enabled = false
-
-[plugins."computer-use@openai-bundled"]
-enabled = true
-
-[plugins."google-calendar@openai-curated"]
-enabled = true
-
-[plugins."google-drive@openai-curated"]
-enabled = true
-
-[plugins."gmail@openai-curated"]
-enabled = true
-
-[plugins."openai-developers@openai-curated"]
-enabled = true
-
-[plugins."browser-use@openai-bundled"]
-enabled = true
-
-[plugins."chrome@openai-bundled"]
-enabled = true
-
+{{ end -}}
 [shell_environment_policy]
 inherit = "core"
 
 [shell_environment_policy.set]
-CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR = "1"
-CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
+{{- range .ai.env }}
+{{ .name }} = "{{ .value }}"
+{{- end }}
 
 [marketplaces.openai-primary-runtime]
 last_updated = "2026-05-09T05:40:58Z"
