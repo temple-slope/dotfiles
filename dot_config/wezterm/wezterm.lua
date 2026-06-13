@@ -82,6 +82,7 @@ config.keys = {
   { key = 'Enter', mods = 'SHIFT', action = wezterm.action.SendKey { key = 'j', mods = 'CTRL' } },
   -- VSCode 風ショートカット: Neovim 側で <C-A-X> として受信
   { key = 'd', mods = 'CMD', action = wezterm.action.SendKey { key = 'd', mods = 'CTRL|ALT' } },
+  { key = 'a', mods = 'CMD|SHIFT', action = wezterm.action.SendKey { key = 'a', mods = 'CTRL|ALT' } },
   { key = 'p', mods = 'CMD', action = wezterm.action.SendKey { key = 'p', mods = 'CTRL|ALT' } },
   { key = 'p', mods = 'CMD|SHIFT', action = wezterm.action.SendKey { key = 'c', mods = 'CTRL|ALT' } },
   { key = 'f', mods = 'CMD', action = wezterm.action.SendKey { key = 'f', mods = 'CTRL|ALT' } },
