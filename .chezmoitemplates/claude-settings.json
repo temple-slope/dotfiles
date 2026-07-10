@@ -115,31 +115,6 @@
     "command": "python3 ~/.claude/statusline.py",
     "padding": 2
   },
-  "enabledPlugins": {
-    "code-review@claude-plugins-official": true,
-    "discord@claude-plugins-official": true,
-    "ralph-loop@claude-plugins-official": true,
-    "fakechat@claude-plugins-official": true,
-    "context7@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
-    "chrome-devtools-mcp@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "anthropic-agent-skills": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/skills"
-      }
-    },
-    "superpowers-marketplace": {
-      "source": {
-        "source": "github",
-        "repo": "obra/superpowers-marketplace"
-      }
-    }
-  },
   "language": "日本語",
   "sandbox": {
     "network": {
@@ -158,14 +133,5 @@
     "allowUnixSockets": [
       "~/.ssh/control-*"
     ]
-  },
-  "alwaysThinkingEnabled": true,
-  "voice": {
-    "enabled": true,
-    "mode": "hold"
-  },
-  "skipDangerousModePermissionPrompt": true,
-  "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  }
 }

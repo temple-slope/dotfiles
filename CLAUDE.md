@@ -88,6 +88,15 @@ chezmoi で管理しているファイル:
 - `hooks/` - セッションフック
 - `skills/` - カスタムスキル
 
+#### settings.json の modify-template 管理
+
+`~/.claude/settings.json` は `dot_claude/modify_private_settings.json`（`chezmoi:modify-template`）で生成する。Claude Code が実行時に書き込む揮発キーとソース管理キーを分離しているため、通常の静的コピーとは運用が異なる:
+
+- **cz-sync（chezmoi re-add）ではソースに同期されない**（modify_ 管理ファイルは re-add がスキップする）。編集は必ずソース側で行う
+- **managed キー**（`permissions` / `hooks` / `env` / `statusLine` / `sandbox` / `language` / `cleanupPeriodDays`）の恒久変更は `.chezmoitemplates/claude-settings.json` を編集して `chezmoi apply`
+- **揮発キー**（`enabledPlugins` / `extraKnownMarketplaces` / `agentPushNotifEnabled` / `alwaysThinkingEnabled` / `voiceEnabled` / `voice` / `skipDangerousModePermissionPrompt` / `skipAutoPermissionPrompt` の8キー）は各マシンの実行時値が尊重される。新規マシン向けの初期値は `.chezmoitemplates/claude-settings-defaults.json` を編集
+- 実行時に「常に許可」で増えた `permissions.allow` は `chezmoi apply` で消える（mergeOverwrite は配列を置換する）。恒久化するには `.chezmoitemplates/claude-settings.json` に手で追記する
+
 ## CI/CD
 
 GitHub Actions が PR に対して以下の Lint を実行します:

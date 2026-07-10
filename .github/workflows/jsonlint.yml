@@ -59,10 +59,15 @@ jobs:
               stripped = "".join(out)
               return re.sub(r",(\s*[}\]])", r"\1", stripped)
 
+          import os
+
           files = subprocess.check_output(
               ["git", "ls-files", "*.json"],
               text=True,
           ).splitlines()
+
+          # chezmoi modify_ scripts are Go templates, not valid JSON.
+          files = [p for p in files if not os.path.basename(p).startswith("modify_")]
 
           failed = False
           for path in files:
