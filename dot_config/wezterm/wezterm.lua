@@ -144,8 +144,12 @@ local function spawn_nvim_in_tmux(pane, file_path, line)
   wezterm.background_child_process(args)
 end
 
+-- 注意: このルールは必ずデフォルトルールの「後ろ」に追加すること。
+-- wezterm はマッチ長の降順（同長ならルール定義順）でリンクを割り当てるため、
+-- 先頭に挿入すると `https://example.com` のようなパスなし URL（デフォルトの
+-- マッチと同長になる）がこのルールに奪われ、ブラウザで開けなくなる
 local hyperlink_rules = wezterm.default_hyperlink_rules()
-table.insert(hyperlink_rules, 1, {
+table.insert(hyperlink_rules, {
   regex = [==[(?<![A-Za-z0-9_])((?:~|\.{1,2}|/)?[^\s'"<>()\[\]{}|`]*?[A-Za-z0-9_]\.[A-Za-z0-9]{1,6})(?::(\d+))?(?::(\d+))?\b]==],
   format = 'nvim-open:$1#$2',
 })
