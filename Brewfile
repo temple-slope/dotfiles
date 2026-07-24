@@ -17,7 +17,7 @@ brew "colima", restart_service: :changed
 # GNU data recovery tool
 brew "ddrescue"
 # Pack, ship and run any application as a lightweight container
-brew "docker", link: false
+brew "docker"
 # Isolated development environments using Docker
 brew "docker-compose"
 # Access DVDs as block devices without the decryption
@@ -76,6 +76,8 @@ brew "ovsx"
 brew "pipx"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Interpreted, interactive, object-oriented programming language
+brew "python"
 # Sophisticated calendar and alarm
 brew "remind"
 # CLI proxy to minimize LLM token consumption
@@ -125,30 +127,20 @@ brew "steipete/tap/sag"
 brew "yakitrak/yakitrak/obsidian-cli"
 # Command-line interface for 1Password
 cask "1password-cli"
-# Agent orchestration platform
-cask "antigravity"
 # Uninstaller and cleaning assistant
 cask "app-cleaner"
-# 3D creation suite
-cask "blender"
 # Web browser focusing on privacy
 cask "brave-browser"
-# OpenAI's official ChatGPT desktop app
-cask "chatgpt"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Terminal-based AI coding assistant
 cask "claude-code"
-# Ghostty-based terminal with vertical tabs and notifications for AI coding agents
-cask "cmux"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
 # OpenAI's Codex desktop app for managing coding agents
 cask "codex-app"
 # Write, edit, and chat about your code with AI
 cask "cursor"
-# App to build and share containerised applications and microservices
-cask "docker-desktop"
 cask "font-hackgen-nerd"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
@@ -166,12 +158,8 @@ cask "iterm2"
 cask "makemkv"
 # Sandbox construction video game
 cask "minecraft"
-# Knowledge base that works on top of a local folder of plain text Markdown files
-cask "obsidian"
 # Collaboration platform for API development
 cask "postman"
-# Minecraft launcher
-cask "prismlauncher"
 # Team communication and collaboration software
 cask "slack"
 # Mesh VPN based on WireGuard
