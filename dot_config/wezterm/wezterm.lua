@@ -93,6 +93,29 @@ config.keys = {
   { key = 'l', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'l', mods = 'CTRL|ALT' } },
 }
 
+-- マウス選択しただけでシステムクリップボードにコピーする
+-- （デフォルトは PrimarySelection のみで、macOS ではクリップボードに入らない）
+config.mouse_bindings = {
+  -- ドラッグ選択の確定時（リンク上ならリンクを開くデフォルト挙動も維持）
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'NONE',
+    action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor 'ClipboardAndPrimarySelection',
+  },
+  -- ダブルクリック（単語選択）
+  {
+    event = { Up = { streak = 2, button = 'Left' } },
+    mods = 'NONE',
+    action = wezterm.action.CompleteSelection 'ClipboardAndPrimarySelection',
+  },
+  -- トリプルクリック（行選択）
+  {
+    event = { Up = { streak = 3, button = 'Left' } },
+    mods = 'NONE',
+    action = wezterm.action.CompleteSelection 'ClipboardAndPrimarySelection',
+  },
+}
+
 -- ファイルパスのハイパーリンクを CMD+クリックで tmux の隣 pane の nvim で開く
 --
 -- 公式 recipe (https://wezterm.org/recipes/hyperlinks.html) に沿って 2 層構成:
@@ -111,11 +134,25 @@ local function get_tmux_active_pane_cwd()
   return nil
 end
 
-local function spawn_nvim_in_tmux(pane, file_path, line)
-  if file_path:sub(1, 1) == '~' then
-    file_path = (os.getenv('HOME') or '') .. file_path:sub(2)
+-- 相対パスを tmux アクティブ pane の cwd で絶対化し、~ を展開する
+local function resolve_file_path(path)
+  if path:sub(1, 1) == '~' then
+    path = (os.getenv('HOME') or '') .. path:sub(2)
   end
+  if path:sub(1, 1) ~= '/' then
+    local cwd = get_tmux_active_pane_cwd()
+    if cwd then path = cwd .. '/' .. path end
+  end
+  return path
+end
 
+local function file_exists(path)
+  local f = io.open(path, 'r')
+  if f then f:close() return true end
+  return false
+end
+
+local function spawn_nvim_in_tmux(pane, file_path, line)
   -- tmux のアクティブ pane の cwd を優先（wezterm 側 cwd は OSC-7 未送信時に古くなるため）
   local cwd = get_tmux_active_pane_cwd()
   if not cwd then
@@ -150,7 +187,7 @@ end
 -- マッチと同長になる）がこのルールに奪われ、ブラウザで開けなくなる
 local hyperlink_rules = wezterm.default_hyperlink_rules()
 table.insert(hyperlink_rules, {
-  regex = [==[(?<![A-Za-z0-9_])((?:~|\.{1,2}|/)?[^\s'"<>()\[\]{}|`]*?[A-Za-z0-9_]\.[A-Za-z0-9]{1,6})(?::(\d+))?(?::(\d+))?\b]==],
+  regex = [==[(?<![A-Za-z0-9_])((?:~|\.{1,2}|/)?[^\s'"<>()\[\]{}|`]*?(?:[A-Za-z0-9_]\.[A-Za-z0-9]{1,10}|\.[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?))(?::(\d+))?(?::(\d+))?\b]==],
   format = 'nvim-open:$1#$2',
 })
 config.hyperlink_rules = hyperlink_rules
@@ -167,7 +204,12 @@ wezterm.on('open-uri', function(window, pane, uri)
   if uri:match('^nvim%-open:') then
     local path, line = uri:match('^nvim%-open:(.+)#(%d*)$')
     if path then
-      spawn_nvim_in_tmux(pane, path, line)
+      local abs = resolve_file_path(path)
+      if file_exists(abs) then
+        spawn_nvim_in_tmux(pane, abs, line)
+      else
+        wezterm.log_info('nvim-open: skip non-existent path: ' .. abs)
+      end
     end
     return false
   end
