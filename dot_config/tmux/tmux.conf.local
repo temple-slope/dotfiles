@@ -514,6 +514,19 @@ set -g @thumbs-select-bg-color black
 set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
 set -g @thumbs-upcase-command 'tmux new-window "nvim {}"'
 
+# 画面上の URL / ファイルパスを fzf で列挙して開く（capture-pane -J で折り返し行も結合）
+# https://github.com/alberti42/tmux-fzf-links
+set -g @plugin 'alberti42/tmux-fzf-links'
+# デフォルトの C-h は Oh my tmux! の previous-window と衝突するため O ("Open") に変更
+set -g @fzf-links-key 'O'
+# macOS 標準 python3 は 3.9 でプラグイン要件（3.10+）を満たさないため Homebrew 版を明示
+set -g @fzf-links-python '/opt/homebrew/bin/python3'
+set -g @fzf-links-fzf-path '/opt/homebrew/bin/fzf'
+set -g @fzf-links-path-extension '/opt/homebrew/bin'
+# ファイルは右 split の nvim で行番号付きオープン（%file は絶対パス、行番号なし時 %line=1）
+set -g @fzf-links-editor-open-cmd "tmux split-window -h -c '#{pane_current_path}' /opt/homebrew/bin/nvim +%line '%file'"
+set -g @fzf-links-browser-open-cmd "open '%url'"
+
 
 # -- custom variables ----------------------------------------------------------
 
