@@ -4,6 +4,8 @@ tap "oven-sh/bun", trusted: true
 tap "steipete/tap", trusted: true
 tap "xdevplatform/tap", trusted: true
 tap "yakitrak/yakitrak", trusted: true
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -18,14 +20,14 @@ brew "colima", restart_service: :changed
 brew "ddrescue"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
+brew "docker-buildx"
 # Isolated development environments using Docker
 brew "docker-compose"
 # Access DVDs as block devices without the decryption
 brew "libdvdcss"
 # Rip DVD's from the command-line
 brew "dvdbackup"
-# Perl lib for reading and writing EXIF metadata
-brew "exiftool"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find
@@ -58,6 +60,12 @@ brew "lazydocker"
 brew "lazygit"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
+# Tool for linting and static analysis of Lua code
+brew "luacheck"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
+# Media player based on MPlayer and mplayer2
+brew "mpv"
 # NCurses Disk Usage
 brew "ncdu"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -72,18 +80,12 @@ brew "ripgrep"
 brew "opencode"
 # Command-line interface for Eclipse Open VSX
 brew "ovsx"
-# Execute binaries from Python packages in isolated environments
-brew "pipx"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
-# Interpreted, interactive, object-oriented programming language
-brew "python"
 # Sophisticated calendar and alarm
 brew "remind"
 # CLI proxy to minimize LLM token consumption
 brew "rtk"
-# Safe, concurrent, practical language
-brew "rust"
 # Rust toolchain installer
 brew "rustup"
 # Fast, configurable, shell plugin manager
@@ -100,16 +102,18 @@ brew "tmux"
 brew "urlview"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Port of OpenAI's Whisper model in C/C++
+brew "whisper-cpp"
+# Generate your Xcode project from a spec file and your folder structure
+brew "xcodegen"
 # Blazing fast terminal file manager written in Rust, based on async I/O
 brew "yazi"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
-# Feature-rich command-line audio/video downloader
-brew "yt-dlp"
 # CLI app to manage your Apple Notes and Apple reminders
 brew "antoniorodr/memo/memo"
 # Modern Go client + CLI for the Google Places API (New).
-brew "openclaw/tap/goplaces"
+brew "openclaw/tap/goplaces", link: false
 # WhatsApp CLI built on whatsmeow
 brew "openclaw/tap/wacli"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
@@ -124,7 +128,7 @@ brew "steipete/tap/imsg"
 brew "steipete/tap/remindctl"
 # Command-line ElevenLabs TTS with mac-style flags
 brew "steipete/tap/sag"
-brew "yakitrak/yakitrak/obsidian-cli"
+brew "yakitrak/yakitrak/notesmd-cli", link: false
 # Command-line interface for 1Password
 cask "1password-cli"
 # Uninstaller and cleaning assistant
@@ -134,38 +138,32 @@ cask "brave-browser"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Terminal-based AI coding assistant
-cask "claude-code"
+cask "claude-code@latest"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
 # OpenAI's Codex desktop app for managing coding agents
 cask "codex-app"
-# Write, edit, and chat about your code with AI
-cask "cursor"
 cask "font-hackgen-nerd"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
-# Web browser
-cask "google-chrome"
 # Client for the Google Drive storage service
 cask "google-drive"
 # Japanese input software
 cask "google-japanese-ime"
-# Speech to text application
-cask "handy"
+# Modern Go client + CLI for the Google Places API (New).
+cask "openclaw/tap/goplaces"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Video format converter (transcoder)
 cask "makemkv"
 # Sandbox construction video game
 cask "minecraft"
-# Collaboration platform for API development
-cask "postman"
 # Team communication and collaboration software
 cask "slack"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "wezterm"
+cask "wezterm@nightly"
 # Auth-enabled curl-like CLI for the X API
 cask "xdevplatform/tap/xurl"
 # Video communication and virtual meeting platform
@@ -195,6 +193,7 @@ vscode "tomoki1207.pdf"
 vscode "vscodevim.vim"
 vscode "yzane.markdown-pdf"
 uv "nano-pdf"
+uv "osxphotos"
 npm "@types/node"
 npm "@vscode/vsce"
 npm "agent-browser"
