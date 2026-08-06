@@ -69,9 +69,14 @@
 .codex/log/
 .codex/sessions/
 .codex/plugins/
-.codex/skills/
 .codex/rules/
 .codex/.tmp/
+
+# Codex のスキルは CLI/プラグインが自動生成するため既定で管理外。
+# ただし Claude と共有する自作スキルはシンボリックリンクとして管理する。
+.codex/skills/*
+!.codex/skills/gcloud
+!.codex/skills/inbox-triage
 
 # gws CLI が ~/.claude/skills/gws-* を直接生成・更新するため chezmoi 管理外。
 # 独自スキルは別名（例: inbox-triage）で dot_claude/skills/ 配下に置く。

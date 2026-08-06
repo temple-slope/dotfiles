@@ -16,6 +16,18 @@ trust = "trusted"
 path = "Documents/Development/copy-path-line"
 trust = "trusted"
 
+[[ai.projects]]
+path = "Documents/Development/fu-chan-rakuten-rms"
+trust = "trusted"
+
+[[ai.projects]]
+path = "Documents/Development/moomoo-trader"
+trust = "trusted"
+
+[[ai.projects]]
+path = "Development/moomoo-trader"
+trust = "trusted"
+
 [[ai.codex_plugins]]
 id = "documents@openai-primary-runtime"
 enabled = true

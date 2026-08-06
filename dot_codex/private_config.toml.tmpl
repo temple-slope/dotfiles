@@ -1,5 +1,6 @@
 model = "gpt-5.5"
 model_reasoning_effort = "medium"
+notify = ["{{ .chezmoi.homeDir }}/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
 {{ range .ai.projects -}}
 [projects."{{ $.chezmoi.homeDir }}/{{ .path }}"]
@@ -14,6 +15,9 @@ trust_level = "{{ .trust }}"
 enabled = {{ .enabled }}
 
 {{ end -}}
+[features]
+memories = true
+
 [shell_environment_policy]
 inherit = "core"
 
@@ -21,6 +25,11 @@ inherit = "core"
 {{- range .ai.env }}
 {{ .name }} = "{{ .value }}"
 {{- end }}
+
+[marketplaces.openai-bundled]
+last_updated = "2026-07-16T07:48:52Z"
+source_type = "local"
+source = "{{ .chezmoi.homeDir }}/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
 last_updated = "2026-05-09T05:40:58Z"
@@ -30,22 +39,8 @@ source = "{{ .chezmoi.homeDir }}/.cache/codex-runtimes/codex-primary-runtime/plu
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 
-[hooks.state]
-
-[hooks.state."{{ .chezmoi.homeDir }}/.codex/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:611801ec2e3d969b804521d5f231f6581b43d6af10a5b6406fab874286644e3b"
-
-[hooks.state."{{ .chezmoi.homeDir }}/.codex/hooks.json:stop:0:0"]
-trusted_hash = "sha256:5122b78f6af845550034f63d7c1cf0ec710efcbbe37f5a11ce303c4ee970cc72"
-
-[hooks.state."superpowers@claude-plugins-official:hooks/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:62acbaff2b2f55f41971e21a164990aaa53c96919baa0a5eae2eb5db73b9e6e6"
-
-[hooks.state."vercel@claude-plugins-official:hooks/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:3854f8501763b92012b4def8de676279493adfbaec8cc1d00ce72b8e80341b1c"
-
-[hooks.state."vercel@claude-plugins-official:hooks/hooks.json:session_start:0:1"]
-trusted_hash = "sha256:34d8e6e4abd36e2448fe0032fd7a20e075b3c985eea7290379689add51264a03"
-
-[hooks.state."vercel@claude-plugins-official:hooks/hooks.json:session_start:0:2"]
-trusted_hash = "sha256:2ebad29288ff7fb558b111a94eea88404fdd80f7739be1bea8098ddea09b31d0"
+[desktop]
+ambient-suggestions-enabled = false
+conversationDetailMode = "STEPS_COMMANDS"
+followUpQueueMode = "queue"
+dock-icon-preference = "codex-system"
