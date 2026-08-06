@@ -1,27 +1,19 @@
 {
-  "mcpServers": {
-    "tradingview-mcp": {
-      "command": "uv",
-      "args": [
-        "tool",
-        "run",
-        "--from",
-        "git+https://github.com/temple-slope/tradingview-mcp.git",
-        "tradingview-mcp"
-      ]
-    }
-  },
+  "mcpServers": {},
+  "coworkUserFilesPath": "{{ .chezmoi.homeDir }}/Claude",
   "preferences": {
     "quickEntryDictationShortcut": {
       "accelerator": "Cmd+Shift+Alt+Space"
     },
-    "launchPreviewPersistSession": true,
+    "launchPreviewPersistedWorkspaces": [],
+    "launchPreviewSessionScopedSessions": [],
     "localAgentModeTrustedFolders": [
       "{{ .chezmoi.homeDir }}/Pictures",
       "{{ .chezmoi.homeDir }}/Downloads"
     ],
     "allowAllBrowserActions": true,
     "coworkScheduledTasksEnabled": true,
+    "coworkHipaaRestricted": false,
     "ccdScheduledTasksEnabled": true,
     "sidebarMode": "chat",
     "bypassPermissionsModeEnabled": true,
@@ -29,16 +21,16 @@
     "coworkWebSearchEnabled": true,
     "keepAwakeEnabled": true,
     "chicagoEnabled": true,
+    "remoteToolsDeviceName": "mac-mini-m4-local",
     "epitaxyPrefs": {
       "starred-local-code-sessions": [],
       "starred-cowork-spaces": [],
       "starred-session-groups": [],
       "dframe-local-slice": {
         "pinnedOrder": [],
-        "customGroupAssignments": {},
-        "customGroupOrder": {}
-      }
-    },
-    "remoteToolsDeviceName": "mac-mini-m4-local"
+        "homeProjectsPinnedOrder": []
+      },
+      "dframe-group-scopes": {}
+    }
   }
 }
