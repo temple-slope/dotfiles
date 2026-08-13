@@ -24,6 +24,8 @@ brew "docker"
 brew "docker-buildx"
 # Isolated development environments using Docker
 brew "docker-compose"
+# Platform keystore credential helper for Docker
+brew "docker-credential-helper"
 # Access DVDs as block devices without the decryption
 brew "libdvdcss"
 # Rip DVD's from the command-line
@@ -44,6 +46,8 @@ brew "gh"
 brew "git"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# Quickly rewrite git repository history
+brew "git-filter-repo"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
@@ -128,7 +132,7 @@ brew "steipete/tap/imsg"
 brew "steipete/tap/remindctl"
 # Command-line ElevenLabs TTS with mac-style flags
 brew "steipete/tap/sag"
-brew "yakitrak/yakitrak/notesmd-cli", link: false
+brew "yakitrak/yakitrak/notesmd-cli", link: false, trusted: true
 # Command-line interface for 1Password
 cask "1password-cli"
 # Uninstaller and cleaning assistant
