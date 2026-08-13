@@ -1,9 +1,12 @@
 ---
 name: agent-browser
-description: ブラウザ操作を自動化する。Webテスト、フォーム入力、スクリーンショット取得、データ抽出に使用する。
+description: 【非推奨】agent-browser CLI によるブラウザ自動化。通常は chrome-devtools MCP を使い、このスキルはユーザーが agent-browser を明示指定した場合のみ使用する。
 ---
 
 # agent-browser によるブラウザ自動化
+
+> **非推奨**: ブラウザ操作の既定は chrome-devtools MCP（`/chrome-devtools-mcp:chrome-devtools`）。
+> このスキルはユーザーが `agent-browser` を明示的に指定した場合のみ使用する。
 
 ## 前提条件
 

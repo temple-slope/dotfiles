@@ -40,7 +40,9 @@
 
 ### ウェブ検索・ブラウザ操作
 
-- 通常は `WebSearch` / `WebFetch` ツールを使い、動的コンテンツ・ログイン必須・ページ操作が必要な場合は `/agent-browser` スキルにフォールバックする
+- 通常は `WebSearch` / `WebFetch` ツールを使い、動的コンテンツ・ログイン必須・ページ操作が必要な場合は **chrome-devtools MCP**（`mcp__plugin_chrome-devtools-mcp_chrome-devtools__*` / `/chrome-devtools-mcp:chrome-devtools` スキル）を使う
+- サブエージェントにブラウザ作業を委譲する場合も chrome-devtools MCP を使わせる
+- `/agent-browser` スキルは**非推奨**。ユーザーが明示的に指定した場合のみ使用する
 
 ### サブエージェント活用
 
