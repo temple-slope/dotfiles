@@ -53,17 +53,17 @@ switch_tab = "prefix+1..9"
 # --- ワークスペース（tmux の session）---
 # c で新しいスペース（ワークスペース）を作る
 new_workspace = "prefix+c"
-# r / $ でスペース名変更。prefix+s（spaces 欄）で選択中に r を押すと、選んでいるスペースの名前を変える
+# r / $ でスペース名変更。prefix+S（spaces 欄）で選択中に r を押すと、選んでいるスペースの名前を変える
 rename_workspace = ["prefix+r", "prefix+$"]
 # K / J（と ( / )）で前 / 次のスペース
 previous_workspace = ["prefix+shift+k", "prefix+("]
 next_workspace = ["prefix+shift+j", "prefix+)"]
-# x: スペースを閉じる（確認あり）。prefix+s（spaces 欄）で選択中に x を押すと、選んでいるスペースを閉じる
+# x: スペースを閉じる（確認なし）。prefix+S（spaces 欄）で選択中に x を押すと、選んでいるスペースを閉じる
 close_workspace = "prefix+x"
-# s: サイドバーの spaces 欄へフォーカス（↑↓で選択、Enter で決定、Esc で抜ける）
-workspace_picker = "prefix+s"
-# S: スペース・エージェント・ターミナル全体の一覧
-goto = "prefix+shift+s"
+# S: サイドバーの spaces 欄へフォーカス（j/k で選択、Enter で決定、Esc で抜ける）
+workspace_picker = "prefix+shift+s"
+# s: スペース・エージェント・ターミナル全体の一覧
+goto = "prefix+s"
 # a / A: agents 欄の並び順で次 / 前のエージェントへ移動（agents 欄の強調表示も移る）
 next_agent = "prefix+a"
 previous_agent = "prefix+shift+a"
