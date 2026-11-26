@@ -42,6 +42,7 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 - `Brewfile` - `brew bundle` で管理する Homebrew パッケージ
 - `run_once_*.sh.tmpl` - 初回セットアップスクリプト（パッケージインストール、macOS 設定、tmux セットアップ）
 - `.google-ime/` - Google日本語入力の設定（`config.toml`）とユーザー辞書（`user_dictionary.tsv`、git 管理外）。`run_onchange_after_google-ime.sh.tmpl` が `google_ime.py` で protobuf DB に反映する
+- `dot_config/ai-usage/` - AI のレート制限使用量を herdr のタブバー右端に表示する（`ai_usage.py`。Claude は statusline.py が `record` で push、Codex はセッションログを pull。AI の追加は `ADAPTERS` と `config.json` に 1 つずつ足す）
 
 ### Zsh 設定構造
 

@@ -1,0 +1,7 @@
+{
+  "stale_hours": 6,
+  "providers": [
+    { "id": "claude", "name": "✻" },
+    { "id": "codex", "name": "Codex" }
+  ]
+}

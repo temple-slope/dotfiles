@@ -5,9 +5,19 @@ import os
 import re
 import subprocess
 import sys
-from datetime import datetime
 
-data = json.load(sys.stdin)
+raw = sys.stdin.read()
+data = json.loads(raw)
+
+# レート制限（5h / 7d）は herdr のタブバーに表示するため、共通キャッシュへ渡すだけにする
+try:
+    subprocess.run(
+        [sys.executable, os.path.expanduser("~/.config/ai-usage/ai_usage.py"), "record", "claude"],
+        input=raw, text=True, timeout=2, check=False,
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    )
+except Exception:
+    pass
 
 BLOCKS = " \u258f\u258e\u258d\u258c\u258b\u258a\u2589\u2588"
 R = "\033[0m"
@@ -46,7 +56,6 @@ def fmt(label, pct):
     return f"{label} {gradient(pct)}{bar(pct)} {p}%{R}"
 
 
-# --- Line 1: Git | Branch | Model ---
 cwd = data.get("cwd", os.getcwd())
 
 git_part = ""
@@ -155,48 +164,16 @@ except Exception:
 model = data.get("model", {}).get("display_name", "")
 model_part = f"\U0001f9e0 {model}" if model else ""
 
-line1_parts = [p for p in [git_part, model_part] if p]
-line1 = f" {DIM}\u2502{R} ".join(line1_parts) if line1_parts else ""
-
-# --- Line 2: Context | 5h | 7d ---
-line2_parts = []
+# --- 1 行: Git | Branch | Model | Context | Cost ---
+parts = [p for p in [git_part, model_part] if p]
 
 ctx = data.get("context_window", {}).get("used_percentage")
 if ctx is not None:
-    line2_parts.append(fmt("\U0001f4ad ctx", ctx))
-
-five_data = data.get("rate_limits", {}).get("five_hour", {})
-five = five_data.get("used_percentage")
-if five is not None:
-    seg = fmt("\u23f3 5h", five)
-    resets_at = five_data.get("resets_at")
-    if resets_at is not None:
-        hhmm = datetime.fromtimestamp(resets_at).strftime("%H:%M")
-        seg += f" {DIM}\u21bb{hhmm}{R}"
-    line2_parts.append(seg)
-
-seven_data = data.get("rate_limits", {}).get("seven_day", {})
-week = seven_data.get("used_percentage")
-if week is not None:
-    seg = fmt("\U0001f4c5 7d", week)
-    week_resets_at = seven_data.get("resets_at")
-    if week_resets_at is not None:
-        dt = datetime.fromtimestamp(week_resets_at)
-        seg += f" {DIM}\u21bb{dt.month}/{dt.day}{R}"
-    line2_parts.append(seg)
+    parts.append(fmt("\U0001f4ad ctx", ctx))
 
 # Session cost (cost.total_cost_usd)
-cost = data.get("cost", {})
-total_cost = cost.get("total_cost_usd")
+total_cost = data.get("cost", {}).get("total_cost_usd")
 if total_cost is not None:
-    line2_parts.append(f"{DIM}${total_cost:.2f}{R}")
+    parts.append(f"{DIM}${total_cost:.2f}{R}")
 
-line2 = f" {DIM}\u2502{R} ".join(line2_parts) if line2_parts else ""
-
-# --- Output ---
-if line1:
-    print(line1)
-if line2:
-    print(line2, end="" if not line1 else "\n" if line2 else "")
-    if not line1:
-        print(end="")
+print(f" {DIM}\u2502{R} ".join(parts), end="")

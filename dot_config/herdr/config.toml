@@ -141,8 +141,10 @@ accent = "#00afff"
 # tmux 風の見た目: 外枠・ペイン間の隙間なしで区切り線だけ引く
 pane_outer_borders = false
 pane_gaps = false
-# タブが 1 枚のときはタブ行を隠す（2 枚以上で表示される）
-hide_tab_bar_when_single_tab = true
+# タブが 1 枚でもタブ行を出す（右端の AI 使用量を常に見せるため）
+hide_tab_bar_when_single_tab = false
+# タブ行（右端の AI 使用量を含む）を画面下に置く
+tab_bar_position = "bottom"
 # スペースなどを閉じるときに確認を出さない（prefix+x で即閉じる）
 confirm_close = false
 # エージェント状態を形の違う記号で出す（× 入力待ち / ◐ 作業中 / ✓ 完了 / ○ 待機中 / · エージェントなし）
@@ -150,6 +152,8 @@ confirm_close = false
 status_indicators = "symbols"
 # tmux の terminal_title（#h ❐ #S ● #I #W）相当
 window_title = "{hostname} ❐ {workspace} ● {tab}"
+# タブ行の右端に AI の使用量（5h / 7d 制限）を出す。中身は ~/.config/ai-usage/
+tab_bar_right = [{ type = "command", command = "python3 \"$HOME/.config/ai-usage/ai_usage.py\" show", interval_seconds = 30, timeout_seconds = 5 }]
 
 [experimental]
 # tmux-resurrect / continuum 相当: サーバー再起動後もペインの画面履歴を復元する
