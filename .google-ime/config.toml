@@ -1,0 +1,78 @@
+# Google日本語入力の設定（chezmoi apply で config1.db に反映）
+# ここに書いた項目だけを上書きし、それ以外の設定は GUI の値を保持する。
+# 反映: .google-ime/google_ime.py config（run_onchange_after_google-ime.sh.tmpl から実行）
+
+# キー設定: kotoeri (Mac 標準と同じ。Ctrl+J ひらがな / Ctrl+K カタカナ / Ctrl+L 全角英字 / Ctrl+; 半角 / Ctrl+: 半角英字)
+# 独自キーマップ・ローマ字テーブルは空にして標準を使う（zh/zj/zk/zl で ←↓↑→ 等は標準テーブルに含まれる）
+keymap = "kotoeri"
+
+# スペースの入力: input_mode | full | half
+space_character_form = "half"
+
+# 半角/全角の文字種ルール（上から順に評価）
+# preedit = 変換前, conversion = 変換後。値: half | full | last(直前の形) | no_conversion
+[[character_form_rules]]
+group = "ア"
+preedit = "full"
+conversion = "full"
+
+[[character_form_rules]]
+group = "A"
+preedit = "full"
+conversion = "last"
+
+[[character_form_rules]]
+group = "0"
+preedit = "full"
+conversion = "last"
+
+# ASCII 記号は常に半角、和文記号（、。・「」）は全角のまま
+[[character_form_rules]]
+group = "(){}[]"
+preedit = "half"
+conversion = "half"
+
+[[character_form_rules]]
+group = ".,"
+preedit = "half"
+conversion = "half"
+
+[[character_form_rules]]
+group = "。、"
+preedit = "full"
+conversion = "full"
+
+[[character_form_rules]]
+group = "・「」"
+preedit = "full"
+conversion = "full"
+
+[[character_form_rules]]
+group = "\"'"
+preedit = "half"
+conversion = "half"
+
+[[character_form_rules]]
+group = ":;"
+preedit = "half"
+conversion = "half"
+
+[[character_form_rules]]
+group = "#%&@$^_|`\\"
+preedit = "half"
+conversion = "half"
+
+[[character_form_rules]]
+group = "~"
+preedit = "half"
+conversion = "half"
+
+[[character_form_rules]]
+group = "<>=+-/*"
+preedit = "half"
+conversion = "half"
+
+[[character_form_rules]]
+group = "?!"
+preedit = "half"
+conversion = "half"

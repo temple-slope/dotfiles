@@ -11,3 +11,6 @@ private_dot_ssh/config.local
 private_dot_ssh/private_config.local
 skills-lock.json
 tsconfig.json
+
+# Google日本語入力のユーザー辞書（ローカル管理）
+.google-ime/user_dictionary.tsv

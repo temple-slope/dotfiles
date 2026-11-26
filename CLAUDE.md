@@ -41,6 +41,7 @@ git ls-files '*.sh' '*.sh.tmpl' | xargs -r shellcheck --severity=warning
 - `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（`.env.chezmoi` から Git 認証情報を取得）
 - `Brewfile` - `brew bundle` で管理する Homebrew パッケージ
 - `run_once_*.sh.tmpl` - 初回セットアップスクリプト（パッケージインストール、macOS 設定、tmux セットアップ）
+- `.google-ime/` - Google日本語入力の設定（`config.toml`）とユーザー辞書（`user_dictionary.tsv`、git 管理外）。`run_onchange_after_google-ime.sh.tmpl` が `google_ime.py` で protobuf DB に反映する
 
 ### Zsh 設定構造
 

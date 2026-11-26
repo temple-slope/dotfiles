@@ -1,0 +1,27 @@
+#!/bin/bash
+# Google日本語入力の設定・ユーザー辞書を .google-ime/ から反映する。
+# 以下のハッシュが変わったときだけ実行される:
+# google_ime.py: {{ include ".google-ime/google_ime.py" | sha256sum }}
+# config.toml: {{ include ".google-ime/config.toml" | sha256sum }}
+{{- $dict := joinPath .chezmoi.sourceDir ".google-ime/user_dictionary.tsv" }}
+{{- if stat $dict }}
+# user_dictionary.tsv: {{ include ".google-ime/user_dictionary.tsv" | sha256sum }}
+{{- end }}
+
+set -euo pipefail
+
+src={{ joinPath .chezmoi.sourceDir ".google-ime" | quote }}
+data_dir="$HOME/Library/Application Support/Google/JapaneseInput"
+
+if [ ! -d "$data_dir" ]; then
+  echo "Google Japanese Input not found. Skipping."
+  exit 0
+fi
+
+python3 "$src/google_ime.py" config "$src/config.toml"
+if [ -f "$src/user_dictionary.tsv" ]; then
+  python3 "$src/google_ime.py" dict "$src/user_dictionary.tsv"
+fi
+
+# 変換エンジンを再起動して再読込させる（次のキー入力で自動起動する）
+killall GoogleJapaneseInputConverter 2>/dev/null || true
