@@ -54,6 +54,8 @@ brew "go"
 brew "googleworkspace-cli"
 # Open-source video transcoder available for Linux, Mac, and Windows
 brew "handbrake"
+# Agent multiplexer that lives in your terminal
+brew "herdr"
 # Improved top (interactive process viewer)
 brew "htop"
 # Lightweight and flexible command-line JSON processor

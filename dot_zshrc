@@ -1,6 +1,11 @@
-# SSH接続時はリモート側のtmuxセッションに自動で入る（exec で置き換えるため抜けるとSSHも切れる）
-if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]] && command -v tmux >/dev/null 2>&1 && [ -t 1 ]; then
-  exec tmux new-session -A -s default
+# SSH接続時はリモート側のherdrセッションに自動で入る（herdrが無い環境はtmux）
+# herdrのサーバーは常駐するため、SSHが切れても作業は止まらず、再接続で同じ画面に戻る
+if [[ -n "$SSH_CONNECTION" && -z "$HERDR_ENV" && -z "$TMUX" ]] && [ -t 1 ]; then
+  if command -v herdr >/dev/null 2>&1; then
+    exec herdr
+  elif command -v tmux >/dev/null 2>&1; then
+    exec tmux new-session -A -s default
+  fi
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.

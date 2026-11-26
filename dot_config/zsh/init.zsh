@@ -1,8 +1,8 @@
 #!/bin/zsh
-# tmuxを起動していない場合は起動する（SSH接続時はスキップ）
-if command -v tmux >/dev/null 2>&1; then
-  if [ -z "$TMUX" ] && [ -n "$PS1" ] && [ -t 1 ] && [ -z "$SSH_CONNECTION" ]; then
-    tmux attach-session -t default 2>/dev/null || tmux new-session -s default
+# herdrを起動していない場合は起動・再アタッチする（SSH接続時・tmux内はスキップ）
+if command -v herdr >/dev/null 2>&1; then
+  if [ -z "$HERDR_ENV" ] && [ -z "$TMUX" ] && [ -n "$PS1" ] && [ -t 1 ] && [ -z "$SSH_CONNECTION" ]; then
+    herdr
   fi
 fi
 

@@ -1,0 +1,129 @@
+# herdr 設定（tmux / oh-my-tmux のキーバインドに合わせている）
+# 既定値の全体は `herdr --default-config` で確認できる
+# herdr がこのファイルへ設定を書き戻すことがあるので、変更後は chezmoi re-add で同期する
+
+onboarding = false
+
+[keys]
+# tmux（oh-my-tmux + tmux.conf.local）で実際に効いていた割り当てに合わせている
+# tmux に対応する操作が無いものは herdr の既定値のまま、tmux 側で別機能だったキーは付け替えている
+prefix = ["ctrl+b", "ctrl+a"]
+
+# --- ペイン ---
+# 分割: - / " で上下、_ / % で左右
+split_horizontal = ["prefix+minus", 'prefix+"']
+split_vertical = ["prefix+_", "prefix+%"]
+# 移動: h/j/k/l と矢印、; で直前のペイン、o で次のペイン
+focus_pane_left = ["prefix+h", "prefix+left"]
+focus_pane_down = ["prefix+j", "prefix+down"]
+focus_pane_up = ["prefix+k", "prefix+up"]
+focus_pane_right = ["prefix+l", "prefix+right"]
+last_pane = "prefix+;"
+cycle_pane_next = "prefix+o"
+cycle_pane_previous = ""
+# リサイズ: ctrl+alt+h/j/k/l（prefix なしで押しっぱなし可）、prefix+H/J/K/L、alt+矢印、ctrl+矢印
+# 注: WezTerm が ctrl+shift+h/l を ctrl+alt+h/l に変換しているため、それらもリサイズになる
+resize_pane_left = ["ctrl+alt+h", "prefix+shift+h", "prefix+alt+left", "prefix+ctrl+left"]
+resize_pane_down = ["ctrl+alt+j", "prefix+shift+j", "prefix+alt+down", "prefix+ctrl+down"]
+resize_pane_up = ["ctrl+alt+k", "prefix+shift+k", "prefix+alt+up", "prefix+ctrl+up"]
+resize_pane_right = ["ctrl+alt+l", "prefix+shift+l", "prefix+alt+right", "prefix+ctrl+right"]
+# tmux の連打の代わり: m でリサイズモード（h/j/k/l を連打、Esc で抜ける）
+resize_mode = "prefix+m"
+# 入れ替え: < / > と { / }
+swap_pane_left = "prefix+<"
+swap_pane_right = "prefix+>"
+swap_pane_up = "prefix+{"
+swap_pane_down = "prefix+}"
+# その他: x で閉じる、z / + でズーム、r / T でペイン名変更
+close_pane = "prefix+x"
+zoom = ["prefix+z", "prefix+plus"]
+rename_pane = ["prefix+r", "prefix+shift+t"]
+
+# --- タブ（tmux の window）---
+# タブは使わないので新規作成キーは割り当てない（c は新しいスペース）
+new_tab = ""
+rename_tab = "prefix+comma"
+previous_tab = "prefix+ctrl+h"
+next_tab = "prefix+ctrl+l"
+close_tab = "prefix+&"
+switch_tab = "prefix+1..9"
+
+# --- ワークスペース（tmux の session）---
+# c で新しいスペース（ワークスペース）を作る
+new_workspace = "prefix+c"
+# R / $ でスペース（ワークスペース）名変更
+rename_workspace = ["prefix+shift+r", "prefix+$"]
+previous_workspace = "prefix+("
+next_workspace = "prefix+)"
+close_workspace = ""
+# s: サイドバーの spaces 欄へフォーカス（↑↓で選択、Enter で決定、Esc で抜ける）
+workspace_picker = "prefix+s"
+# S / w / g: スペース・エージェント・ターミナル全体の一覧
+goto = ["prefix+shift+s", "prefix+w", "prefix+g"]
+# a / A: agents 欄の並び順で次 / 前のエージェントへ移動（agents 欄の強調表示も移る）
+next_agent = "prefix+a"
+previous_agent = "prefix+shift+a"
+# spaces 欄（NAVIGATE モード）は j/k で上下。ペイン移動は prefix+h/j/k/l を使う
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+navigate_pane_up = ""
+navigate_pane_down = ""
+
+# --- その他 ---
+detach = "prefix+d"
+copy_mode = ["prefix+enter", "prefix+["]
+# Tab: tmux の extrakto 相当（スクロールバックをエディタで開く）
+edit_scrollback = "prefix+tab"
+# 設定リロードは prefix+e の編集後に自動で行う
+reload_config = ""
+help = "prefix+?"
+# C: tmux の customize-mode 相当
+settings = "prefix+shift+c"
+toggle_sidebar = "prefix+b"
+open_notification_target = "prefix+shift+o"
+new_worktree = ""
+
+# p: tmux-floax 相当のフローティングシェル
+[[keys.command]]
+key = "prefix+p"
+type = "popup"
+command = "zsh"
+width = "80%"
+height = "80%"
+
+# e: 設定ファイルの編集（chezmoi のソースを開いて保存時に適用）
+[[keys.command]]
+key = "prefix+e"
+type = "popup"
+command = "chezmoi edit --apply ~/.config/herdr/config.toml && herdr server reload-config >/dev/null"
+width = "80%"
+height = "80%"
+
+# ctrl+s: tmux-resurrect の保存。herdr は自動保存のため何もしない（設定画面が開くのを防ぐ）
+[[keys.command]]
+key = "prefix+ctrl+s"
+type = "shell"
+command = "true"
+
+[theme]
+name = "terminal"
+auto_switch = false
+
+[ui]
+# tmux と同じく prefix+c で名前を聞かずにタブを作る
+prompt_new_tab_name = false
+# tmux のアクティブペイン枠色（tmux_conf_theme_colour_4）に合わせる
+accent = "#00afff"
+# tmux 風の見た目: 外枠・ペイン間の隙間なしで区切り線だけ引く
+pane_outer_borders = false
+pane_gaps = false
+# タブは使わないので 1 枚のときはタブ行を隠す
+hide_tab_bar_when_single_tab = true
+# tmux の terminal_title（#h ❐ #S ● #I #W）相当
+window_title = "{hostname} ❐ {workspace} ● {tab}"
+
+[experimental]
+# tmux-resurrect / continuum 相当: サーバー再起動後もペインの画面履歴を復元する
+pane_history = true
+# 日本語 IME が有効なままでも prefix 後のキーを英字として受け付ける
+switch_ascii_input_source_in_prefix = true
