@@ -43,17 +43,17 @@ config.max_fps = 120
 config.default_cursor_style = "BlinkingBlock"
 config.cursor_blink_rate = 500
 
--- tmux併用のため、weztermのタブバーは非表示
+-- herdr併用のため、weztermのタブバーは非表示
 config.enable_tab_bar = false
 
--- ウィンドウを閉じる際の確認をスキップ（tmux側で管理）
+-- ウィンドウを閉じる際の確認をスキップ（herdr側で管理）
 config.window_close_confirmation = "NeverPrompt"
 
 -- スクロールバック
 config.scrollback_lines = 10000
 
--- 起動時にtmuxセッションに自動アタッチ（なければ新規作成）
-config.default_prog = { '/opt/homebrew/bin/tmux', 'new-session', '-A', '-s', 'default' }
+-- 起動時にherdrセッションに自動アタッチ（なければ新規作成）
+config.default_prog = { '/opt/homebrew/bin/herdr' }
 
 -- CMD+U で透明/不透明を切り替え
 local is_transparent = true
@@ -114,9 +114,24 @@ config.mouse_bindings = {
     mods = 'NONE',
     action = wezterm.action.CompleteSelection 'ClipboardAndPrimarySelection',
   },
+  -- CMD+クリックでリンクを開く。herdr がマウスを捕捉していても WezTerm 側で処理する
+  -- （mouse_reporting = true のバインドはアプリにマウス報告が有効なときに使われる）
+  {
+    event = { Down = { streak = 1, button = 'Left' } },
+    mods = 'SUPER',
+    mouse_reporting = true,
+    action = wezterm.action.Nop,
+  },
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'SUPER',
+    mouse_reporting = true,
+    action = wezterm.action.OpenLinkAtMouseCursor,
+  },
 }
 
--- ファイルパスのハイパーリンクを CMD+クリックで tmux の隣 pane の nvim で開く
+-- ファイルパスのハイパーリンクを CMD+クリックで nvim で開く
+-- （herdr なら新しいスペース、herdr が無ければ tmux の隣 pane。処理は open-in-nvim.sh 側）
 --
 -- 公式 recipe (https://wezterm.org/recipes/hyperlinks.html) に沿って 2 層構成:
 --  1. OSC-8 由来 `file://HOST/PATH#LINE` (ls --hyperlink, delta --hyperlinks,
@@ -124,59 +139,15 @@ config.mouse_bindings = {
 --  2. プレーンテキスト由来 (Claude Code 等) は自前 regex で
 --     `nvim-open:<path>#<line>` 形式の opaque URI に変換
 --     ※ `nvim://~/...` だと `~` が URI authority と解釈され消えるため
+-- 相対パスの解決・存在確認もスクリプト側で行う（フォーカス中ペインの cwd が基準）
 
-local function get_tmux_active_pane_cwd()
-  local handle = io.popen('/opt/homebrew/bin/tmux display-message -p "#{pane_current_path}" 2>/dev/null')
-  if not handle then return nil end
-  local result = handle:read('*l')
-  handle:close()
-  if result and result ~= '' then return result end
-  return nil
-end
+local open_in_nvim_script = (os.getenv('HOME') or '') .. '/.config/herdr/scripts/open-in-nvim.sh'
 
--- 相対パスを tmux アクティブ pane の cwd で絶対化し、~ を展開する
-local function resolve_file_path(path)
-  if path:sub(1, 1) == '~' then
-    path = (os.getenv('HOME') or '') .. path:sub(2)
-  end
-  if path:sub(1, 1) ~= '/' then
-    local cwd = get_tmux_active_pane_cwd()
-    if cwd then path = cwd .. '/' .. path end
-  end
-  return path
-end
-
-local function file_exists(path)
-  local f = io.open(path, 'r')
-  if f then f:close() return true end
-  return false
-end
-
-local function spawn_nvim_in_tmux(pane, file_path, line)
-  -- tmux のアクティブ pane の cwd を優先（wezterm 側 cwd は OSC-7 未送信時に古くなるため）
-  local cwd = get_tmux_active_pane_cwd()
-  if not cwd then
-    local ok, cwd_obj = pcall(function() return pane:get_current_working_dir() end)
-    if ok and cwd_obj then
-      if type(cwd_obj) == 'string' then
-        cwd = cwd_obj:gsub('^file://[^/]*', '')
-      else
-        cwd = cwd_obj.file_path or cwd_obj.path
-      end
-    end
-  end
-
-  local args = { '/opt/homebrew/bin/tmux', 'split-window', '-h' }
-  if cwd and cwd ~= '' then
-    table.insert(args, '-c')
-    table.insert(args, cwd)
-  end
-  table.insert(args, '/opt/homebrew/bin/nvim')
+local function open_in_nvim(file_path, line)
+  local args = { open_in_nvim_script, file_path }
   if line and line ~= '' then
-    table.insert(args, '+' .. tostring(line))
+    table.insert(args, tostring(line))
   end
-  table.insert(args, file_path)
-
   wezterm.log_info('nvim-open spawning: ' .. table.concat(args, ' '))
   wezterm.background_child_process(args)
 end
@@ -192,11 +163,11 @@ table.insert(hyperlink_rules, {
 })
 config.hyperlink_rules = hyperlink_rules
 
-wezterm.on('open-uri', function(window, pane, uri)
+wezterm.on('open-uri', function(_window, _pane, uri)
   -- 層1: file://HOST/PATH#LINE (OSC-8 を吐くツール由来)
   local url = wezterm.url.parse(uri)
   if url and url.scheme == 'file' and url.file_path then
-    spawn_nvim_in_tmux(pane, url.file_path, url.fragment)
+    open_in_nvim(url.file_path, url.fragment)
     return false
   end
 
@@ -204,12 +175,7 @@ wezterm.on('open-uri', function(window, pane, uri)
   if uri:match('^nvim%-open:') then
     local path, line = uri:match('^nvim%-open:(.+)#(%d*)$')
     if path then
-      local abs = resolve_file_path(path)
-      if file_exists(abs) then
-        spawn_nvim_in_tmux(pane, abs, line)
-      else
-        wezterm.log_info('nvim-open: skip non-existent path: ' .. abs)
-      end
+      open_in_nvim(path, line)
     end
     return false
   end
