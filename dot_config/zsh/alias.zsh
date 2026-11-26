@@ -14,6 +14,8 @@ alias vim='nvim'
 alias t="tmux"
 alias hr="herdr"
 alias hcd="herdr-cd"
+# hrr <ssh先>: SSH 先の herdr に手元から入る（リモートにも herdr が必要）
+alias hrr="herdr --remote"
 alias :q="exit"
 
 alias g="git"

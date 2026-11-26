@@ -34,10 +34,10 @@ swap_pane_left = "prefix+<"
 swap_pane_right = "prefix+>"
 swap_pane_up = "prefix+{"
 swap_pane_down = "prefix+}"
-# その他: x で閉じる、z / + でズーム、r / T でペイン名変更
-close_pane = "prefix+x"
+# その他: X でペインを閉じる（x はスペースを閉じるに使う）、z / + でズーム、T でペイン名変更（r はスペース名変更）
+close_pane = "prefix+shift+x"
 zoom = ["prefix+z", "prefix+plus"]
-rename_pane = ["prefix+r", "prefix+shift+t"]
+rename_pane = "prefix+shift+t"
 
 # --- タブ（tmux の window）---
 # タブは使わないので新規作成キーは割り当てない（c は新しいスペース）
@@ -51,15 +51,16 @@ switch_tab = "prefix+1..9"
 # --- ワークスペース（tmux の session）---
 # c で新しいスペース（ワークスペース）を作る
 new_workspace = "prefix+c"
-# R / $ でスペース（ワークスペース）名変更
-rename_workspace = ["prefix+shift+r", "prefix+$"]
+# r / R / $ でスペース名変更。prefix+s（spaces 欄）で選択中に r を押すと、選んでいるスペースの名前を変える
+rename_workspace = ["prefix+r", "prefix+shift+r", "prefix+$"]
 previous_workspace = "prefix+("
 next_workspace = "prefix+)"
-close_workspace = ""
+# x: スペースを閉じる（確認あり）。prefix+s（spaces 欄）で選択中に x を押すと、選んでいるスペースを閉じる
+close_workspace = "prefix+x"
 # s: サイドバーの spaces 欄へフォーカス（↑↓で選択、Enter で決定、Esc で抜ける）
 workspace_picker = "prefix+s"
-# S / w / g: スペース・エージェント・ターミナル全体の一覧
-goto = ["prefix+shift+s", "prefix+w", "prefix+g"]
+# S: スペース・エージェント・ターミナル全体の一覧
+goto = "prefix+shift+s"
 # a / A: agents 欄の並び順で次 / 前のエージェントへ移動（agents 欄の強調表示も移る）
 next_agent = "prefix+a"
 previous_agent = "prefix+shift+a"
@@ -70,10 +71,11 @@ navigate_pane_up = ""
 navigate_pane_down = ""
 
 # --- その他 ---
-detach = "prefix+d"
+# D: デタッチ（d は lazydocker）
+detach = "prefix+shift+d"
 copy_mode = ["prefix+enter", "prefix+["]
-# Tab: tmux の extrakto 相当（スクロールバックをエディタで開く）
-edit_scrollback = "prefix+tab"
+# スクロールバックをエディタで開く機能は使わないので割り当てない（prefix+tab は未割り当て）
+edit_scrollback = ""
 # 設定リロードは prefix+e の編集後に自動で行う
 reload_config = ""
 help = "prefix+?"
@@ -81,13 +83,32 @@ help = "prefix+?"
 settings = "prefix+shift+c"
 toggle_sidebar = "prefix+b"
 open_notification_target = "prefix+shift+o"
-new_worktree = ""
+# G: git worktree とそのスペースを作る（ブランチごとにエージェントを並行で動かす用）
+new_worktree = "prefix+shift+g"
+
+# ポップアップのシェルは Homebrew の PATH を持たないのでフルパスで起動する
+# ポップアップは herdr の起動ディレクトリで開くため、フォーカス中のペインの cwd に移ってから起動する
+# g: lazygit をポップアップで開く（閉じれば元の配置に戻る）
+[[keys.command]]
+key = "prefix+g"
+type = "popup"
+command = 'cd "${HERDR_ACTIVE_PANE_CWD:-$HOME}" && /opt/homebrew/bin/lazygit'
+width = "90%"
+height = "90%"
+
+# d: lazydocker をポップアップで開く
+[[keys.command]]
+key = "prefix+d"
+type = "popup"
+command = 'cd "${HERDR_ACTIVE_PANE_CWD:-$HOME}" && /opt/homebrew/bin/lazydocker'
+width = "90%"
+height = "90%"
 
 # p: tmux-floax 相当のフローティングシェル
 [[keys.command]]
 key = "prefix+p"
 type = "popup"
-command = "zsh"
+command = 'cd "${HERDR_ACTIVE_PANE_CWD:-$HOME}" && zsh'
 width = "80%"
 height = "80%"
 
@@ -119,6 +140,11 @@ pane_outer_borders = false
 pane_gaps = false
 # タブは使わないので 1 枚のときはタブ行を隠す
 hide_tab_bar_when_single_tab = true
+# スペースなどを閉じるときに確認を出さない（prefix+x で即閉じる）
+confirm_close = false
+# エージェント状態を形の違う記号で出す（× 入力待ち / ◐ 作業中 / ✓ 完了 / ○ 待機中 / · エージェントなし）
+# 記号は herdr に固定で、絵文字などには変えられない
+status_indicators = "symbols"
 # tmux の terminal_title（#h ❐ #S ● #I #W）相当
 window_title = "{hostname} ❐ {workspace} ● {tab}"
 
@@ -127,3 +153,7 @@ window_title = "{hostname} ❐ {workspace} ● {tab}"
 pane_history = true
 # 日本語 IME が有効なままでも prefix 後のキーを英字として受け付ける
 switch_ascii_input_source_in_prefix = true
+
+# spaces 欄: 記号の横に状態名（working / idle など）を薄く出す
+[ui.sidebar.spaces]
+rows = [["state_icon", "workspace", { token = "state_text", dim = true }], ["branch", "git_status"]]
