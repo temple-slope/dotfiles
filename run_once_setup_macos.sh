@@ -57,6 +57,8 @@ launchctl disable "gui/${UID_NUM}/com.apple.spotlightknowledged" 2>/dev/null || 
 launchctl disable "gui/${UID_NUM}/com.apple.spotlightknowledged.updater" 2>/dev/null || true
 launchctl disable "gui/${UID_NUM}/com.apple.spotlightknowledged.importer" 2>/dev/null || true
 pkill -f spotlightknowledged 2>/dev/null || true
+# Disable Spotlight indexing on all volumes (mds/mds_stores CPU load; requires sudo)
+sudo mdutil -a -i off >/dev/null || echo "WARN: run 'sudo mdutil -a -i off' manually to disable Spotlight indexing" >&2
 
 # --- Screenshots ---
 # Save screenshots to ~/Documents/ScreenShot
