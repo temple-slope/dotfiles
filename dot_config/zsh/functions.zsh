@@ -47,6 +47,42 @@ tmux-cd() {
   fi
 }
 
+# herdr 版 tmux-cd: ディレクトリ名のスペース（workspace）へ移動し、無ければそのディレクトリで作る
+# Usage: herdr-cd [dir]（省略時は現在のディレクトリ）
+herdr-cd() {
+  local target_dir="${1:-$PWD}"
+  if [[ ! -d "$target_dir" ]]; then
+    echo "Error: Directory '$target_dir' does not exist" >&2
+    return 1
+  fi
+  target_dir="$(cd "$target_dir" && pwd)"
+  local name="${target_dir:t}"
+
+  # herdr の外ではサーバーが動いていれば先にスペースを用意してからアタッチする
+  if [[ -z "$HERDR_ENV" ]] && ! herdr status server 2>/dev/null | command grep -q '^status: running'; then
+    echo "herdr server is not running; starting herdr" >&2
+    herdr
+    return
+  fi
+
+  local workspace_id
+  workspace_id="$(herdr workspace list | jq -r --arg name "$name" \
+    'first(.result.workspaces[] | select(.label == $name) | .workspace_id) // empty')" || return 1
+  if [[ -n "$workspace_id" ]]; then
+    herdr workspace focus "$workspace_id" >/dev/null || return 1
+  else
+    herdr workspace create --cwd "$target_dir" --label "$name" --focus >/dev/null || return 1
+  fi
+
+  [[ -z "$HERDR_ENV" ]] && herdr
+  return 0
+}
+
+# herdr 版 tmux-current: 現在のディレクトリ名のスペースへ移動（無ければ作る）
+herdr-current() {
+  herdr-cd "$PWD"
+}
+
 # gws の追加アカウント用プロファイルを作成して OAuth ログインを起動する
 # Usage: gws-new <profile-name>
 # 例: gws-new sub  → 以後 `gws-sub ...` で別アカウントを操作できる

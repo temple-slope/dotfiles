@@ -12,6 +12,9 @@ alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias t="tmux"
+alias hr="herdr"
+alias hcd="herdr-cd"
+alias :q="exit"
 
 alias g="git"
 alias lg="lazygit"
