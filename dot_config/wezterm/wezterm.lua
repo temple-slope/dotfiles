@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 
 -- フォント
 config.font = wezterm.font('HackGen Console NF')
-config.font_size = 22.0
+config.font_size = 16.0
 
 -- フォントサイズ変更時にウィンドウサイズを変えない（Cmd+/-でレイアウトが暴れない）
 config.adjust_window_size_when_changing_font_size = false
@@ -22,14 +22,20 @@ config.visual_bell = {
 -- インライン画像表示（`wezterm imgcat <file>` 等）
 config.enable_kitty_graphics = true
 
--- カラースキーム
-config.color_scheme = 'Tokyo Night'
+-- カラースキーム: Tokyo Night をベースに、文字色を柔らかく・背景を少し緑寄りにする
+-- （herdr は theme = "terminal" なのでこの色に追従する）
+local soft_scheme = wezterm.color.get_builtin_schemes()['Tokyo Night']
+soft_scheme.foreground = '#9ca193'
+soft_scheme.background = '#1a2420'
+config.color_schemes = { ['Tokyo Night Soft'] = soft_scheme }
+config.color_scheme = 'Tokyo Night Soft'
 
 -- ウィンドウ
 config.window_decorations = "RESIZE"
 config.window_padding = { left = 8, right = 8, top = 8, bottom = 8 }
-config.initial_rows = 40
-config.initial_cols = 120
+-- 起動時のウィンドウ: 228 列 × 57 行（font_size 16 でほぼ画面いっぱい）
+config.initial_rows = 57
+config.initial_cols = 228
 
 -- 透明化 + ブラー（濃いめ）
 config.window_background_opacity = 0.80
