@@ -28,3 +28,5 @@ done
 
 # Hermes Agent — ensure ~/.local/bin is on PATH
 export PATH="$HOME/.local/bin:$PATH"
+# CF CLI completions
+[[ -f "/Users/kazumaterasaka/.config/cf/completions/_cf.zsh" ]] && source "/Users/kazumaterasaka/.config/cf/completions/_cf.zsh"
