@@ -21,12 +21,12 @@ focus_pane_right = ["prefix+l", "prefix+right"]
 last_pane = "prefix+;"
 cycle_pane_next = "prefix+o"
 cycle_pane_previous = ""
-# リサイズ: ctrl+alt+h/j/k/l（prefix なしで押しっぱなし可）、prefix+H/J/K/L、alt+矢印、ctrl+矢印
+# リサイズ: ctrl+alt+h/j/k/l（prefix なしで押しっぱなし可）、alt+矢印、ctrl+矢印（prefix+H/J/K/L はタブ・スペース移動）
 # 注: WezTerm が ctrl+shift+h/l を ctrl+alt+h/l に変換しているため、それらもリサイズになる
-resize_pane_left = ["ctrl+alt+h", "prefix+shift+h", "prefix+alt+left", "prefix+ctrl+left"]
-resize_pane_down = ["ctrl+alt+j", "prefix+shift+j", "prefix+alt+down", "prefix+ctrl+down"]
-resize_pane_up = ["ctrl+alt+k", "prefix+shift+k", "prefix+alt+up", "prefix+ctrl+up"]
-resize_pane_right = ["ctrl+alt+l", "prefix+shift+l", "prefix+alt+right", "prefix+ctrl+right"]
+resize_pane_left = ["ctrl+alt+h", "prefix+alt+left", "prefix+ctrl+left"]
+resize_pane_down = ["ctrl+alt+j", "prefix+alt+down", "prefix+ctrl+down"]
+resize_pane_up = ["ctrl+alt+k", "prefix+alt+up", "prefix+ctrl+up"]
+resize_pane_right = ["ctrl+alt+l", "prefix+alt+right", "prefix+ctrl+right"]
 # tmux の連打の代わり: m でリサイズモード（h/j/k/l を連打、Esc で抜ける）
 resize_mode = "prefix+m"
 # 入れ替え: < / > と { / }
@@ -40,21 +40,24 @@ zoom = ["prefix+z", "prefix+plus"]
 rename_pane = "prefix+shift+t"
 
 # --- タブ（tmux の window）---
-# タブは使わないので新規作成キーは割り当てない（c は新しいスペース）
-new_tab = ""
-rename_tab = "prefix+comma"
-previous_tab = "prefix+ctrl+h"
-next_tab = "prefix+ctrl+l"
+# t: 新しいタブ（tmux の window）。c は新しいスペース
+new_tab = "prefix+t"
+# R / , でタブ（tmux の window）名変更
+rename_tab = ["prefix+shift+r", "prefix+comma"]
+# H / L（と ctrl+h / ctrl+l）で前 / 次のタブ
+previous_tab = ["prefix+shift+h", "prefix+ctrl+h"]
+next_tab = ["prefix+shift+l", "prefix+ctrl+l"]
 close_tab = "prefix+&"
 switch_tab = "prefix+1..9"
 
 # --- ワークスペース（tmux の session）---
 # c で新しいスペース（ワークスペース）を作る
 new_workspace = "prefix+c"
-# r / R / $ でスペース名変更。prefix+s（spaces 欄）で選択中に r を押すと、選んでいるスペースの名前を変える
-rename_workspace = ["prefix+r", "prefix+shift+r", "prefix+$"]
-previous_workspace = "prefix+("
-next_workspace = "prefix+)"
+# r / $ でスペース名変更。prefix+s（spaces 欄）で選択中に r を押すと、選んでいるスペースの名前を変える
+rename_workspace = ["prefix+r", "prefix+$"]
+# K / J（と ( / )）で前 / 次のスペース
+previous_workspace = ["prefix+shift+k", "prefix+("]
+next_workspace = ["prefix+shift+j", "prefix+)"]
 # x: スペースを閉じる（確認あり）。prefix+s（spaces 欄）で選択中に x を押すと、選んでいるスペースを閉じる
 close_workspace = "prefix+x"
 # s: サイドバーの spaces 欄へフォーカス（↑↓で選択、Enter で決定、Esc で抜ける）
@@ -138,7 +141,7 @@ accent = "#00afff"
 # tmux 風の見た目: 外枠・ペイン間の隙間なしで区切り線だけ引く
 pane_outer_borders = false
 pane_gaps = false
-# タブは使わないので 1 枚のときはタブ行を隠す
+# タブが 1 枚のときはタブ行を隠す（2 枚以上で表示される）
 hide_tab_bar_when_single_tab = true
 # スペースなどを閉じるときに確認を出さない（prefix+x で即閉じる）
 confirm_close = false
