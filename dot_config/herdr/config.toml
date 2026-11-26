@@ -34,7 +34,7 @@ swap_pane_left = "prefix+<"
 swap_pane_right = "prefix+>"
 swap_pane_up = "prefix+{"
 swap_pane_down = "prefix+}"
-# その他: X でペインを閉じる（x はスペースを閉じるに使う）、z / + でズーム、T でペイン名変更（r はスペース名変更）
+# その他: X でペインを閉じる（x はスペースを閉じるに使う）、z / + でズーム、T でペイン名変更（r はタブ名、R はスペース名変更）
 close_pane = "prefix+shift+x"
 zoom = ["prefix+z", "prefix+plus"]
 rename_pane = "prefix+shift+t"
@@ -42,8 +42,8 @@ rename_pane = "prefix+shift+t"
 # --- タブ（tmux の window）---
 # t: 新しいタブ（tmux の window）。c は新しいスペース
 new_tab = "prefix+t"
-# R / , でタブ（tmux の window）名変更
-rename_tab = ["prefix+shift+r", "prefix+comma"]
+# r / , でタブ（tmux の window）名変更
+rename_tab = ["prefix+r", "prefix+comma"]
 # H / L（と ctrl+h / ctrl+l）で前 / 次のタブ
 previous_tab = ["prefix+shift+h", "prefix+ctrl+h"]
 next_tab = ["prefix+shift+l", "prefix+ctrl+l"]
@@ -53,8 +53,8 @@ switch_tab = "prefix+1..9"
 # --- ワークスペース（tmux の session）---
 # c で新しいスペース（ワークスペース）を作る
 new_workspace = "prefix+c"
-# r / $ でスペース名変更。prefix+S（spaces 欄）で選択中に r を押すと、選んでいるスペースの名前を変える
-rename_workspace = ["prefix+r", "prefix+$"]
+# R / $ でスペース名変更。prefix+S（spaces 欄）で選択中に r を押すと、選んでいるスペースの名前を変える
+rename_workspace = ["prefix+shift+r", "prefix+$"]
 # K / J（と ( / )）で前 / 次のスペース
 previous_workspace = ["prefix+shift+k", "prefix+("]
 next_workspace = ["prefix+shift+j", "prefix+)"]
