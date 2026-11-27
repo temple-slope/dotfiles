@@ -22,9 +22,10 @@ preedit = "full"
 conversion = "last"
 
 [[character_form_rules]]
+# 数字は常に半角
 group = "0"
-preedit = "full"
-conversion = "last"
+preedit = "half"
+conversion = "half"
 
 # ASCII 記号は常に半角、和文記号（、。・「」）は全角のまま
 [[character_form_rules]]
