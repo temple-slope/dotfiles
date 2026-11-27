@@ -152,8 +152,15 @@ confirm_close = false
 status_indicators = "symbols"
 # tmux の terminal_title（#h ❐ #S ● #I #W）相当
 window_title = "{hostname} ❐ {workspace} ● {tab}"
-# タブ行の右端に AI の使用量（5h / 7d 制限）を出す。中身は ~/.config/ai-usage/
-tab_bar_right = [{ type = "command", command = "python3 \"$HOME/.config/ai-usage/ai_usage.py\" show", interval_seconds = 30, timeout_seconds = 5 }]
+# タブ行の右端に AI の使用量（5h / 7d 制限、中身は ~/.config/ai-usage/）と
+# システム状態（CPU / GPU / メモリ / 温度 / 電力 / ファン / ネットワーク / バッテリー、scripts/sysstat.py）と
+# 大阪の天気（scripts/weather.py、10 分ごと）を出す
+tab_bar_right = [
+  { type = "command", command = "python3 \"$HOME/.config/ai-usage/ai_usage.py\" show", interval_seconds = 30, timeout_seconds = 5 },
+  { type = "command", command = "python3 \"$HOME/.config/herdr/scripts/sysstat.py\"", interval_seconds = 5, timeout_seconds = 4 },
+  { type = "command", command = "python3 \"$HOME/.config/herdr/scripts/weather.py\"", interval_seconds = 600, timeout_seconds = 10 },
+]
+tab_bar_right_separator = " ┃ "
 
 [experimental]
 # tmux-resurrect / continuum 相当: サーバー再起動後もペインの画面履歴を復元する

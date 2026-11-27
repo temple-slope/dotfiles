@@ -68,6 +68,8 @@ brew "lazygit"
 brew "lsd"
 # Tool for linting and static analysis of Lua code
 brew "luacheck"
+# Sudoless performance monitoring for Apple Silicon processors
+brew "macmon"
 # Feature-rich command-line audio/video downloader
 brew "yt-dlp"
 # Media player based on MPlayer and mplayer2
