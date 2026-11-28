@@ -7,5 +7,4 @@ data:
     email: {{ output "grep" "^GIT_USER_EMAIL=" $envFile | trim | trimPrefix "GIT_USER_EMAIL=" }}
     signingKey: {{ output "grep" "^GIT_SIGNING_KEY=" $envFile | trim | trimPrefix "GIT_SIGNING_KEY=" }}
   machine:
-    isPrivate: {{ promptBoolOnce . "machine.isPrivate" "このマシンはプライベート用ですか？ (y/n)" }}
     installBrewBundle: {{ promptBoolOnce . "machine.installBrewBundle" "Brewfileのパッケージをインストールしますか？ (y/n)" }}

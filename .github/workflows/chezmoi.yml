@@ -2,6 +2,8 @@ name: chezmoi
 
 on:
   pull_request:
+  push:
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -38,7 +40,6 @@ jobs:
             if ! chezmoi execute-template \
                 --source="$PWD" \
                 --init \
-                --promptBool machine.isPrivate=false \
                 --promptBool machine.installBrewBundle=false \
                 < "$f" >/dev/null 2>"$err"; then
               echo "::error file=$f::template render failed"
@@ -47,4 +48,31 @@ jobs:
             fi
             rm -f "$err"
           done < <(git ls-files '*.tmpl')
+          exit "$failed"
+
+      - name: Render modify_ templates against an empty target
+        run: |
+          # modify_ ファイルは .chezmoi.stdin（既存ターゲット）を受け取るため execute-template では
+          # 検証できない。空のホームに対して chezmoi cat し、新規マシン相当の出力を構文検証する。
+          dest="$RUNNER_TEMP/home"
+          cfg="$RUNNER_TEMP/chezmoi.yaml"
+          mkdir -p "$dest"
+          : > "$cfg"
+          cz() { chezmoi --config="$cfg" --source="$PWD" --destination="$dest" "$@"; }
+          failed=0
+          while IFS= read -r f; do
+            echo "→ $f"
+            target=$(cz target-path "$PWD/$f")
+            out=$(mktemp)
+            if ! cz cat "$target" > "$out"; then
+              echo "::error file=$f::modify template render failed"
+              failed=1
+            else
+              case "$target" in
+                *.json) python3 -m json.tool "$out" >/dev/null || { echo "::error file=$f::invalid JSON output"; failed=1; } ;;
+                *.toml) python3 -c 'import sys,tomllib; tomllib.load(open(sys.argv[1],"rb"))' "$out" || { echo "::error file=$f::invalid TOML output"; failed=1; } ;;
+              esac
+            fi
+            rm -f "$out"
+          done < <(git ls-files '*modify_*')
           exit "$failed"
