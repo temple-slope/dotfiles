@@ -21,12 +21,12 @@ focus_pane_right = ["prefix+l", "prefix+right"]
 last_pane = "prefix+;"
 cycle_pane_next = "prefix+o"
 cycle_pane_previous = ""
-# リサイズ: ctrl+alt+h/j/k/l（prefix なしで押しっぱなし可）、alt+矢印、ctrl+矢印（prefix+H/J/K/L はタブ・スペース移動）
-# 注: WezTerm が ctrl+shift+h/l を ctrl+alt+h/l に変換しているため、それらもリサイズになる
-resize_pane_left = ["ctrl+alt+h", "prefix+alt+left", "prefix+ctrl+left"]
-resize_pane_down = ["ctrl+alt+j", "prefix+alt+down", "prefix+ctrl+down"]
-resize_pane_up = ["ctrl+alt+k", "prefix+alt+up", "prefix+ctrl+up"]
-resize_pane_right = ["ctrl+alt+l", "prefix+alt+right", "prefix+ctrl+right"]
+# リサイズ: alt+矢印、ctrl+矢印（prefix+H/J/K/L はタブ・スペース移動）
+# 注: ctrl+alt+h/l は WezTerm が ctrl+shift+h/l から変換して nvim のバッファ移動に使うため割り当てない
+resize_pane_left = ["prefix+alt+left", "prefix+ctrl+left"]
+resize_pane_down = ["prefix+alt+down", "prefix+ctrl+down"]
+resize_pane_up = ["prefix+alt+up", "prefix+ctrl+up"]
+resize_pane_right = ["prefix+alt+right", "prefix+ctrl+right"]
 # tmux の連打の代わり: m でリサイズモード（h/j/k/l を連打、Esc で抜ける）
 resize_mode = "prefix+m"
 # 入れ替え: < / > と { / }
@@ -133,14 +133,22 @@ command = "true"
 name = "terminal"
 auto_switch = false
 
+[theme.custom]
+# 非フォーカスのペイン枠（overlay0）を背景 #1a2420 と同色にして見えなくする
+# 注: overlay0 はタブの文字・非フォーカス枠のタイトル・サイドバーの区切り記号にも使われ、それらも見えなくなる
+overlay0 = "#1a2420"
+
 [ui]
 # tmux と同じく prefix+c で名前を聞かずにタブを作る
 prompt_new_tab_name = false
-# tmux のアクティブペイン枠色（tmux_conf_theme_colour_4）に合わせる
-accent = "#00afff"
-# tmux 風の見た目: 外枠・ペイン間の隙間なしで区切り線だけ引く
-pane_outer_borders = false
-pane_gaps = false
+# フォーカス中のペイン枠を控えめなグレーにする（非フォーカス枠 overlay0 より明るくして区別する）
+# 注: accent はナビゲーション等の強調色にも使われる
+accent = "#7a8a84"
+# ペインごとに枠で囲み、隙間を空けて並べる（フォーカス中のペインだけ枠全体が accent 色になり見分けやすい）
+pane_outer_borders = true
+pane_gaps = true
+# ペイン右端のスクロールバー（灰色の縦線）を出さない
+pane_scrollbars = false
 # タブが 1 枚でもタブ行を出す（右端の AI 使用量を常に見せるため）
 hide_tab_bar_when_single_tab = false
 # タブ行（右端の AI 使用量を含む）を画面下に置く

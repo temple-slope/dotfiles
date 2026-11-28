@@ -25,7 +25,7 @@ config.enable_kitty_graphics = true
 -- カラースキーム: Tokyo Night をベースに、文字色を柔らかく・背景を少し緑寄りにする
 -- （herdr は theme = "terminal" なのでこの色に追従する）
 local soft_scheme = wezterm.color.get_builtin_schemes()['Tokyo Night']
-soft_scheme.foreground = '#9ca193'
+soft_scheme.foreground = '#848a7d'
 soft_scheme.background = '#1a2420'
 config.color_schemes = { ['Tokyo Night Soft'] = soft_scheme }
 config.color_scheme = 'Tokyo Night Soft'
