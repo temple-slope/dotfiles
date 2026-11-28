@@ -3,6 +3,7 @@
 # 以下のハッシュが変わったときだけ実行される:
 # google_ime.py: {{ include ".google-ime/google_ime.py" | sha256sum }}
 # config.toml: {{ include ".google-ime/config.toml" | sha256sum }}
+# keymap.tsv: {{ include ".google-ime/keymap.tsv" | sha256sum }}
 {{- $dict := joinPath .chezmoi.sourceDir ".google-ime/user_dictionary.tsv" }}
 {{- if stat $dict }}
 # user_dictionary.tsv: {{ include ".google-ime/user_dictionary.tsv" | sha256sum }}

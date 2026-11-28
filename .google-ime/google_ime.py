@@ -173,7 +173,10 @@ def _lookup(table: dict[str, int], key: str, what: str) -> int:
         raise ValueError(f"{what}: unknown value {key!r} (choices: {', '.join(table)})") from None
 
 
-def build_config(old: bytes, conf: dict) -> bytes:
+def build_config(old: bytes, conf: dict, base_dir: Path) -> bytes:
+    keymap = _lookup(KEYMAP, conf["keymap"], "keymap")
+    # custom のときは custom_keymap の TSV(Mozc のキー設定エクスポート形式)を使う。それ以外は空 = 標準キーマップ
+    keymap_table = (base_dir / conf["custom_keymap"]).read_bytes() if keymap == KEYMAP["custom"] else b""
     rules = conf.get("character_form_rules", [])
     if not rules:
         raise ValueError("character_form_rules is empty")
@@ -187,9 +190,9 @@ def build_config(old: bytes, conf: dict) -> bytes:
         for r in rules
     )
     replacements = {
-        F_SESSION_KEYMAP: enc_varint(F_SESSION_KEYMAP, _lookup(KEYMAP, conf["keymap"], "keymap")),
-        # 空 = 独自キーマップ/ローマ字テーブルなし(標準を使う)
-        F_CUSTOM_KEYMAP_TABLE: enc_bytes(F_CUSTOM_KEYMAP_TABLE, b""),
+        F_SESSION_KEYMAP: enc_varint(F_SESSION_KEYMAP, keymap),
+        F_CUSTOM_KEYMAP_TABLE: enc_bytes(F_CUSTOM_KEYMAP_TABLE, keymap_table),
+        # 空 = 独自ローマ字テーブルなし(標準を使う)
         F_CUSTOM_ROMAN_TABLE: b"",
         F_SPACE_CHARACTER_FORM: enc_varint(
             F_SPACE_CHARACTER_FORM, _lookup(SPACE_FORM, conf["space_character_form"], "space_character_form")
@@ -207,7 +210,7 @@ def cmd_config(args: argparse.Namespace) -> None:
         # 一度も起動していない環境。IME が初回起動時に生成するまで待つ
         print(f"skip: {db} not found (start Google Japanese Input once)")
         return
-    write_db(db, build_config(db.read_bytes(), conf))
+    write_db(db, build_config(db.read_bytes(), conf, Path(args.source).parent))
 
 
 # ---------------------------------------------------------------------------

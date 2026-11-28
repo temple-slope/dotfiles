@@ -2,9 +2,12 @@
 # ここに書いた項目だけを上書きし、それ以外の設定は GUI の値を保持する。
 # 反映: .google-ime/google_ime.py config（run_onchange_after_google-ime.sh.tmpl から実行）
 
-# キー設定: kotoeri (Mac 標準と同じ。Ctrl+J ひらがな / Ctrl+K カタカナ / Ctrl+L 全角英字 / Ctrl+; 半角 / Ctrl+: 半角英字)
-# 独自キーマップ・ローマ字テーブルは空にして標準を使う（zh/zj/zk/zl で ←↓↑→ 等は標準テーブルに含まれる）
-keymap = "kotoeri"
+# キー設定: atok | msime | kotoeri | custom（custom は custom_keymap の TSV を使う）
+# keymap.tsv は Mozc 標準の kotoeri（Ctrl+J ひらがな / Ctrl+K カタカナ / Ctrl+L 全角英字 / Ctrl+: 半角英字）を
+# コピーし、Ctrl+; だけ変えたもの: 入力中に押すと半角英字、続けてもう一度押すと全角カタカナ
+# ローマ字テーブルは空にして標準を使う（zh/zj/zk/zl で ←↓↑→ 等は標準テーブルに含まれる）
+keymap = "custom"
+custom_keymap = "keymap.tsv"
 
 # スペースの入力: input_mode | full | half
 space_character_form = "half"
