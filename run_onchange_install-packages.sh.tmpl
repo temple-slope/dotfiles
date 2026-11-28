@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# Brewfile が変わるたびに再実行する（chezmoi はレンダリング結果のハッシュで判定する）
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
+
 {{ if .machine.installBrewBundle -}}
 echo "🔍 実行環境: {{ .chezmoi.hostname }}"
 

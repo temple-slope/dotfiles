@@ -4,8 +4,6 @@ tap "oven-sh/bun", trusted: true
 tap "steipete/tap", trusted: true
 tap "xdevplatform/tap", trusted: true
 tap "yakitrak/yakitrak", trusted: true
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.14"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -30,6 +28,8 @@ brew "docker-credential-helper"
 brew "libdvdcss"
 # Rip DVD's from the command-line
 brew "dvdbackup"
+# Perl lib for reading and writing EXIF metadata
+brew "exiftool"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find
@@ -38,6 +38,8 @@ brew "fd"
 brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
 # Interact with Google Gemini AI models from the command-line
 brew "gemini-cli"
 # GitHub command-line tool
@@ -88,12 +90,18 @@ brew "ripgrep"
 brew "opencode"
 # Command-line interface for Eclipse Open VSX
 brew "ovsx"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Sophisticated calendar and alarm
 brew "remind"
 # CLI proxy to minimize LLM token consumption
 brew "rtk"
+# Safe, concurrent, practical language
+brew "rust"
 # Rust toolchain installer
 brew "rustup"
 # Fast, configurable, shell plugin manager
@@ -111,7 +119,7 @@ brew "urlview"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
 # Port of OpenAI's Whisper model in C/C++
-brew "whisper-cpp"
+brew "whisper.cpp"
 # Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
 # Blazing fast terminal file manager written in Rust, based on async I/O
@@ -120,8 +128,8 @@ brew "yazi"
 brew "yq"
 # CLI app to manage your Apple Notes and Apple reminders
 brew "antoniorodr/memo/memo"
-# Modern Go client + CLI for the Google Places API (New).
-brew "openclaw/tap/goplaces", link: false
+# Go client and CLI for the Google Places API (New)
+brew "openclaw/tap/goplaces"
 # WhatsApp CLI built on whatsmeow
 brew "openclaw/tap/wacli"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
@@ -151,27 +159,42 @@ cask "claude-code@latest"
 cask "codex"
 # OpenAI's Codex desktop app for managing coding agents
 cask "codex-app"
+# Write, edit, and chat about your code with AI
+cask "cursor"
 cask "font-hackgen-nerd"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Web browser
+cask "google-chrome"
 # Client for the Google Drive storage service
 cask "google-drive"
 # Japanese input software
 cask "google-japanese-ime"
-# Modern Go client + CLI for the Google Places API (New).
-cask "openclaw/tap/goplaces"
+cask "openclaw/tap/goplaces", trusted: true
+# Speech to text application
+cask "handy"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Video format converter (transcoder)
 cask "makemkv"
 # Sandbox construction video game
 cask "minecraft"
+# App to write, plan, collaborate, and get organised
+cask "notion"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Collaboration platform for API development
+cask "postman"
+# Control your tools with a few keystrokes
+cask "raycast"
 # Team communication and collaboration software
 cask "slack"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
+# Messaging app with a focus on speed and security
+cask "telegram"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "wezterm@nightly"
+cask "wezterm"
 # Auth-enabled curl-like CLI for the X API
 cask "xdevplatform/tap/xurl"
 # Video communication and virtual meeting platform
@@ -179,12 +202,15 @@ cask "zoom"
 vscode "aaron-bond.better-comments"
 vscode "anthropic.claude-code"
 vscode "anysphere.cursorpyright"
+vscode "anysphere.remote-containers"
 vscode "anysphere.remote-ssh"
 vscode "esbenp.prettier-vscode"
 vscode "github.github-vscode-theme"
 vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
+vscode "hediet.vscode-drawio"
 vscode "janisdd.vscode-edit-csv"
+vscode "jebbs.plantuml"
 vscode "mermaidchart.vscode-mermaid-chart"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-python.debugpy"
