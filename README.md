@@ -82,14 +82,16 @@ SSH 認証とコミット署名に 1Password SSH エージェントを使用す�
 | `dot_`        | 出力先で `.` に変換                  | `dot_zshrc` → `.zshrc`              |
 | `private_`    | 600 パーミッション                   | `private_dot_ssh/config`            |
 | `.tmpl`       | Go テンプレート処理                  | `.chezmoi.yaml.tmpl`                |
-| `run_once_`   | `chezmoi apply` 時に一度だけ実行     | `run_once_install-packages.sh.tmpl` |
+| `run_once_`   | `chezmoi apply` 時に一度だけ実行     | `run_once_setup_macos.sh`           |
+| `run_onchange_` | 内容が変わるたびに実行             | `run_onchange_install-packages.sh.tmpl` |
+| `modify_`     | 既存ファイルを加工（揮発キー保持）   | `dot_codex/modify_private_config.toml` |
 | `symlink_`    | コピーではなくシンボリックリンク作成 | -                                   |
 
 ### 主要ファイル
 
 - `.chezmoi.yaml.tmpl` - chezmoi のメイン設定（`.env.chezmoi` から Git 認証情報を取得）
 - `Brewfile` - `brew bundle` で管理される Homebrew パッケージ
-- `run_once_*.sh.tmpl` - 初回セットアップスクリプト（パッケージインストール、macOS 設定、tmux セットアップ等）
+- `run_once_*` / `run_onchange_*` - セットアップスクリプト（パッケージインストール、macOS 設定、local.zsh 生成、電源管理）
 
 ### Zsh 構成
 
@@ -101,9 +103,8 @@ SSH 認証とコミット署名に 1Password SSH エージェントを使用す�
 | `defer.zsh`     | fzf キーバインド遅延読み込み               |
 | `env.zsh`       | 環境変数 + `.env.zsh` からシークレット読み込み |
 | `functions.zsh` | カスタム関数                               |
-| `init.zsh`      | tmux 自動起動、履歴設定、VSCode 統合       |
-| `path.zsh`      | PATH 追加（scripts, antigravity）          |
-| `theme.zsh`     | Powerlevel10k テーマ設定                   |
+| `init.zsh`      | 履歴設定、VSCode 統合                      |
+| `path.zsh`      | PATH 追加（scripts, python, antigravity）  |
 | `local.zsh`     | マシン固有の設定（chezmoi 管理外）         |
 
 ### プラグイン管理
@@ -164,12 +165,13 @@ brew-dump
 
 ## CI/CD
 
-GitHub Actions で PR 時に以下の Lint を実行します:
+GitHub Actions で PR 時と main への push 時に以下の Lint を実行します:
 
 - **ShellCheck** - `.sh` / `.sh.tmpl` ファイルの構文チェック（`--severity=warning`）
 - **JSON Validate** - `.json` ファイルの構文検証
 - **Lua Check** - `.lua` ファイルの静的解析
 - **YAML Lint** - `.yml` / `.yaml` ファイルの構文チェック
+- **chezmoi** - テンプレート（`.tmpl` / `modify_`）のレンダリング検証
 
 ローカルで ShellCheck を実行する場合:
 
