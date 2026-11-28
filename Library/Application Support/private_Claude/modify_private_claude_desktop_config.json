@@ -1,0 +1,10 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* managed キーだけを上書きし、Claude Desktop が GUI から書き込む設定は既存値を残す */ -}}
+{{- $managed := includeTemplate "claude-desktop-config.json" . | fromJson -}}
+{{- $base := dict -}}
+{{- if .chezmoi.stdin | trim -}}
+{{-   $base = .chezmoi.stdin | fromJson -}}
+{{- else -}}
+{{-   $base = includeTemplate "claude-desktop-config-defaults.json" . | fromJson -}}
+{{- end -}}
+{{ mergeOverwrite $base $managed | toPrettyJson }}

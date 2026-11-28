@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "hasChangedDefaultModel": false,
+  "permissions": {
+    "allow": ["Shell(ls)"],
+    "deny": []
+  }
+}

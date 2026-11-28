@@ -1,0 +1,12 @@
+{
+  "mcpServers": {},
+  "coworkUserFilesPath": "{{ .chezmoi.homeDir }}/Claude",
+  "preferences": {
+    "localAgentModeTrustedFolders": [
+      "{{ .chezmoi.homeDir }}/Pictures",
+      "{{ .chezmoi.homeDir }}/Downloads"
+    ],
+    "allowAllBrowserActions": true,
+    "bypassPermissionsModeEnabled": true
+  }
+}

@@ -1,0 +1,10 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* managed キーだけを上書きし、cursor-agent が書き込む揮発キー（permissions 等）は既存値を残す */ -}}
+{{- $managed := includeTemplate "cursor-cli-config.json" . | fromJson -}}
+{{- $base := dict -}}
+{{- if .chezmoi.stdin | trim -}}
+{{-   $base = .chezmoi.stdin | fromJson -}}
+{{- else -}}
+{{-   $base = includeTemplate "cursor-cli-config-defaults.json" . | fromJson -}}
+{{- end -}}
+{{ mergeOverwrite $base $managed | toPrettyJson }}

@@ -1,0 +1,10 @@
+# Codex config.toml の揮発キーの初期値（~/.codex/config.toml が無い新規マシンでのみ使う）
+# Codex が実行時に書き換えるため、既存マシンではターゲット側の値を尊重する
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+
+[desktop]
+ambient-suggestions-enabled = false
+conversationDetailMode = "STEPS_COMMANDS"
+followUpQueueMode = "queue"
+dock-icon-preference = "codex-system"

@@ -1,0 +1,10 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* managed キーだけを上書きし、Codex が書き込む揮発キーは既存値を残す */ -}}
+{{- $managed := includeTemplate "codex-config.toml" . | fromToml -}}
+{{- $base := dict -}}
+{{- if .chezmoi.stdin | trim -}}
+{{-   $base = .chezmoi.stdin | fromToml -}}
+{{- else -}}
+{{-   $base = includeTemplate "codex-config-defaults.toml" . | fromToml -}}
+{{- end -}}
+{{ mergeOverwrite $base $managed | toToml }}

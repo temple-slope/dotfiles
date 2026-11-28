@@ -1,0 +1,24 @@
+# Codex config.toml の managed キー（chezmoi apply で常にこの値に揃える）
+# 揮発キー（model / notice / marketplaces / tui / desktop 等）は codex-config-defaults.toml を参照
+notify = ["{{ .chezmoi.homeDir }}/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
+{{ range .ai.projects -}}
+[projects."{{ $.chezmoi.homeDir }}/{{ .path }}"]
+trust_level = "{{ .trust }}"
+
+{{ end -}}
+{{ range .ai.codex_plugins -}}
+[plugins."{{ .id }}"]
+enabled = {{ .enabled }}
+
+{{ end -}}
+[features]
+memories = true
+
+[shell_environment_policy]
+inherit = "core"
+
+[shell_environment_policy.set]
+{{- range .ai.env }}
+{{ .name }} = "{{ .value }}"
+{{- end }}

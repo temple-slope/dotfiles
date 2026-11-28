@@ -1,0 +1,15 @@
+{
+  "preferences": {
+    "quickEntryDictationShortcut": {
+      "accelerator": "Cmd+Shift+Alt+Space"
+    },
+    "coworkScheduledTasksEnabled": true,
+    "coworkHipaaRestricted": false,
+    "ccdScheduledTasksEnabled": true,
+    "sidebarMode": "chat",
+    "dockBounceEnabled": true,
+    "coworkWebSearchEnabled": true,
+    "keepAwakeEnabled": true,
+    "chicagoEnabled": true
+  }
+}
