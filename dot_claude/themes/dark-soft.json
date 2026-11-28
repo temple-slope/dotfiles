@@ -1,0 +1,10 @@
+{
+  "name": "Dark Soft",
+  "base": "dark",
+  "overrides": {
+    "text": "rgb(150,156,142)",
+    "inactive": "rgb(110,116,105)",
+    "userMessageBackground": "rgb(38,48,44)",
+    "userMessageBackgroundHover": "rgb(46,56,52)"
+  }
+}
