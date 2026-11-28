@@ -5,10 +5,6 @@ path = "Documents/Development/chezmoi"
 trust = "trusted"
 
 [[ai.projects]]
-path = "Documents/Job"
-trust = "trusted"
-
-[[ai.projects]]
 path = "Documents/Development/telab"
 trust = "trusted"
 
@@ -18,10 +14,6 @@ trust = "trusted"
 
 [[ai.projects]]
 path = "Documents/Development/fu-chan-rakuten-rms"
-trust = "trusted"
-
-[[ai.projects]]
-path = "Documents/Development/moomoo-trader"
 trust = "trusted"
 
 [[ai.projects]]
