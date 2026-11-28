@@ -46,8 +46,9 @@ alias find='fd'
 alias top='htop'
 
 alias cddev='cd ~/Documents/Development'
-alias cd-drive='cd ~/Library/CloudStorage/GoogleDrive-kazuma.m.h.y@gmail.com/マイドライブ'
-alias cd-tax='cd ~/Library/CloudStorage/GoogleDrive-kazuma.m.h.y@gmail.com/マイドライブ/税金関係'
+# GOOGLE_DRIVE_ACCOUNT は local.zsh で定義する（メールアドレスを公開リポジトリに置かないため）
+alias cd-drive='cd ~/Library/CloudStorage/GoogleDrive-"$GOOGLE_DRIVE_ACCOUNT"/マイドライブ'
+alias cd-tax='cd ~/Library/CloudStorage/GoogleDrive-"$GOOGLE_DRIVE_ACCOUNT"/マイドライブ/税金関係'
 
 # gws (Google Workspace CLI) のアカウント切替
 # default `gws` は ~/.config/gws/ を使う (= 主アカウント)

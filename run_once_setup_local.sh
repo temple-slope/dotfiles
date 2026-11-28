@@ -17,6 +17,9 @@ if [ ! -f "$LOCAL_ZSH_PATH" ]; then
 #
 # 例:
 # export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxx"
+#
+# Google Drive のアカウント（alias.zsh の cd-drive / cd-tax が参照）
+# GOOGLE_DRIVE_ACCOUNT="you@example.com"
 
 EOF
   echo "✅ 生成しました。"
