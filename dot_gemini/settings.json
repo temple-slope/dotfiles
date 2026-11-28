@@ -14,11 +14,7 @@
       "run_shell_command(tail)",
       "run_shell_command(find)",
       "run_shell_command(file)"
-    ],
-    // エージェントの操作に不可欠なコアツールのリスト。
-    "core": ["read_file", "write_file", "run_shell_command"],
-    // 実行が明示的に禁止されているツールのリスト。
-    "exclude": ["dangerous_tool"]
+    ]
   },
   // 一般的なアプリケーション設定
   "general": {
@@ -30,7 +26,7 @@
       "enabled": true
     }
   },
-  // エージェNTがコンテキストを収集・処理する方法に関する設定。
+  // エージェントがコンテキストを収集・処理する方法に関する設定。
   "context": {
     // コンテキスト検索時のファイルフィルタリング設定。
     "fileFiltering": {
