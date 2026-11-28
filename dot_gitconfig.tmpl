@@ -45,8 +45,8 @@
   squash = commit --squash
   # 削除済みリモートブランチを検出
   prune-branches = !git branch -vv | grep gone
-  # マージ済みブランチを削除
-  clean-branches = !git branch --merged | grep -v '*' | xargs -r git branch -d
+  # HEAD にマージ済みのブランチを削除（現在のブランチ・worktree で使用中・main/master は除外）
+  clean-branches = !git for-each-ref --merged=HEAD --format='%(if)%(HEAD)%(then)%(else)%(if)%(worktreepath)%(then)%(else)%(refname:short)%(end)%(end)' refs/heads | grep -vxE '(main|master)?' | xargs -r git branch -d
 
 [rebase]
   autoStash = true
@@ -73,6 +73,8 @@
 [gpg "ssh"]
   # 1Password の SSH 署名バイナリを指定
   program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+  # 自分の署名を git log --show-signature で検証するための公開鍵一覧
+  allowedSignersFile = ~/.config/git/allowed_signers
 
 [commit]
   # 全コミットに自動署名
