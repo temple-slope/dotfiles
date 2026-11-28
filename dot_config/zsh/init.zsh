@@ -1,11 +1,4 @@
 #!/bin/zsh
-# herdrを起動していない場合は起動・再アタッチする（SSH接続時・tmux内はスキップ）
-if command -v herdr >/dev/null 2>&1; then
-  if [ -z "$HERDR_ENV" ] && [ -z "$TMUX" ] && [ -n "$PS1" ] && [ -t 1 ] && [ -z "$SSH_CONNECTION" ]; then
-    herdr
-  fi
-fi
-
 # ビープ音を無効にする
 setopt NO_BEEP
 

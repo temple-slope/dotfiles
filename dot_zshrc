@@ -1,12 +1,16 @@
-# SSH接続時はリモート側のherdrセッションに自動で入る（herdrが無い環境はtmux）
-# herdrのサーバーは常駐するため、SSHが切れても作業は止まらず、再接続で同じ画面に戻る
-if [[ -n "$SSH_CONNECTION" && -z "$HERDR_ENV" && -z "$TMUX" ]] && [ -t 1 ]; then
+# herdr 外のシェルなら herdr に入る（SSH 接続時に herdr が無い環境は tmux）
+# herdr のサーバーは常駐するため、端末や SSH が切れても作業は止まらず、再接続で同じ画面に戻る
+# 設定読み込みより前に exec し、二重初期化と抜けた後の外側シェル残留を防ぐ
+if [[ -z "$HERDR_ENV" && -z "$TMUX" ]] && [ -t 1 ]; then
   if command -v herdr >/dev/null 2>&1; then
     exec herdr
-  elif command -v tmux >/dev/null 2>&1; then
+  elif [[ -n "$SSH_CONNECTION" ]] && command -v tmux >/dev/null 2>&1; then
     exec tmux new-session -A -s default
   fi
 fi
+
+# PATH の重複を排除（入れ子シェルで path.zsh 等が再追加しても増えない）
+typeset -U path PATH
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -26,7 +30,5 @@ done
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Hermes Agent — ensure ~/.local/bin is on PATH
-export PATH="$HOME/.local/bin:$PATH"
 # CF CLI completions
-[[ -f "/Users/kazumaterasaka/.config/cf/completions/_cf.zsh" ]] && source "/Users/kazumaterasaka/.config/cf/completions/_cf.zsh"
+[[ -f "$HOME/.config/cf/completions/_cf.zsh" ]] && source "$HOME/.config/cf/completions/_cf.zsh"

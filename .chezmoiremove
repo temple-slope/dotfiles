@@ -1,2 +1,3 @@
 .claude/hooks/notify.sh
 .colima
+.config/zsh/theme.zsh
